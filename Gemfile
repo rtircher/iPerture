@@ -10,6 +10,7 @@ gem 'compass'
 group :development do
   gem 'guard-coffeescript'
   gem 'guard-sass'
+  gem 'guard-haml'
 end
 
 group :test do

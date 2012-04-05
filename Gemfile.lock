@@ -23,6 +23,9 @@ GEM
     guard-coffeescript (0.5.4)
       coffee-script (>= 2.2.0)
       guard (>= 0.8.3)
+    guard-haml (0.3.2)
+      guard (>= 0.4)
+      haml (>= 3.0)
     guard-sass (0.5.4)
       guard (>= 0.4.0)
       sass (>= 3.1)
@@ -39,6 +42,7 @@ DEPENDENCIES
   coffee-filter
   compass
   guard-coffeescript
+  guard-haml
   guard-sass
   haml
   rake
