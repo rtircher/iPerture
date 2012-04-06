@@ -1,6 +1,5 @@
-guard 'coffeescript', :input => 'PhotoStream/coffeescript', :output => 'public/javascripts'
-guard 'sass', :input => 'PhotoStream/sass', :output => 'public/css'
+guard 'sass', :input => 'src/iTircher/views/sass', :output => 'resources/public/css'
 
-guard 'haml', :output => 'public/html', :input => 'PhotoStream/haml' do
+guard 'haml', :input => 'src/iTircher/views/haml', :output => 'resources/public/html' do
   watch %r{^(.+)(\.haml)}
 end
