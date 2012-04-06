@@ -1,8 +1,8 @@
 (ns iTircher.views.photo-stream
-  (:require [iTircher.views.common :as common])
-  (:use [noir.core :only [defpage]]
-        [net.cgrand.enlive-html :only [deftemplate defsnippet content]]))
+  (:require [iTircher.views.common :as common]
+            [net.cgrand.enlive-html :as html])
+  (:use [noir.core :only [defpage]]))
 
-(deftemplate photo-stream-page "public/html/index.html" [])
+(html/deftemplate photo-stream-page "public/html/index.html" [])
 
 (defpage "/photostream" [] (photo-stream-page))
