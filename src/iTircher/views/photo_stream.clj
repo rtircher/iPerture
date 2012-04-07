@@ -4,19 +4,26 @@
   (:use [noir.core :only [defpage]]))
 
 (def dummy-images
-  [{:image-url "/img/1.png"
+  [{:id "1"
+    :image-url "/img/1.png"
     :thumbnail-url "/img/1.png"}
-   {:image-url "/img/2.png"
+   {:id "2"
+    :image-url "/img/2.png"
     :thumbnail-url "/img/2.png"}
-   {:image-url "/img/3.png"
+   {:id "3"
+    :image-url "/img/3.png"
     :thumbnail-url "/img/3.png"}
-   {:image-url "/img/4.png"
+   {:id "4"
+    :image-url "/img/4.png"
     :thumbnail-url "/img/4.png"}
-   {:image-url "/img/5.png"
+   {:id "5"
+    :image-url "/img/5.png"
     :thumbnail-url "/img/5.png"}
-   {:image-url "/img/6.png"
+   {:id "6"
+    :image-url "/img/6.png"
     :thumbnail-url "/img/6.png"}
-   {:image-url "/img/7.png"
+   {:id "7"
+    :image-url "/img/7.png"
     :thumbnail-url "img/7.png"}])
 
 (def html-template (html/html-resource "public/html/index.html"))
@@ -39,4 +46,5 @@
   [:.images-list] (html/content (map image-model images))
   [:.thumbnails-list] (html/content (map thumbnail-model images)))
 
-(defpage "/photostream" [] (photo-stream-page dummy-images))
+(defpage "/photostream/:album-id" {:keys [album-id]}
+  (photo-stream-page dummy-images))
