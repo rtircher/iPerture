@@ -1,49 +1,27 @@
 !!! 5
 %html
   %head
-    %link(rel="stylesheet" type="text/css" href="../css/reset.css")
-    %link(rel="stylesheet" type="text/css" href="../css/index.css")
+    %link(rel="stylesheet" type="text/css" href="/css/reset.css")
+    %link(rel="stylesheet" type="text/css" href="/css/index.css")
+    %script(type="text/javascript" src="/js/lib/jquery-1.7.2.js")
   %body
     .slider-wrapper
       .s-slides
         .previous.nav-button
         .next.nav-button
-        %ul
+        %ul.images-list
           %li#slide-1
-            .full.image(style="background-image:url('../img/1.png')")
+            .full.image(style="background-image:url('/img/1.png')")
           %li#slide-2
-            .full.image(style="background-image:url('../img/2.png')")
+            .full.image(style="background-image:url('/img/2.png')")
           %li#slide-3
-            .full.image(style="background-image:url('../img/3.png')")
-          %li#slide-4
-            .full.image(style="background-image:url('../img/4.png')")
-          %li#slide-5
-            .full.image(style="background-image:url('../img/5.png')")
-          %li#slide-6
-            .full.image(style="background-image:url('../img/6.png')")
-          %li#slide-7
-            .full.image(style="background-image:url('../img/7.png')")
+            .full.image(style="background-image:url('/img/3.png')")
 
-      .s-thumbs.slideBottom
-        %ul
+      .s-thumbs
+        %ul.thumbnails-list
           %li
-            %a(href="#slide-1")
-              .selected.thumbnail.image(style="background-image:url('../img/1.png')")
+            .thumbnail.image(style="background-image:url('/img/1.png')")
           %li
-            %a(href="#slide-2")
-              .thumbnail.image(style="background-image:url('../img/2.png')")
+            .selected.thumbnail.image(style="background-image:url('/img/2.png')")
           %li
-            %a(href="#slide-3")
-              .thumbnail.image(style="background-image:url('../img/3.png')")
-          %li
-            %a(href="#slide-4")
-              .thumbnail.image(style="background-image:url('../img/4.png')")
-          %li
-            %a(href="#slide-5")
-              .thumbnail.image(style="background-image:url('../img/5.png')")
-          %li
-            %a(href="#slide-6")
-              .thumbnail.image(style="background-image:url('../img/6.png')")
-          %li
-            %a(href="#slide-7")
-              .thumbnail.image(style="background-image:url('../img/7.png')")
+            .thumbnail.image(style="background-image:url('/img/3.png')")
