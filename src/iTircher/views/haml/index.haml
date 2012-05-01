@@ -4,21 +4,24 @@
     %link(rel="stylesheet" type="text/css" href="/css/reset.css")
     %link(rel="stylesheet" type="text/css" href="/css/index.css")
     %script(type="text/javascript" src="/js/lib/jquery-1.7.2.js")
+    %script(type="text/javascript" src="/js/lib/underscore.1.3.1.js")
+    %script(type="text/javascript" src="/js/lib/backbone.0.9.1.js")
+    %script(type="text/javascript" src="/js/index.js")
     %title My PhotoStream
   %body
     .slider-wrapper
-      .s-slides
+      .images-container
         .previous.nav-button
         .next.nav-button
         %ul.images-list
-          %li#slide-1
+          %li
             .full.image(style="background-image:url('/img/1.png')")
-          %li#slide-2
+          %li
             .full.image(style="background-image:url('/img/2.png')")
-          %li#slide-3
+          %li
             .full.image(style="background-image:url('/img/3.png')")
 
-      .s-thumbs
+      .thumbnails-container
         %ul.thumbnails-list
           %li
             .thumbnail.image(style="background-image:url('/img/1.png')")
