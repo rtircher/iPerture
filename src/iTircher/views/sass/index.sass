@@ -3,6 +3,12 @@
   -moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0)
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0)
 
+@mixin opacity-transition( $delay )
+  -webkit-transition: opacity $delay
+  -moz-transition: opacity $delay
+  -o-transition: opacity $delay
+  transition: opacity $delay
+
 .invisible
   opacity: 0
 
@@ -20,23 +26,23 @@
     background-position: center
 
 .thumbnails-container
+  @include opacity-transition( 500ms )
   position: absolute
   bottom: 0px
   left:   0px
+  height: 80px
+  width: 100%
   overflow-x: auto
   overflow-y: hidden
   -ms-overflow-y: hidden
-  height: 80px
-  width: 100%
-  -webkit-transition: all 500ms ease
-  -moz-transition: all 500ms ease
-  -o-transition: all 500ms ease
-  transition: all 500ms ease
   background-color: rgba(0, 0, 0, 0.3)
   -webkit-box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, .4)
   -moz-box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, .4)
   box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, .4)
   opacity: 0
+  -webkit-animation: disapear 2s
+  -moz-animation: disapear 2s
+  -ms-animation: disapear 2s
 
   &:hover
     opacity: 1
@@ -62,17 +68,12 @@
     height: 100%
 
 .nav-button
+  @include opacity-transition( 500ms )
   position: absolute
   top: 0px
   width: 75px
   height: 100%
-  background-color: rgba(0, 0, 0, 1)
-  background-repeat: no-repeat
-  background-position: center
-  -webkit-transition: all 500ms ease
-  -moz-transition: all 500ms ease
-  -o-transition: all 500ms ease
-  transition: all 500ms ease
+  background: rgba(0, 0, 0, 1) no-repeat center
   opacity: 0
 
   &:hover
@@ -80,24 +81,36 @@
 
   &.previous
     left: 0px
-    &:hover
-      background-image: url("../img/arrow-left.png")
-      -webkit-box-shadow: 3px 0px 7px 0px rgba(0, 0, 0, 0.4)
-      -moz-box-shadow: 3px 0px 7px 0px rgba(0, 0, 0, 0.4)
-      box-shadow: 3px 0px 7px 0px rgba(0, 0, 0, 0.4)
+    background-image: url("../img/arrow-left.png")
+    -webkit-box-shadow: 3px 0px 7px 0px rgba(0, 0, 0, 0.4)
+    -moz-box-shadow: 3px 0px 7px 0px rgba(0, 0, 0, 0.4)
+    box-shadow: 3px 0px 7px 0px rgba(0, 0, 0, 0.4)
 
   &.next
     right: 0px
-    &:hover
-      background-image: url("../img/arrow-right.png")
-      -webkit-box-shadow: -3px 0px 7px 0px rgba(0, 0, 0, .4)
-      -moz-box-shadow: -3px 0px 7px 0px rgba(0, 0, 0, .4)
-      box-shadow: -3px 0px 7px 0px rgba(0, 0, 0, .4)
+    background-image: url("../img/arrow-right.png")
+    -webkit-box-shadow: -3px 0px 7px 0px rgba(0, 0, 0, .4)
+    -moz-box-shadow: -3px 0px 7px 0px rgba(0, 0, 0, .4)
+    box-shadow: -3px 0px 7px 0px rgba(0, 0, 0, .4)
 
   &.previous:active, &.next:active
     @include no-border
+    @include opacity-transition( 150ms )
     opacity: .15
-    -webkit-transition: all 150ms ease
-    -moz-transition: all 150ms ease
-    -o-transition: all 150ms ease
-    transition: all 150ms ease
+
+
+// Animations
+@mixin disapear-anim
+  0%
+    opacity: 1
+  60%
+    opacity: 1
+  100%
+    opacity: 0
+
+@-webkit-keyframes disapear
+  @include disapear-anim
+@-moz-keyframes disapear
+  @include disapear-anim
+@-ms-keyframes disapear
+  @include disapear-anim
