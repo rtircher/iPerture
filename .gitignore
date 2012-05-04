@@ -1,8 +1,11 @@
 /resources/public/html/
 /resources/public/css/
+/resources/public/js/
 *.DS_Store
 pom.xml
 *jar
 /lib/
 /classes/
 .lein-deps-sum
+.lein-plugins/
+.lein-cljsbuild-compiler-*/
