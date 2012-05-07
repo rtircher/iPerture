@@ -1,8 +1,9 @@
 !!! 5
+
 %html
   %head
     %link(rel="stylesheet" type="text/css" href="/css/reset.css")
-    %link(rel="stylesheet" type="text/css" href="/css/index.css")
+    %link(rel="stylesheet" type="text/css" href="/css/photo_stream.css")
 
     :javascript
       // Configs for google closure framework
@@ -15,11 +16,12 @@
     %script(type="text/javascript" src="/js/index.js")
     %script(type="text/javascript" src="/js/main.js")
     %title My PhotoStream
+
   %body
     .slider-wrapper
       .images-container
-        .previous.nav-button
-        .next.nav-button
+        %a.previous.nav-button
+        %a.next.nav-button
         %ul.images-list
           %li
             .full.image(style="background-image:url('/img/1.png')")
@@ -31,8 +33,8 @@
       .thumbnails-container
         %ul.thumbnails-list
           %li
-            .thumbnail.image(style="background-image:url('/img/1.png')")
+            %a.thumbnail.image(style="background-image:url('/img/1.png')")
           %li
-            .selected.thumbnail.image(style="background-image:url('/img/2.png')")
+            %a.selected.thumbnail.image(style="background-image:url('/img/2.png')")
           %li
-            .thumbnail.image(style="background-image:url('/img/3.png')")
+            %a.thumbnail.image(style="background-image:url('/img/3.png')")
