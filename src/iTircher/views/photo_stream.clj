@@ -25,7 +25,7 @@
     :thumbnail-url "/img/6.png"}
    {:id "7"
     :image-url "/img/7.png"
-    :thumbnail-url "img/7.png"}])
+    :thumbnail-url "/img/7.png"}])
 
 (def html-template (html/html-resource "public/html/photo_stream.html"))
 
