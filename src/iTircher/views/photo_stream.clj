@@ -85,7 +85,6 @@
   (let
       [current-photo-index (get-current-photo-index dummy-images photo-id)]
 
-    (print (str  (class current-photo-index)))
     (->
      dummy-images
      (select-fullscreen-image photo-id)
