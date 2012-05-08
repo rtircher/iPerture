@@ -65,10 +65,10 @@
   (first (seq/positions #(= (:id %) current-photo-id) images)))
 
 (defn get-previous-photo-url [images current-photo-index]
-  (:photo-url (nth images (dec current-photo-index))))
+  (:photo-url (get (vec images) (dec current-photo-index))))
 
 (defn get-next-photo-url [images current-photo-index]
-  (:photo-url (nth images (inc current-photo-index))))
+  (:photo-url (get (vec images) (inc current-photo-index))))
 
 
 (html/deftemplate render-page html-template
