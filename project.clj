@@ -4,7 +4,8 @@
                  [org.clojure/clojure-contrib "1.2.0"]
                  [noir "1.2.1"]
                  [enlive "1.0.0"]]
-  :dev-dependencies [[speclj "2.1.2"]]
+  :dev-dependencies [[speclj "2.1.2"]
+                     [speclj-growl "1.0.1"]]
   :test-path "spec/"
   :plugins [[lein-cljsbuild "0.1.8"]]
   :hooks [leiningen.cljsbuild]
