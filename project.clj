@@ -1,9 +1,11 @@
 (defproject iTircher "0.1.0"
-  :description "FIXME: write this!"
+  :description "Personal website written to test random stuffs with Clojure, ClojureScript,..."
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [noir "1.2.1"]
                  [enlive "1.0.0"]]
+  :dev-dependencies [[speclj "2.1.2"]]
+  :test-path "spec/"
   :plugins [[lein-cljsbuild "0.1.8"]]
   :hooks [leiningen.cljsbuild]
   :main iTircher.server
