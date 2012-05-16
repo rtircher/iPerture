@@ -20,3 +20,20 @@
     (let [but-last    (butlast vector)
           last-item (last vector)]
       (apply hash-map (conj but-last last-item :default)))))
+
+(defmacro dispatch
+  "Execute fn based on request accept headers"
+
+  [req & clauses]
+
+  `(let [create-map-from-vector# ~#'iTircher.views.common/create-map-from-vector
+         accept#  (get (:headers ~req) "accept")
+         accept?# #(re-find (re-pattern (str "^" %)) accept#)
+         key#     (cond
+                   (accept?# "application/json") :json
+                   (accept?# "text/html")        :html
+                   (accept?# "")                 :form-data
+                   :else                         :default)
+         accept-fn# (key# (create-map-from-vector# '~clauses))]
+
+     (eval accept-fn#)))

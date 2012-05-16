@@ -6,6 +6,7 @@
   (let [create-map-from-vector #'iTircher.views.common/create-map-from-vector] ;; Binding private method to a local reference
 
     (describe "fn create-map-from-vector"
+
       (it "returns an empty map for an empty vector"
           (should= {}  (create-map-from-vector [])))
 
@@ -20,6 +21,17 @@
           (should (contains? converted-map :default))
           (should= :c (:default converted-map)))))
 
-  )
+  (let [request (fn [accept] {:headers {"accept" accept}})]
+    (describe "macro dispatch"
+
+      (it "calls the :json function when the accept header contains application/json"
+          (def result (dispatch (request "application/json") :json (str "json fn")))
+          (should= "json fn" result))
+
+      (it "calls the :html function when the accept header contains text/html"
+          (def result (dispatch (request "text/html") :html (str "html fn")))
+          (should= "html fn" result))
+
+      )))
 
 (run-specs)
