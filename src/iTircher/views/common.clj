@@ -10,3 +10,13 @@
               [:body
                [:div#wrapper
                 content]]))
+
+
+(defn- create-map-from-vector [vector]
+  (if (even? (count vector))
+
+    (apply hash-map vector)
+
+    (let [but-last    (butlast vector)
+          last-item (last vector)]
+      (apply hash-map (conj but-last last-item :default)))))
