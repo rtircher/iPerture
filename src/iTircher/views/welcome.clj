@@ -6,4 +6,4 @@
 
 (defpage "/welcome" []
          (common/layout
-           [:p "Welcome to riTircher"]))
+           [:p "Welcome to iTircher"]))
