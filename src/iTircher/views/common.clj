@@ -38,4 +38,4 @@
         accept-map      (into {} (for [[k,v] (create-accept-map-from clauses)]
                                    [(convert-to-accept-headers k) v]))
         first-accept-fn (first (vals (filter #(accept? (first %)) accept-map)))]
-    (first-accept-fn)))
+    (if first-accept-fn (first-accept-fn))))

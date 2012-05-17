@@ -64,15 +64,21 @@
           (should= "form data fn" result))
 
       (it "calls the default function if the request headers do not match any of the other option provided"
-          (def result
-            (execute-based-on-accept (request "application/something,text/html")
-                      :json    #(str "json")
-                      #(str "default fn")))
+          (def result (execute-based-on-accept
+                       (request "application/something,text/html")
+                       :json    #(str "json")
+                       #(str "default fn")))
           (should= "default fn" result))
 
       (it "allows to define additional accept header handlers"
           (def result (execute-based-on-accept (request "foo/bar") "foo/bar" #(str "random accept fn")))
           (should= "random accept fn" result))
+
+      (it "does nothing when there are no handlers for any request type"
+          (def result (execute-based-on-accept
+                       (request "application/something,text/html")
+                       :json    #(str "json")))
+          (should= nil result))
 
       ;; TODO: Want to do that one day but too complicated for now
       ;; (it "handles the accept handlers by priority order"
