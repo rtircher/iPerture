@@ -3,11 +3,12 @@
             [clojure.contrib.seq :as seq]
             [net.cgrand.enlive-html :as html])
   (:use [noir.core :only [defpage url-for]]
-        [noir.request :only [ring-request]]))
+        [noir.request :only [ring-request]]
+        [noir.response :only [json]]))
 
 (def dummy-images
   [{:id "1"
-    :image-url "/img/1.png"
+    :image-url "/img/1.png" ;;-> Rename to photo-url
     :thumbnail-url "/img/1.png"}
    {:id "2"
     :image-url "/img/2.png"
@@ -57,7 +58,7 @@
 
 (defn- add-system-url-of-photos [images album-id]
   (map
-   #(assoc % :photo-url
+   #(assoc % :photo-url ;; -> rename to system-url
            (url-for photo {:album-id album-id, :photo-id (:id %)}))
    images))
 
@@ -99,4 +100,4 @@
 
      :html #(render-page view-images current-photo previous-photo-url next-photo-url)
 
-     :json #(str "json"))))
+     :json #(json view-images))))
