@@ -80,14 +80,15 @@
   [:.thumbnails-list] (html/content (map thumbnail-model images)))
 
 
-(defn- get-images-for-presentation [images album-id photo-id]
-  (-> images
+(defn- get-images-for-presentation [album-id photo-id]
+  (-> dummy-images ;; Will need to be replaced by fetching the db or
+      ;; something similar
       (select-fullscreen-image photo-id)
       (add-system-url-of-photos album-id)))
 
 (defpage photo "/photostream/:album-id/photo/:photo-id" {:keys [album-id photo-id]}
   (let
-      [view-images         (get-images-for-presentation dummy-images album-id photo-id)
+      [view-images         (get-images-for-presentation album-id photo-id)
        current-photo-index (get-current-photo-index view-images photo-id)
        current-photo       (get-photo-at view-images current-photo-index)
        next-photo-url      (get-photo-url view-images (inc current-photo-index))
