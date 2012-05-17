@@ -12,7 +12,7 @@
                 content]]))
 
 
-(defn- create-map-from-vector [vector]
+(defn- create-accept-map-from [vector]
   (if (even? (count vector))
 
     (apply hash-map vector)
@@ -21,19 +21,24 @@
           last-item (last vector)]
       (apply hash-map (conj but-last last-item :default)))))
 
+(defn- convert-to-accept-headers [symbol]
+  (case symbol
+    :json      "application/json"
+    :html      "text/html"
+    :form-data "application/x-www-form-urlencode"
+    symbol))
+
 (defmacro dispatch
   "Execute fn based on request accept headers"
 
   [req & clauses]
 
-  `(let [create-map-from-vector# ~#'iTircher.views.common/create-map-from-vector
-         accept#  (get (:headers ~req) "accept")
-         accept?# #(re-find (re-pattern (str "^" %)) accept#)
-         key#     (cond
-                   (accept?# "application/json") :json
-                   (accept?# "text/html")        :html
-                   (accept?# "")                 :form-data
-                   :else                         :default)
-         accept-fn# (key# (create-map-from-vector# '~clauses))]
+  `(let [create-accept-map-from# ~#'iTircher.views.common/create-accept-map-from
+         convert-to-accept-headers#     ~#'iTircher.views.common/convert-to-accept-headers
+         accept#          (get (:headers ~req) "accept")
+         accept?#         #(re-find (re-pattern %) accept#)
+         accept-map#      (create-accept-map-from# '~clauses)
+         accept-map#      (zipmap (map convert-to-accept-headers# (keys accept-map#)) (vals accept-map#))
+         first-accept-fn# (first (vals (filter #(accept?# (first %)) accept-map#)))]
 
-     (eval accept-fn#)))
+     (eval first-accept-fn#)))
