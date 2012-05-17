@@ -21,13 +21,13 @@
           last-item (last vector)]
       (apply hash-map (conj but-last last-item :default)))))
 
-(defn- convert-to-accept-headers [symbol]
-  (case symbol
+(defn- convert-to-accept-headers [accept]
+  (case accept
     :json      "application/json"
     :html      "text/html"
     :form-data "application/x-www-form-urlencode"
     :default   ""
-    symbol))
+    accept))
 
 (defmacro dispatch
   "Execute fn based on request accept headers"
