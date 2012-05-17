@@ -29,7 +29,7 @@
     :default   ""
     accept))
 
-(defmacro dispatch
+(defmacro execute-based-on-accept
   "Execute fn based on request accept headers"
 
   [req & clauses]
