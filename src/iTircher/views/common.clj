@@ -34,12 +34,10 @@
 
   [req & clauses]
 
-  `(let [create-accept-map-from# ~#'iTircher.views.common/create-accept-map-from
-         convert-to-accept-headers#     ~#'iTircher.views.common/convert-to-accept-headers
-         accept#          (get (:headers ~req) "accept")
+  `(let [accept#          (get (:headers ~req) "accept")
          accept?#         #(re-find (re-pattern %) accept#)
-         accept-map#      (create-accept-map-from# '~clauses)
-         accept-map#      (zipmap (map convert-to-accept-headers# (keys accept-map#)) (vals accept-map#))
+         accept-map#      (~create-accept-map-from '~clauses)
+         accept-map#      (zipmap (map ~convert-to-accept-headers (keys accept-map#)) (vals accept-map#))
          first-accept-fn# (first (vals (filter #(accept?# (first %)) accept-map#)))]
 
      (eval first-accept-fn#)))
