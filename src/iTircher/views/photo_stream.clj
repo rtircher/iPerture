@@ -31,7 +31,7 @@
 (def html-template (html/html-resource "public/html/photo_stream.html"))
 
 
-(defn create-image-from [url]
+(defn- create-image-from [url]
   (str "background-image:url('" url "')"))
 
 
@@ -52,47 +52,47 @@
              (html/set-attr :style (create-image-from thumbnail-url))
              (html/set-attr :href photo-url)))
 
-(defn select-fullscreen-image [images photo-id]
+(defn- select-fullscreen-image [images photo-id]
   (map #(assoc % :selected (= (:id %) photo-id)) images))
 
-(defn add-system-url-of-photos [images album-id]
+(defn- add-system-url-of-photos [images album-id]
   (map
    #(assoc % :photo-url
            (url-for photo {:album-id album-id, :photo-id (:id %)}))
    images))
 
 
-(defn get-current-photo-index [images current-photo-id]
+(defn- get-current-photo-index [images current-photo-id]
   (first (seq/positions #(= (:id %) current-photo-id) images)))
 
-(defn get-previous-photo-url [images current-photo-index]
-  (:photo-url (get (vec images) (dec current-photo-index))))
-
-(defn get-next-photo-url [images current-photo-index]
-  (:photo-url (get (vec images) (inc current-photo-index))))
+(defn- get-photo-url [images at-index]
+  (:photo-url (get (vec images) at-index)))
 
 
 (html/deftemplate render-page html-template
-  [images current-photo-index]
-  [:.previous.nav-button] (html/set-attr
-                           :href (get-previous-photo-url images current-photo-index))
-  [:.next.nav-button](html/set-attr
-                      :href (get-next-photo-url images current-photo-index))
+  [images previous-photo-url next-photo-url]
+  [:.previous.nav-button] (html/set-attr :href previous-photo-url)
+  [:.next.nav-button](html/set-attr :href next-photo-url)
   [:.images-list] (html/content (map image-model images))
   [:.thumbnails-list] (html/content (map thumbnail-model images)))
 
 
+(defn- get-images-for-presentation [images album-id photo-id]
+  (-> images
+      (select-fullscreen-image photo-id)
+      (add-system-url-of-photos album-id)))
+
 (defpage photo "/photostream/:album-id/photo/:photo-id" {:keys [album-id photo-id]}
   (let
-      [current-photo-index (get-current-photo-index dummy-images photo-id)]
+      [view-images         (get-images-for-presentation dummy-images album-id photo-id)
+       current-photo-index (get-current-photo-index view-images photo-id)
+       current-photo-url   (get-photo-url view-images current-photo-index)
+       next-photo-url      (get-photo-url view-images (dec current-photo-index))
+       previous-photo-url  (get-photo-url view-images (inc  current-photo-index))]
 
     (common/execute-based-on-accept
      (ring-request)
 
-     :html #(->
-             dummy-images
-             (select-fullscreen-image photo-id)
-             (add-system-url-of-photos album-id)
-             (render-page current-photo-index))
+     :html #(render-page view-images previous-photo-url next-photo-url)
 
      :json #(str "json"))))
