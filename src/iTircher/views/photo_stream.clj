@@ -39,7 +39,7 @@
 (html/defsnippet image-model html-template image-selector
   [{:keys [image-url selected]}]
 
-  [:li] (html/add-class (if-not selected "hidden"))
+  ;; [:li] (html/add-class (if-not selected "hidden"))
   [:.image] (html/set-attr :style (create-image-from image-url)))
 
 
@@ -65,15 +65,18 @@
 (defn- get-current-photo-index [images current-photo-id]
   (first (seq/positions #(= (:id %) current-photo-id) images)))
 
-(defn- get-photo-url [images at-index]
-  (:photo-url (get (vec images) at-index)))
+(defn- get-photo-at [images index]
+  (get (vec images) index))
+
+(defn- get-photo-url [images photo-index]
+  (:photo-url (get-photo-at images photo-index)))
 
 
 (html/deftemplate render-page html-template
-  [images previous-photo-url next-photo-url]
+  [images current-photo previous-photo-url next-photo-url]
   [:.previous.nav-button] (html/set-attr :href previous-photo-url)
   [:.next.nav-button](html/set-attr :href next-photo-url)
-  [:.images-list] (html/content (map image-model images))
+  [:.images-list] (html/content (image-model current-photo))
   [:.thumbnails-list] (html/content (map thumbnail-model images)))
 
 
@@ -86,13 +89,13 @@
   (let
       [view-images         (get-images-for-presentation dummy-images album-id photo-id)
        current-photo-index (get-current-photo-index view-images photo-id)
-       current-photo-url   (get-photo-url view-images current-photo-index)
-       next-photo-url      (get-photo-url view-images (dec current-photo-index))
-       previous-photo-url  (get-photo-url view-images (inc  current-photo-index))]
+       current-photo       (get-photo-at view-images current-photo-index)
+       next-photo-url      (get-photo-url view-images (inc current-photo-index))
+       previous-photo-url  (get-photo-url view-images (dec current-photo-index))]
 
     (common/execute-based-on-accept
      (ring-request)
 
-     :html #(render-page view-images previous-photo-url next-photo-url)
+     :html #(render-page view-images current-photo previous-photo-url next-photo-url)
 
      :json #(str "json"))))
