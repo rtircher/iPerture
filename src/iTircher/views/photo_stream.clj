@@ -2,7 +2,8 @@
   (:require [iTircher.views.common :as common]
             [clojure.contrib.seq :as seq]
             [net.cgrand.enlive-html :as html])
-  (:use [noir.core :only [defpage url-for]]))
+  (:use [noir.core :only [defpage url-for]]
+        [noir.request :only [ring-request]]))
 
 (def dummy-images
   [{:id "1"
@@ -85,8 +86,13 @@
   (let
       [current-photo-index (get-current-photo-index dummy-images photo-id)]
 
-    (->
-     dummy-images
-     (select-fullscreen-image photo-id)
-     (add-system-url-of-photos album-id)
-     (render-page current-photo-index))))
+    (common/execute-based-on-accept
+     (ring-request)
+
+     :html #(->
+             dummy-images
+             (select-fullscreen-image photo-id)
+             (add-system-url-of-photos album-id)
+             (render-page current-photo-index))
+
+     :json #(str "json"))))

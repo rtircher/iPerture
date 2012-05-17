@@ -29,15 +29,13 @@
     :default   ""
     accept))
 
-(defmacro execute-based-on-accept
+(defn execute-based-on-accept
   "Execute fn based on request accept headers"
-
   [req & clauses]
 
-  `(let [accept#          (get (:headers ~req) "accept")
-         accept?#         #(re-find (re-pattern %) accept#)
-         accept-map#      (~create-accept-map-from '~clauses)
-         accept-map#      (zipmap (map ~convert-to-accept-headers (keys accept-map#)) (vals accept-map#))
-         first-accept-fn# (first (vals (filter #(accept?# (first %)) accept-map#)))]
-
-     (eval first-accept-fn#)))
+  (let [accept           (get (:headers req) "accept")
+        accept?         #(re-find (re-pattern %) accept)
+        accept-map      (into {} (for [[k,v] (create-accept-map-from clauses)]
+                                   [(convert-to-accept-headers k) v]))
+        first-accept-fn (first (vals (filter #(accept? (first %)) accept-map)))]
+    (first-accept-fn)))

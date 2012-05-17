@@ -48,30 +48,30 @@
       (it "calls the :json function when the accept header contains application/json"
           (def result (execute-based-on-accept
                        (request "foo/bar,application/json,foo/bar2")
-                       :json (str "json fn")))
+                       :json #(str "json fn")))
           (should= "json fn" result))
 
       (it "calls the :html function when the accept header contains text/html"
           (def result (execute-based-on-accept
                        (request "foo/bar,text/html,foo/bar2")
-                       :html (str "html fn")))
+                       :html #(str "html fn")))
           (should= "html fn" result))
 
       (it "calls the :form-data function when the accept header contains application/x-www-form-urlencoded"
           (def result (execute-based-on-accept
                        (request "application/x-www-form-urlencoded")
-                       :form-data (str "form data fn")))
+                       :form-data #(str "form data fn")))
           (should= "form data fn" result))
 
       (it "calls the default function if the request headers do not match any of the other option provided"
           (def result
             (execute-based-on-accept (request "application/something,text/html")
-                      :json    (str "json")
-                      (str "default fn")))
+                      :json    #(str "json")
+                      #(str "default fn")))
           (should= "default fn" result))
 
       (it "allows to define additional accept header handlers"
-          (def result (execute-based-on-accept (request "foo/bar") "foo/bar" (str "random accept fn")))
+          (def result (execute-based-on-accept (request "foo/bar") "foo/bar" #(str "random accept fn")))
           (should= "random accept fn" result))
 
       ;; TODO: Want to do that one day but too complicated for now
