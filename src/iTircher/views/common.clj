@@ -26,6 +26,7 @@
     :json      "application/json"
     :html      "text/html"
     :form-data "application/x-www-form-urlencode"
+    :default   ""
     symbol))
 
 (defmacro dispatch

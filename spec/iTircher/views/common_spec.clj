@@ -31,32 +31,43 @@
           (should= "text/html" (convert-to-accept-headers :html)))
 
       (it "maps :form-data to application/x-www-form-urlencode"
-          (should= "application/x-www-form-urlencode" (convert-to-accept-headers :form-data)))
+          (should=
+           "application/x-www-form-urlencode"
+           (convert-to-accept-headers :form-data)))
 
       (it "returns itself if the value is not found"
           (should= "myself" (convert-to-accept-headers "myself")))
+
+      (it "maps :default to an empty string"
+          (should= "" (convert-to-accept-headers :default)))
       ))
 
   (let [request (fn [accept] {:headers {"accept" accept}})]
     (describe "macro dispatch"
 
       (it "calls the :json function when the accept header contains application/json"
-          (def result (dispatch (request "foo/bar,application/json,foo/bar2") :json (str "json fn")))
+          (def result (dispatch
+                       (request "foo/bar,application/json,foo/bar2")
+                       :json (str "json fn")))
           (should= "json fn" result))
 
       (it "calls the :html function when the accept header contains text/html"
-          (def result (dispatch (request "foo/bar,text/html,foo/bar2") :html (str "html fn")))
+          (def result (dispatch
+                       (request "foo/bar,text/html,foo/bar2")
+                       :html (str "html fn")))
           (should= "html fn" result))
 
       (it "calls the :form-data function when the accept header contains application/x-www-form-urlencoded"
-          (def result (dispatch (request "application/x-www-form-urlencoded") :form-data (str "form data fn")))
+          (def result (dispatch
+                       (request "application/x-www-form-urlencoded")
+                       :form-data (str "form data fn")))
           (should= "form data fn" result))
 
-      (xit "calls the default function if the request headers do not match any of the other option provided"
+      (it "calls the default function if the request headers do not match any of the other option provided"
           (def result
             (dispatch (request "application/something,text/html")
                       :json    (str "json")
-                      :default (str "default fn")))
+                      (str "default fn")))
           (should= "default fn" result))
 
       (it "allows to define additional accept header handlers"
