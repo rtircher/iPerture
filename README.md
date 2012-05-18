@@ -12,9 +12,12 @@ bundle install
 
 ## Usage
 
+All the following instructions assume they are run from the project root directory.
+
 ### In development
 
 Use this handy command line that will
+
 - start the web server
 - watch changes to the haml and sass files
 - watch for changes in the Clojure code under test and run the spec automatically
