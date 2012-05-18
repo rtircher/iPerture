@@ -36,9 +36,9 @@
   (str "background-image:url('" url "')"))
 
 
-(def image-selector [:.images-list :> html/first-child])
+(def image-selector [:.main-image :> html/first-child])
 (html/defsnippet image-model html-template image-selector
-  [{:keys [image-url selected]}]
+  [{:keys [image-url]}]
 
   [:.image] (html/set-attr :style (create-image-from image-url)))
 
@@ -76,7 +76,7 @@
   [images current-photo previous-photo-url next-photo-url]
   [:.previous.nav-button] (html/set-attr :href previous-photo-url)
   [:.next.nav-button](html/set-attr :href next-photo-url)
-  [:.images-list] (html/content (image-model current-photo))
+  [:.main-image] (html/content (image-model current-photo))
   [:.thumbnails-list] (html/content (map thumbnail-model images)))
 
 
