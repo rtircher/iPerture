@@ -11,6 +11,7 @@ group :development do
   gem 'guard-coffeescript'
   gem 'guard-sass'
   gem 'guard-haml'
+  gem 'foreman'
 end
 
 group :test do
