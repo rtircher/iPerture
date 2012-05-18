@@ -12,19 +12,44 @@ bundle install
 
 ## Usage
 
-Generate javascripts from clojurescripts
+### In development
 
-'''bash
+Use this handy command line that will
+- start the web server
+- watch changes to the haml and sass files
+- watch for changes in the Clojure code under test and run the spec automatically
+- watch for changes to the ClojureScript files and compile them automatically
+
+### Starting all these task separately
+
+Start webserver
+
+```bash
+lein run
+```
+
+Use guard to compile the haml and sass files
+
+```bash
+bundle exec guard
+```
+
+Run the Clojure unit tests automatically on file change
+
+```bash
+lein spec -a -f growl
+```
+
+The `-f growl` option is used to interact with growl notification system (it is not required to run the tests)
+
+Generate javascripts from ClojureScripts
+
+```bash
 lein cljsbuild once # Builds the JavaScript files once
 lein cljsbuild auto # Watches for changes and automatically builds the
 JavaScript files
 ```
 
-Start webserver
-
-'''bash
-lein run
-```
 
 ## License
 
