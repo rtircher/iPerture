@@ -40,7 +40,6 @@
 (html/defsnippet image-model html-template image-selector
   [{:keys [image-url selected]}]
 
-  ;; [:li] (html/add-class (if-not selected "hidden"))
   [:.image] (html/set-attr :style (create-image-from image-url)))
 
 

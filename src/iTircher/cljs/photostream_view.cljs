@@ -1,8 +1,21 @@
 (ns photostream-view)
 
-(def jquery (js* "$"))
+(def $ (js* "$"))
 
-(jquery
+($ "ready"
    (fn []
-     (-> (jquery ".previous.nav-button")
-         (.on "click" #(js/alert "test")))))
+     ;; (-> "a"
+     ;;     $
+     ;;     (.attr "href" "javascript:void(0);"))
+
+     ;; (-> ($ ".previous.nav-button")
+     ;;     (.on "click" #(js/alert "previous")))
+
+     ;; (-> ($ ".next.nav-button")
+     ;;     (.on "click"
+     ;;          (fn []
+     ;;            (-> ($ ".full.image")
+     ;;                (.animate {"left" "-=50"} 3000))
+     ;;            true)))
+
+     (.log js/console "ready")))
