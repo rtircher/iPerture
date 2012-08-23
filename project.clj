@@ -1,7 +1,8 @@
 (defproject iTircher "0.1.0"
   :description "Personal website written to test random stuffs with Clojure, ClojureScript,..."
-  :dependencies [[org.clojure/clojure "1.3.0"]
+  :dependencies [[org.clojure/clojure "1.4.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
+                 [borneo "0.3.0"]
                  [noir "1.2.1"]
                  [enlive "1.0.0"]]
   :dev-dependencies [[speclj "2.1.2"]
@@ -21,4 +22,3 @@
       :optimizations :whitespace
       ;; :externs ["externs/jquery.js"]
       :pretty-print true}}]})
-

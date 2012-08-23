@@ -33,7 +33,7 @@
   "Execute fn based on request accept headers"
   [req & clauses]
 
-  (let [accept           (get (:headers req) "accept")
+  (let [accept          (get (:headers req) "accept")
         accept?         #(re-find (re-pattern %) accept)
         accept-map      (into {} (for [[k,v] (create-accept-map-from clauses)]
                                    [(convert-to-accept-headers k) v]))
