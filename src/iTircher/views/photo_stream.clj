@@ -14,18 +14,18 @@
   (str "background-image:url('" url "')"))
 
 
-(def photo-selector [:.main-image :> html/first-child])
+(def photo-selector [:.main-photo :> html/first-child])
 (html/defsnippet photo-model html-template photo-selector
   [{:keys [photo-url]}]
 
-  [:.image] (html/set-attr :style (create-photo-from photo-url)))
+  [:.photo] (html/set-attr :style (create-photo-from photo-url)))
 
 
 (def thumbnails-selector [:.thumbnails-list :> html/first-child])
 (html/defsnippet thumbnail-model html-template thumbnails-selector
   [{:keys [page-url thumbnail-url selected]}]
 
-  [:.image] (html/do->
+  [:.photo] (html/do->
              (html/add-class (if selected "selected"))
              (html/set-attr :style (create-photo-from thumbnail-url))
              (html/set-attr :href page-url)))
@@ -54,7 +54,7 @@
   [photos current-photo previous-page-url next-page-url]
   [:.previous.nav-button] (html/set-attr :href previous-page-url)
   [:.next.nav-button](html/set-attr :href next-page-url)
-  [:.main-image] (html/content (photo-model current-photo))
+  [:.main-photo] (html/content (photo-model current-photo))
   [:.thumbnails-list] (html/content (map thumbnail-model photos)))
 
 

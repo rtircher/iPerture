@@ -12,24 +12,22 @@
 
     %script(type="text/javascript" src="/js/lib/jquery-1.7.2.js")
     %script(type="text/javascript" src="/js/lib/underscore.1.3.1.js")
-    %script(type="text/javascript" src="/js/lib/backbone.0.9.1.js")
-    %script(type="text/javascript" src="/js/index.js")
     %script(type="text/javascript" src="/js/main.js")
     %title My PhotoStream
 
   %body.background-style
     .slider-wrapper
-      .images-container
+      .photos-container
         %a.previous.nav-button
         %a.next.nav-button
-        .main-image
-          .full.image(style="background-image:url('/img/1.png')")
+        .main-photo
+          .full.photo(style="background-image:url('/img/1.png')")
 
       .thumbnails-container
         %ul.thumbnails-list
           %li
-            %a.thumbnail.image(style="background-image:url('/img/1.png')")
+            %a.thumbnail.photo(style="background-image:url('/img/1.png')")
           %li
-            %a.selected.thumbnail.image(style="background-image:url('/img/2.png')")
+            %a.selected.thumbnail.photo(style="background-image:url('/img/2.png')")
           %li
-            %a.thumbnail.image(style="background-image:url('/img/3.png')")
+            %a.thumbnail.photo(style="background-image:url('/img/3.png')")
