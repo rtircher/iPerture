@@ -1,16 +1,10 @@
 (ns iTircher.photos
-  )
-
-
-;; (neo/with-db! "matrix-db"
-
-  
-
-;; )
+  (:use clojure.pprint)
+  (:require [borneo.core :as neo]))
 
 (def dummy-images
   [{:id "1"
-    :photo-url "/img/1.png" ;;-> Rename to photo-url
+    :photo-url "/img/1.png"
     :thumbnail-url "/img/1.png"}
    {:id "2"
     :photo-url "/img/2.png"
@@ -31,7 +25,36 @@
     :photo-url "/img/7.png"
     :thumbnail-url "/img/7.png"}])
 
-(defn get-album [album-id]
-  
-  dummy-images)
+(defn populate-db []
+  (neo/with-db! "target/iPerture_db"
+    ;; Clear DB
+    (neo/purge!)
+    (let [album (neo/create-child! :album {:id 1 :name "My first album"})]
+      (doall (map #(neo/create-child! album :photo %) dummy-images)))))
 
+(defn get-album [album-id]
+  (neo/with-db! "target/iPerture_db"
+    (when-let [album (first (neo/traverse (neo/root)
+                                     {:id 1}
+                                     :album))]
+      (when-let [photos (neo/traverse album :photo)]
+        (sort-by :id (map neo/props photos))))))
+
+(defn -main [& args]
+  (populate-db)
+
+  (neo/with-db! "target/iPerture_db"
+    (println "All nodes")
+    (pprint (map neo/props (neo/all-nodes)))
+
+    (println "All Albums")
+    (pprint (map neo/props (neo/traverse (neo/root) :album)))
+
+    (println "Album with id 1")
+    (pprint (neo/props (first (neo/traverse (neo/root)
+                                            {:id 1}
+                                            :album))))
+
+    (println "All photos from first album")
+    (let [first-ablum (first (neo/traverse (neo/root) :album))]
+      (pprint (map neo/props (neo/traverse first-ablum :photo))))))
