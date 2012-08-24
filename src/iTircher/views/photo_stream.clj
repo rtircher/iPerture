@@ -53,27 +53,37 @@
 (html/deftemplate render-page html-template
   [photos current-photo previous-page-url next-page-url]
   [:.previous.nav-button] (html/set-attr :href previous-page-url)
-  [:.next.nav-button](html/set-attr :href next-page-url)
-  [:.main-photo] (html/content (photo-model current-photo))
-  [:.thumbnails-list] (html/content (map thumbnail-model photos)))
+  [:.next.nav-button]     (html/set-attr :href next-page-url)
+  [:.main-photo]          (html/content (photo-model current-photo))
+  [:.thumbnails-list]     (html/content (map thumbnail-model photos)))
 
+(html/deftemplate render-empty-page html-template []
+  [:.slider-wrapper] (html/do->
+                      (html/add-class "empty-album")
+                      (html/content "This album does not exist")))
 
 (defn- get-photos-for-presentation [album-id displayed-photo-id]
-  (-> (photos/get-album album-id)
-      (select-fullscreen-photo displayed-photo-id)
-      (add-page-url-of-photos album-id)))
+  (when-let [photos (photos/get-album album-id)]
+    (-> photos
+        (select-fullscreen-photo displayed-photo-id)
+        (add-page-url-of-photos album-id))))
 
 (defpage photo "/photostream/:album-id/photo/:photo-id" {:keys [album-id photo-id]}
-  (let
-      [view-photos         (get-photos-for-presentation album-id photo-id)
-       current-photo-index (get-current-photo-index view-photos photo-id)
-       current-photo       (get-photo-at view-photos current-photo-index)
-       next-page-url      (get-page-url view-photos (inc current-photo-index))
-       previous-page-url  (get-page-url view-photos (dec current-photo-index))]
+  (if-let [view-photos (get-photos-for-presentation album-id photo-id)]
+    (let
+        [current-photo-index (get-current-photo-index view-photos photo-id)
+         current-photo       (get-photo-at view-photos current-photo-index)
+         next-page-url       (get-page-url view-photos (inc current-photo-index))
+         previous-page-url   (get-page-url view-photos (dec current-photo-index))]
+
+      (common/execute-based-on-accept
+       (ring-request)
+
+       :html #(render-page view-photos current-photo previous-page-url next-page-url)
+
+       :json #(json view-photos)))
 
     (common/execute-based-on-accept
      (ring-request)
-
-     :html #(render-page view-photos current-photo previous-page-url next-page-url)
-
-     :json #(json view-photos))))
+     :html #(render-empty-page)
+     :json #(json []))))
