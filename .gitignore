@@ -9,3 +9,5 @@ pom.xml
 .lein-deps-sum
 .lein-plugins/
 .lein-cljsbuild-compiler-*/
+target/
+tools/
