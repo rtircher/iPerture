@@ -5,7 +5,6 @@ gem 'rake'
 gem 'haml'
 gem 'sass'
 gem 'coffee-filter'
-gem 'compass'
 
 group :development do
   gem 'guard-coffeescript'
