@@ -1,8 +1,8 @@
 (ns iTircher.middlewares.logger)
 
-(defn wrap-request-loging-with-formatter [handler formatter]
-  "Adds simple loging for requests.  The output shows the current time,  the request method, uri,
-   and total time spent processing the request."
+(defn wrap-request-logging-with-formatter [handler formatter]
+  "Adds simple logging for requests.
+The output shows the current time, the request method, uri, and total time spent processing the request."
   (fn [{:keys [request-method uri] :as req}]
     (let [start  (System/currentTimeMillis)
           resp   (handler req)
@@ -32,10 +32,10 @@
     (bold-yellow request-method)))
 
 (defn- logformatter [reqmeth status uri totaltime]
-  "Basic logformatter for loging middleware."
+  "Basic logformatter for logging middleware."
   (let [line (format "[%s] %s [Status: %s] %s (%dms)" (java.util.Date.)  (colored-request-method reqmeth) status uri totaltime)]
     (locking System/out (println line))))
 
-(defn wrap-request-loging [handler]
-  "Provide a default loger with a default logformatter"
-  (wrap-request-loging-with-formatter handler logformatter))
+(defn wrap-request-logging [handler]
+  "Provide a default logger with a default logformatter"
+  (wrap-request-logging-with-formatter handler logformatter))
