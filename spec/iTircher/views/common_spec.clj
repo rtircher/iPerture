@@ -1,9 +1,9 @@
-(ns iTircher.views.common-spec
-  (:use [speclj.core] [iTircher.views.common]))
+(ns iPerture.views.common-spec
+  (:use [speclj.core] [iPerture.views.common]))
 
 (describe "views.common"
 
-  (let [create-accept-map-from #'iTircher.views.common/create-accept-map-from] ;; Binding private method to a local reference
+  (let [create-accept-map-from #'iPerture.views.common/create-accept-map-from] ;; Binding private method to a local reference
 
     (describe "fn create-map-from-vector"
 
@@ -21,7 +21,7 @@
           (should (contains? converted-map :default))
           (should= :c (:default converted-map)))))
 
-  (let [convert-to-accept-headers #'iTircher.views.common/convert-to-accept-headers]
+  (let [convert-to-accept-headers #'iPerture.views.common/convert-to-accept-headers]
     (describe "fn convert-to-accept-headers"
 
       (it "maps :json to application/json"

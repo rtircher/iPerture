@@ -1,8 +1,8 @@
-(ns iTircher.server
+(ns iPerture.server
   (:require [noir.server :as server]
-            [iTircher.middlewares.logger :as logger]))
+            [iPerture.middlewares.logger :as logger]))
 
-(server/load-views "src/iTircher/views/")
+(server/load-views "src/iPerture/views/")
 
 (server/add-middleware logger/wrap-request-logging)
 
@@ -11,5 +11,5 @@
         port (Integer. (get (System/getenv) "PORT" "5000"))]
 
     (server/start port {:mode mode
-                        :ns 'iTircher})))
+                        :ns 'iPerture})))
 

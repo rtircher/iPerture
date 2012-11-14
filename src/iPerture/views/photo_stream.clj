@@ -1,6 +1,6 @@
-(ns iTircher.views.photo-stream
-  (:require [iTircher.views.common :as common]
-            [iTircher.photos :as photos]
+(ns iPerture.views.photo-stream
+  (:require [iPerture.views.common :as common]
+            [iPerture.photos :as photos]
             [clojure.contrib.seq :as seq]
             [net.cgrand.enlive-html :as html])
   (:use [noir.core :only [defpage url-for]]

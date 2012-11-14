@@ -1,4 +1,4 @@
-(ns iTircher.middlewares.logger)
+(ns iPerture.middlewares.logger)
 
 (defn wrap-request-logging-with-formatter [handler formatter]
   "Adds simple logging for requests.
