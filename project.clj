@@ -8,10 +8,11 @@
   :dev-dependencies [[speclj "2.1.2"]
                      [speclj-growl "1.0.1"]]
   :test-path "spec/"
-  :plugins [[lein-cljsbuild "0.1.8"]] ;; Update to latest when
+  :plugins [[lein-cljsbuild "0.1.8"] ;; Update to latest when
   ;; possible but currently generates an error using clojure 1.4
   ;; (noir depends on clojure 1.3 which conflicts with
   ;; cljsbuilds > 0.1.8 that depends on clojure 1.4)
+            [lein-haml-sass "0.2.1"]]
   :hooks [leiningen.cljsbuild]
   :main iTircher.server
   :cljsbuild {
@@ -24,4 +25,17 @@
       ; Defaults to :whitespace.
       :optimizations :whitespace
       ;; :externs ["externs/jquery.js"]
-      :pretty-print true}}]})
+      :pretty-print true}}]}
+
+  :haml {:src "src/iTircher/views/haml/"
+         :output-directory "resources/public/html"
+         :output-extension "html"
+         ;; :ignore-hooks [:clean :compile :deps]
+         :gem-version "3.1.7"}
+
+  :sass {:src "src/iTircher/views/sass/"
+         :output-directory "resources/public/css"
+         :output-extension "css"
+         ;; :ignore-hooks [:clean :compile :deps]
+         :gem-version "3.2.1"}
+)
