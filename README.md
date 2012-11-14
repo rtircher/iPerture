@@ -31,10 +31,11 @@ Start webserver
 lein run
 ```
 
-Use guard to compile the haml and sass files
+Use lein haml-sass plugin to compile the haml and sass files
 
 ```bash
-bundle exec guard
+lein haml-sass once
+lein haml-sass auto
 ```
 
 Run the Clojure unit tests automatically on file change
