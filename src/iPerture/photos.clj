@@ -29,7 +29,7 @@
   (neo/with-db! "target/iPerture_db"
     ;; Clear DB
     (neo/purge!)
-    (let [album (neo/create-child! :album {:id 1 :name "My first album"})]
+    (let [album (neo/create-child! :album {:id "1" :name "My first album"})]
       (doall (map #(neo/create-child! album :photo %) dummy-images)))))
 
 (defn get-album [album-id]
@@ -52,7 +52,7 @@
 
     (println "Album with id 1")
     (pprint (neo/props (first (neo/traverse (neo/root)
-                                            {:id 1}
+                                            {:id "1"}
                                             :album))))
 
     (println "All photos from first album")

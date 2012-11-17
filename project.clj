@@ -13,7 +13,7 @@
   ;; (noir depends on clojure 1.3 which conflicts with
   ;; cljsbuilds > 0.1.8 that depends on clojure 1.4)
             [lein-haml-sass "0.2.1"]]
-  :hooks [leiningen.cljsbuild]
+
   :main iPerture.server
   :cljsbuild {
     :builds [{
