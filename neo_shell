@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+source neo_setup
+
+NEO_CONFIG="resources/neo4j.properties"
+
+$NEO4J_HOME/bin/neo4j-shell -path $IPERTURE_DB -config $NEO_CONFIG $1

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+IPERTURE_DB="target/iPerture_db"
+NEO4J_SOURCE="https://s3-us-west-1.amazonaws.com/annai-new-3rdparty/neo4j-community-1.6-unix.tar.gz"
+NEO4J_TARBALL="tools/neo4j-community-1.6-unix.tar.gz"
+NEO4J_HOME="tools/neo4j-community-1.6"
+NEO4J_DB="$NEO4J_HOME/data/graph.db"
+
+if [ ! -d tools ]; then
+  mkdir tools
+fi
+
+if [ ! -f $NEO4J_TARBALL ]; then
+  echo "Downloading to $NEO4J_TARBALL"
+  curl $NEO4J_SOURCE -o $NEO4J_TARBALL
+fi
+
+if [ ! -d $NEO4J_HOME ]; then
+  tar xzf $NEO4J_TARBALL -C tools
+fi
+
+if [ ! -d $IPERTURE_DB ]; then
+  echo "No existing DB (run the app first)"
+  exit 1
+fi
+
+if [ ! -h $NEO4J_DB ]; then
+  FULL_DB_PATH=`cd $IPERTURE_DB; pwd`
+  ln -s $FULL_DB_PATH $NEO4J_DB
+fi

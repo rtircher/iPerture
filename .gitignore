@@ -11,3 +11,4 @@ pom.xml
 .lein-cljsbuild-compiler-*/
 target/
 tools/
+.shell_history
