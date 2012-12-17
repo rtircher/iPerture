@@ -1,0 +1,4 @@
+- create lein foreman "plugin"
+- allow allow html templates to be reloaded on every request while in dev
+- using criterium lib for logger middleware timings
+- make project.clj lein2 compatible
