@@ -12,3 +12,4 @@ pom.xml
 target/
 tools/
 .shell_history
+.lein-classpath

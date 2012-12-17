@@ -1,14 +1,6 @@
 # iPerture
 
-A website written in noir. 
-
-## Install
-
-```bash
-lein deps
-bundle install
-```
-
+A website written in noir.
 
 ## Usage
 
@@ -16,7 +8,7 @@ All the following instructions assume they are run from the project root directo
 
 ### In development
 
-Use this handy command line that will
+Use this handy command line that will (to be implemented with leiningen)
 
 - start the web server
 - watch changes to the haml and sass files
@@ -50,8 +42,7 @@ Generate javascripts from ClojureScripts
 
 ```bash
 lein cljsbuild once # Builds the JavaScript files once
-lein cljsbuild auto # Watches for changes and automatically builds the
-JavaScript files
+lein cljsbuild auto # Watches for changes and automatically builds the JavaScript files
 ```
 
 

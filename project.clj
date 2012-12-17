@@ -1,7 +1,7 @@
 (defproject iPerture "0.1.0"
   :description "Personal website written to test random stuffs with Clojure, ClojureScript,..."
-  :dependencies [[org.clojure/clojure "1.3.0"]
-                 [org.clojure/clojure-contrib "1.2.0"]
+  :dependencies [[org.clojure/clojure "1.4.0"]
+                 ;[org.clojure/clojure-contrib "1.2.0"]
                  [borneo "0.3.0"]
                  [noir "1.2.2"]
                  [enlive "1.0.1"]]
@@ -12,7 +12,10 @@
   ;; possible but currently generates an error using clojure 1.4
   ;; (noir depends on clojure 1.3 which conflicts with
   ;; cljsbuilds > 0.1.8 that depends on clojure 1.4)
-            [lein-haml-sass "0.2.1"]]
+            [lein-haml-sass "0.2.4"]]
+
+  ;; test this with lein2 and no hooks
+  :hooks [leiningen.haml]
 
   :main iPerture.server
   :cljsbuild {
@@ -30,12 +33,11 @@
   :haml {:src "src/iPerture/views/haml/"
          :output-directory "resources/public/html"
          :output-extension "html"
-         ;; :ignore-hooks [:clean :compile :deps]
-         :gem-version "3.1.7"}
+         :gem-version "3.1.7"
+         }
 
   :sass {:src "src/iPerture/views/sass/"
          :output-directory "resources/public/css"
          :output-extension "css"
-         ;; :ignore-hooks [:clean :compile :deps]
-         :gem-version "3.2.1"}
+         :style :compressed}
 )
