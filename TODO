@@ -2,3 +2,6 @@
 - allow allow html templates to be reloaded on every request while in dev
 - using criterium lib for logger middleware timings
 - make project.clj lein2 compatible
+- create local maven repo with the local deps I need
+- test neo_setup
+  + save neo4j binaries in a personal s3
