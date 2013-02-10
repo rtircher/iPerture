@@ -1,7 +1,7 @@
 (ns iPerture.config)
 
 (def symbol-to-property
-  {:db-path {:external-name "db_path" :default "/var/iPerture/satyr_db"}
+  {:db-path {:external-name "db_path" :default "/var/com/tircher/iPerture_db"}
    })
 
 (defn config [name]
