@@ -48,4 +48,4 @@ lein cljsbuild auto # Watches for changes and automatically builds the JavaScrip
 
 ## License
 
-Copyright (C) 2012 Renaud Tircher
+Copyright (C) 2013 Renaud Tircher

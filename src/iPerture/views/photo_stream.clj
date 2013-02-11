@@ -1,7 +1,6 @@
 (ns iPerture.views.photo-stream
   (:require [iPerture.views.common :as common]
             [iPerture.photos :as photos]
-            [clojure.contrib.seq :as seq]
             [net.cgrand.enlive-html :as html])
   (:use [noir.core :only [defpage url-for]]
         [noir.request :only [ring-request]]
@@ -39,9 +38,11 @@
            (url-for photo {:album-id album-id, :photo-id (:id %)}))
    photos))
 
+(defn- positions [f coll]
+  (keep-indexed (fn [idx elt] (when (f elt) idx)) coll))
 
 (defn- get-current-photo-index [photos current-photo-id]
-  (first (seq/positions #(= (:id %) current-photo-id) photos)))
+  (first (positions #(= current-photo-id (:id %)) photos)))
 
 (defn- get-photo-at [photos index]
   (get (vec photos) index))
