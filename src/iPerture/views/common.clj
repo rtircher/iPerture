@@ -2,24 +2,13 @@
   (:use [noir.core :only [defpartial]]
         [hiccup.page-helpers :only [include-css html5]]))
 
-(defpartial layout [& content]
-            (html5
-              [:head
-               [:title "iPerture"]
-               (include-css "/css/reset.css")]
-              [:body
-               [:div#wrapper
-                content]]))
-
+(defn- conj-before-last [vector value]
+  (concat (butlast vector) [value (last vector)]))
 
 (defn- create-accept-map-from [vector]
-  (if (even? (count vector))
-
-    (apply hash-map vector)
-
-    (let [but-last    (butlast vector)
-          last-item (last vector)]
-      (apply hash-map (conj but-last last-item :default)))))
+  (apply hash-map (if (even? (count vector))
+             vector
+             (conj-before-last vector :default))))
 
 (defn- convert-to-accept-headers [accept]
   (case accept
