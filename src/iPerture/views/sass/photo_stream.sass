@@ -24,6 +24,16 @@ $background-color-outer: rgba(44, 45, 50, 1)
   -moz-box-shadow: $shadows
   box-shadow: $shadows
 
+@mixin overflow($x, $y)
+  overflow-x: $x
+  overflow-y: $y
+  -ms-overflow-x: $x
+  -ms-overflow-y: $y
+
+@mixin animation($action, $timing)
+  -webkit-animation: $action $timing
+  -moz-animation: $action $timing
+  -ms-animation: $action $timing
 
 .background-style
   background: rgb(44,45,50) // Old browsers 
@@ -52,21 +62,16 @@ $background-color-outer: rgba(44, 45, 50, 1)
 
 .thumbnails-container
   @include opacity-transition( 500ms )
+  @include overflow(auto, hidden)
+  @include box-shadow(0px -3px 5px 0px rgba(0, 0, 0, .4))
+  @include animation(disapear, 2s)
   position: absolute
   bottom: 0px
   left:   0px
   min-height: 80px
   width: 100%
-  overflow-x: auto
-  overflow-y: hidden
-  -ms-overflow-x: auto
-  -ms-overflow-y: hidden
   background-color: rgba(0, 0, 0, 0.3)
-  @include box-shadow(0px -3px 5px 0px rgba(0, 0, 0, .4))
   opacity: 0
-  -webkit-animation: disapear 2s
-  -moz-animation: disapear 2s
-  -ms-animation: disapear 2s
 
   &:hover
     opacity: 1
@@ -94,21 +99,23 @@ $background-color-outer: rgba(44, 45, 50, 1)
   top: 0px
   width: 75px
   height: 100%
-  background: rgba(0, 0, 0, 1) no-repeat center
-  opacity: 0
+  background: rgba(0, 0, 0, 0) no-repeat center
+  opacity: .4
 
   &:hover
-    opacity: .4
+    background-color: rgba(0, 0, 0, 1)
 
   &.previous
     left: 0px
     background-image: url("../img/arrow-left.png")
-    @include box-shadow(3px 0px 7px 0px rgba(0, 0, 0, 0.4))
+    &:hover
+      @include box-shadow(3px 0px 7px 0px rgba(0, 0, 0, 0.4))
 
   &.next
     right: 0px
     background-image: url("../img/arrow-right.png")
-    @include box-shadow(-3px 0px 7px 0px rgba(0, 0, 0, .4))
+    &:hover
+      @include box-shadow(-3px 0px 7px 0px rgba(0, 0, 0, .4))
 
   &.previous:active, &.next:active
     @include no-border
