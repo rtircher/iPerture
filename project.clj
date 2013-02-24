@@ -13,9 +13,6 @@
   ;; cljsbuilds > 0.1.8 that depends on clojure 1.4)
             [lein-haml-sass "0.2.4"]]
 
-  ;; test this with lein2 and no hooks
-  :hooks [leiningen.haml]
-
   :main iPerture.server
   :cljsbuild {
     :builds [{
