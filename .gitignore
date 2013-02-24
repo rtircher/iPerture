@@ -6,10 +6,7 @@ pom.xml
 *jar
 /lib/
 /classes/
-.lein-deps-sum
-.lein-plugins/
-.lein-cljsbuild-compiler-*/
 target/
 tools/
 .shell_history
-.lein-classpath
+.lein-*
