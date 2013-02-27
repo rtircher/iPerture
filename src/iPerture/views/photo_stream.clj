@@ -1,10 +1,8 @@
 (ns iPerture.views.photo-stream
+  (:use [noir.response :only [json]])
   (:require [iPerture.views.common :as common]
             [iPerture.photos :as photos]
-            [net.cgrand.enlive-html :as html])
-  (:use [noir.core :only [defpage url-for]]
-        [noir.request :only [ring-request]]
-        [noir.response :only [json]]))
+            [net.cgrand.enlive-html :as html]))
 
 (def html-template (html/html-resource "public/html/photo_stream.html"))
 
@@ -32,11 +30,12 @@
 (defn- select-fullscreen-photo [photos photo-id]
   (map #(assoc % :selected (= (:id %) photo-id)) photos))
 
+(defn- photostream-url [album-id photo-id]
+  (str "/photostream/" album-id "/photo/" photo-id))
+
 (defn- add-page-url-of-photos [photos album-id]
-  (map
-   #(assoc % :page-url ;; -> rename to system-url
-           (url-for photo {:album-id album-id, :photo-id (:id %)}))
-   photos))
+  (map #(assoc % :page-url ;; -> rename to system-url
+               (photostream-url album-id (:id %))) photos))
 
 (defn- positions [f coll]
   (keep-indexed (fn [idx elt] (when (f elt) idx)) coll))
@@ -69,22 +68,19 @@
         (select-fullscreen-photo displayed-photo-id)
         (add-page-url-of-photos album-id))))
 
-(defpage photo "/photostream/:album-id/photo/:photo-id" {:keys [album-id photo-id]}
-  (if-let [view-photos (get-photos-for-presentation album-id photo-id)]
-    (let
-        [current-photo-index (get-current-photo-index view-photos photo-id)
-         current-photo       (get-photo-at view-photos current-photo-index)
-         next-page-url       (get-page-url view-photos (inc current-photo-index))
-         previous-page-url   (get-page-url view-photos (dec current-photo-index))]
+(defn render-stream-for
+  ([album-id headers] (render-stream-for album-id "1" headers))
+  ([album-id photo-id headers]
+     (if-let [view-photos (get-photos-for-presentation album-id photo-id)]
+       (let [current-photo-index (get-current-photo-index view-photos photo-id)
+             current-photo       (get-photo-at view-photos current-photo-index)
+             next-page-url       (get-page-url view-photos (inc current-photo-index))
+             previous-page-url   (get-page-url view-photos (dec current-photo-index))]
+         (common/execute-based-on-accept
+          headers
+          :html #(render-page view-photos current-photo previous-page-url next-page-url)
+          :json #(json view-photos)))
 
-      (common/execute-based-on-accept
-       (ring-request)
-
-       :html #(render-page view-photos current-photo previous-page-url next-page-url)
-
-       :json #(json view-photos)))
-
-    (common/execute-based-on-accept
-     (ring-request)
-     :html #(render-empty-page)
-     :json #(json []))))
+       (common/execute-based-on-accept headers
+                                       :html #(render-empty-page)
+                                       :json #(json [])))))

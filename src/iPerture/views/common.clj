@@ -1,6 +1,4 @@
-(ns iPerture.views.common
-  (:use [noir.core :only [defpartial]]
-        [hiccup.page-helpers :only [include-css html5]]))
+(ns iPerture.views.common)
 
 (defn- conj-before-last [vector value]
   (concat (butlast vector) [value (last vector)]))
@@ -20,9 +18,9 @@
 
 (defn execute-based-on-accept
   "Execute fn based on request accept headers"
-  [req & clauses]
+  [headers & clauses]
 
-  (let [accept          (get (:headers req) "accept")
+  (let [accept          (get headers "accept")
         accept?         #(re-find (re-pattern %) accept)
         accept-map      (into {} (for [[k,v] (create-accept-map-from clauses)]
                                    [(convert-to-accept-headers k) v]))
