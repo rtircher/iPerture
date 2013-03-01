@@ -5,3 +5,5 @@
 - create local maven repo with the local deps I need
 - test neo_setup
   + save neo4j binaries in a personal s3
+- for logger middleware, use whatever timer library that was given in clojure conj
+- do not render prev/next button when at the end of the stream
