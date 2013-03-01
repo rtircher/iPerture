@@ -62,25 +62,31 @@
                       (html/add-class "empty-album")
                       (html/content "This album does not exist")))
 
+(html/deftemplate render-photo-not-found html-template []
+  [:.slider-wrapper] (html/do->
+                      (html/add-class "empty-album")
+                      (html/content "Photo not found")))
+
 (defn- get-photos-for-presentation [album-id displayed-photo-id]
   (when-let [photos (photos/get-album album-id)]
     (-> photos
         (select-fullscreen-photo displayed-photo-id)
         (add-page-url-of-photos album-id))))
 
+(defn- render-photo-fn [photo-id view-photos]
+  (if view-photos
+    (if-let [current-photo-index (get-current-photo-index view-photos photo-id)]
+      (let [current-photo     (get-photo-at view-photos current-photo-index)
+            next-page-url     (get-page-url view-photos (inc current-photo-index))
+            previous-page-url (get-page-url view-photos (dec current-photo-index))]
+        #(render-page view-photos current-photo previous-page-url next-page-url))
+      #(render-photo-not-found))
+    #(render-empty-page)))
+
 (defn render-stream-for
   ([album-id headers] (render-stream-for album-id "1" headers))
   ([album-id photo-id headers]
-     (if-let [view-photos (get-photos-for-presentation album-id photo-id)]
-       (let [current-photo-index (get-current-photo-index view-photos photo-id)
-             current-photo       (get-photo-at view-photos current-photo-index)
-             next-page-url       (get-page-url view-photos (inc current-photo-index))
-             previous-page-url   (get-page-url view-photos (dec current-photo-index))]
-         (common/execute-based-on-accept
-          headers
-          :html #(render-page view-photos current-photo previous-page-url next-page-url)
-          :json #(json view-photos)))
-
+     (let [view-photos (get-photos-for-presentation album-id photo-id)]
        (common/execute-based-on-accept headers
-                                       :html #(render-empty-page)
-                                       :json #(json [])))))
+                                       :html (render-photo-fn photo-id view-photos)
+                                       :json #(json view-photos)))))
