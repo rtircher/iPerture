@@ -20,7 +20,7 @@ Use this handy command line that will (to be implemented with leiningen)
 Start webserver
 
 ```bash
-lein run
+lein ring server-headless
 ```
 
 Use lein haml-sass plugin to compile the haml and sass files
