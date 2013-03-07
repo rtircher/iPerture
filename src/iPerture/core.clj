@@ -8,9 +8,9 @@
             [middlewares.logger]))
 
 (defroutes site-routes
-  (context "/photostream/:album-id" [album-id :as {headers :headers}]
+  (context "/photostreams/:album-id" [album-id :as {headers :headers}]
     (GET "/" [] (photo-stream/render-stream-for album-id headers))
-    (GET "/photo/:photo-id" [photo-id]
+    (GET "/photos/:photo-id" [photo-id]
       (photo-stream/render-stream-for album-id photo-id headers)))
 
   (route/resources "/")

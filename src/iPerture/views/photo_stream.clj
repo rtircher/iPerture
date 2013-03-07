@@ -31,7 +31,7 @@
   (map #(assoc % :selected (= (:id %) photo-id)) photos))
 
 (defn- photostream-url [album-id photo-id]
-  (str "/photostream/" album-id "/photo/" photo-id))
+  (str "/photostreams/" album-id "/photos/" photo-id))
 
 (defn- add-page-url-of-photos [photos album-id]
   (map #(assoc % :page-url ;; -> rename to system-url
