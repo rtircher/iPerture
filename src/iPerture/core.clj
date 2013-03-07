@@ -15,7 +15,7 @@
 
   (route/resources "/")
 
-  (route/not-found "Not Found"))
+  (route/not-found (slurp "resources/public/html/404.html")))
 
 (defn- wrap-error-handling [handler]
   (fn [req]
