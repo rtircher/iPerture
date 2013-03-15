@@ -11,3 +11,5 @@
 - extract utility function for sass
 - paralax effect for the 404 page
 - css transitions for 404 page?
+- Slideshow
+- go back to first picture when trying the click on the next once reached the last picture
