@@ -5,7 +5,8 @@
                  [slingshot "0.10.3"]
                  [compojure "1.1.5"]
                  [lib-noir "0.4.6"]
-                 [enlive "1.0.1"]]
+                 [enlive "1.0.1"]
+                 [com.palletops/pallet "0.8.0-beta.5"]]
   :dev-dependencies [[speclj "2.1.2"]
                      [speclj-growl "1.0.1"]
                      ; [[ring-mock "0.1.2"]]
@@ -43,4 +44,7 @@
          :output-directory "resources/public/css"
          :output-extension "css"
          :style :compressed}
+
+  :warn-on-reflection true
+  :eval-in-leiningen true
 )
