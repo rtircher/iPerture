@@ -13,3 +13,9 @@ $background-color-outer: rgba(44, 45, 50, 1)
   @include background-gradient(center, ellipse cover, $background-color-center 0%, $background-color-outer 100%)
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,$background-color-center), color-stop(100%,$background-color-outer)) // Chrome,Safari4+
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str($background-color-center)}', endColorstr='#{ie-hex-str($background-color-outer)}',GradientType=1 ) // IE6-9 fallback on horizontal gradient 
+
+.hidden
+  display: none
+
+.invisible
+  opacity: 0
