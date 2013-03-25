@@ -1,20 +1,11 @@
 @import "common"
 
-@mixin no-border
-  -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0)
-  -moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0)
-  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0)
-
 @mixin opacity-transition( $delay )
   -webkit-transition: opacity $delay
   -moz-transition: opacity $delay
   -o-transition: opacity $delay
   transition: opacity $delay
-
-@mixin box-shadow($shadows...)
-  -webkit-box-shadow: $shadows
-  -moz-box-shadow: $shadows
-  box-shadow: $shadows
+@import "shadows"
 @import "animations"
 
 @mixin overflow($x, $y)
