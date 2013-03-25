@@ -13,3 +13,5 @@
 - Slideshow
 - go back to first picture when trying the click on the next once reached the last picture
 - add placeholder thumbnail for adding new picture (if you own the stream)
+- Create haml partials to avoid all the copy pasting of the head stuffs
+- check what best to deal with google fonts or to store the fonts ourselves
