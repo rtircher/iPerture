@@ -1,0 +1,24 @@
+!!! 5
+
+%html
+  %head
+    %link(rel="icon" type="image/png" href="/img/favicon.png")
+    %link(rel="stylesheet" type="text/css" href="/css/reset.css")
+    %link(rel="stylesheet" type="text/css" href="/css/albums.css")
+
+    :javascript
+      // Configs for google closure framework
+      CLOSURE_NO_DEPS=true;
+      CLOSURE_BASE_PATH="./public/";
+
+    %script(type="text/javascript" src="/js/lib/jquery-1.7.2.js")
+    %script(type="text/javascript" src="/js/lib/underscore.1.3.1.js")
+    %script(type="text/javascript" src="/js/main.js")
+    %title My Albums
+
+  %body.background-style
+    .container
+      .center-vertically
+        .center-horizontally.album-title
+          %label(for="create-album-title") You don't have any album yet.  Type your album title below to create one.
+          %input#create-album-title.maximize-width.big-input
