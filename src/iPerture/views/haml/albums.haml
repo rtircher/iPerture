@@ -2,6 +2,7 @@
 
 %html
   %head
+    %link(href='http://fonts.googleapis.com/css?family=Quando' rel='stylesheet' type='text/css')
     %link(rel="icon" type="image/png" href="/img/favicon.png")
     %link(rel="stylesheet" type="text/css" href="/css/reset.css")
     %link(rel="stylesheet" type="text/css" href="/css/albums.css")
@@ -19,6 +20,8 @@
   %body.background-style
     .container
       .center-vertically
-        .center-horizontally.album-title
+        %form.center-horizontally.create-album
           %label(for="create-album-title") You don't have any album yet.  Type your album title below to create one.
-          %input#create-album-title.maximize-width.big-input
+          .input-box
+            %input#create-album-title
+            %input#create-album-button(type='submit' value='+')

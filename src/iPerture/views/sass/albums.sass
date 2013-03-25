@@ -1,6 +1,12 @@
+@import "defaults"
 @import "common"
 @import "shadows"
 @import "css3"
+
+.background-style
+  background: no-repeat center
+  background-image: url('/img/backgrounds/marina_bay_sands.jpeg')
+  background-size: cover
 
 .container 
   display: table
@@ -10,27 +16,57 @@
   width: 100%
   height: 100%
 
- 
 .center-vertically 
   display: table-cell
   vertical-align: middle
   width: 100%
   height: 100%
 
- 
 .center-horizontally 
   margin: 0 auto
 
- 
-.album-title 
-  width: 75%
-
-.maximize-width
-  width: 100%
-
-
-
-.big-input
+.create-album
   @include box-shadow(3px 3px 4px 0px rgba(0, 0, 0, .4))
-  @include border-radius(4px)
-  height: 40px
+  @include border-radius(10px)
+  display: block
+  background-color: rgba(40, 56, 100, .9)
+  /* background-color: rgba(146, 136, 129, .9)
+  width: 75%
+  padding: 25px
+
+  label
+    color: rgb(255, 235, 205)
+    font-size: 18px
+
+  $input-height: 40px
+  $input-padding: 8px
+
+  .input-box
+    @include border-radius(4px)
+    margin-top: 15px
+    height: $input-height
+    background-color: white
+    position: relative
+
+  #create-album-title
+    @include border-radius(4px)
+    position: absolute
+    top: 0
+    left: 0
+    height: $input-height
+    width: 100%
+    padding: 0 $input-height 0 $input-padding
+    font-size: 18px
+
+  #create-album-button
+    @include border-radius(3px)
+    position: absolute
+    top: $input-padding
+    right: $input-padding
+    height: 25px
+    width: 25px
+    background-color: rgb(23, 160, 23)
+    line-height: 20px
+    font-size: 20px
+    font-weight: bold
+    color: rgb(245, 245, 245)
