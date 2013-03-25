@@ -6,7 +6,8 @@ pom.xml
 *jar
 /lib/
 /classes/
-target/
-tools/
+/target/
+/tools/
 .shell_history
 .lein-*
+/.sass-cache/
