@@ -5,7 +5,7 @@
                  [slingshot "0.10.3"]
                  [compojure "1.1.5"]
                  [lib-noir "0.4.6"]
-                 [enlive "1.0.1"]]
+                 [enlive "1.1.1"]]
   :dev-dependencies [[speclj "2.1.2"]
                      [speclj-growl "1.0.1"]
                      ; [[ring-mock "0.1.2"]]
@@ -36,7 +36,7 @@
   :haml {:src "src/iPerture/views/haml/"
          :output-directory "resources/public/html"
          :output-extension "html"
-         :gem-version "3.1.7"
+         :gem-version "4.0.0"
          }
 
   :sass {:src "src/iPerture/views/sass/"
