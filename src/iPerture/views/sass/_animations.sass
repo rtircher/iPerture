@@ -1,0 +1,26 @@
+@mixin opacity-transition( $delay )
+  -webkit-transition: opacity $delay
+  -moz-transition: opacity $delay
+  -o-transition: opacity $delay
+  transition: opacity $delay
+
+@mixin animation($action, $timing)
+  -webkit-animation: $action $timing
+  -moz-animation: $action $timing
+  -ms-animation: $action $timing
+
+@mixin disapear-anim
+  0%
+    opacity: 1
+  60%
+    opacity: 1
+  100%
+    opacity: 0
+
+@mixin disapear-animation
+  @-webkit-keyframes disapear
+    @include disapear-anim
+  @-moz-keyframes disapear
+    @include disapear-anim
+  @-ms-keyframes disapear
+    @include disapear-anim

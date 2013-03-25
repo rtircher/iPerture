@@ -15,17 +15,13 @@
   -webkit-box-shadow: $shadows
   -moz-box-shadow: $shadows
   box-shadow: $shadows
+@import "animations"
 
 @mixin overflow($x, $y)
   overflow-x: $x
   overflow-y: $y
   -ms-overflow-x: $x
   -ms-overflow-y: $y
-
-@mixin animation($action, $timing)
-  -webkit-animation: $action $timing
-  -moz-animation: $action $timing
-  -ms-animation: $action $timing
 
 .slider-wrapper
   width: 100%
@@ -113,17 +109,4 @@
   padding: 50px
 
 // Animations
-@mixin disapear-anim
-  0%
-    opacity: 1
-  60%
-    opacity: 1
-  100%
-    opacity: 0
-
-@-webkit-keyframes disapear
-  @include disapear-anim
-@-moz-keyframes disapear
-  @include disapear-anim
-@-ms-keyframes disapear
-  @include disapear-anim
+@include disapear-animation
