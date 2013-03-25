@@ -15,7 +15,7 @@
   ;; possible but currently generates an error using clojure 1.4
   ;; (noir depends on clojure 1.3 which conflicts with
   ;; cljsbuilds > 0.1.8 that depends on clojure 1.4)
-            [lein-haml-sass "0.2.4"]
+            [lein-haml-sass "0.2.5"]
             [lein-ring "0.8.3"]]
 
   :ring {:handler iPerture.core/app
