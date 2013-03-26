@@ -2,9 +2,10 @@
   (:use compojure.core
         [slingshot.slingshot :only [try+]]
         [noir.response :only [json]])
-  (:require [compojure.handler           :as handler]
-            [compojure.route             :as route]
+  (:require [compojure.handler                 :as handler]
+            [compojure.route                   :as route]
             [iPerture.photos.photos-view       :as photo-view]
+            [iPerture.albums.albums-controller :as albums-controller]
             [middlewares.logger]))
 
 (defroutes site-routes
@@ -12,6 +13,10 @@
     (GET "/" [] (photo-view/render-stream-for album-id headers))
     (GET "/photos/:photo-id" [photo-id]
       (photo-view/render-stream-for album-id photo-id headers)))
+
+  (context "/albums/" [:as {headers :headers}]
+    (GET "/" [] (albums-controller/new))
+    (POST "/" [] (albums-controller/create)))
 
   (route/resources "/")
 
