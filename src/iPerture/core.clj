@@ -4,14 +4,14 @@
         [noir.response :only [json]])
   (:require [compojure.handler           :as handler]
             [compojure.route             :as route]
-            [iPerture.views.photo-stream :as photo-stream]
+            [iPerture.photos.photos-view       :as photo-view]
             [middlewares.logger]))
 
 (defroutes site-routes
   (context "/photostreams/:album-id" [album-id :as {headers :headers}]
-    (GET "/" [] (photo-stream/render-stream-for album-id headers))
+    (GET "/" [] (photo-view/render-stream-for album-id headers))
     (GET "/photos/:photo-id" [photo-id]
-      (photo-stream/render-stream-for album-id photo-id headers)))
+      (photo-view/render-stream-for album-id photo-id headers)))
 
   (route/resources "/")
 

@@ -1,10 +1,10 @@
-(ns iPerture.views.photo-stream
+(ns iPerture.photos.photos-view
   (:use [noir.response :only [json]])
   (:require [iPerture.views.common :as common]
-            [iPerture.photos :as photos]
+            [iPerture.photos.photos :as photos]
             [net.cgrand.enlive-html :as html]))
 
-(def html-template (html/html-resource "public/html/photo_stream.html"))
+(def html-template (html/html-resource "public/html/photos.html"))
 
 
 (defn- create-photo-from [url]

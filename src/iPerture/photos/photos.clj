@@ -1,4 +1,4 @@
-(ns iPerture.photos
+(ns iPerture.photos.photos
   (:use clojure.pprint)
   (:require [borneo.core :as neo]))
 
