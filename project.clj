@@ -4,7 +4,7 @@
                  [borneo "0.3.0"]
                  [slingshot "0.10.3"]
                  [compojure "1.1.5"]
-                 [lib-noir "0.4.6"]
+                 [lib-noir "0.4.9"]
                  [enlive "1.1.1"]]
 
   :profiles {:dev {:dependencies [[speclj "2.1.2"]

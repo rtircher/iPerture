@@ -1,7 +1,8 @@
 (ns iPerture.core
   (:use compojure.core
         [slingshot.slingshot :only [try+]]
-        [noir.response :only [json]])
+        [noir.response :only [json]]
+        [noir.util.middleware :only [wrap-strip-trailing-slash]])
   (:require [compojure.handler                 :as handler]
             [compojure.route                   :as route]
             [iPerture.photos.photos-view       :as photo-view]
@@ -14,7 +15,7 @@
     (GET "/photos/:photo-id" [photo-id]
       (photo-view/render-stream-for album-id photo-id headers)))
 
-  (context "/albums/" [:as {headers :headers}]
+  (context "/albums" [:as {headers :headers}]
     (GET "/" [] (albums-controller/new))
     (POST "/" [] (albums-controller/create)))
 
@@ -33,5 +34,6 @@
 
 (def app
   (-> (handler/site site-routes)
+      wrap-strip-trailing-slash
       (middlewares.logger/wrap-request-logging)
       wrap-error-handling))
