@@ -4,7 +4,7 @@
             [iPerture.photos.photos :as photos]
             [net.cgrand.enlive-html :as html]))
 
-(def html-template (html/html-resource "public/html/photos.html"))
+(def ^:private html-template (html/html-resource "public/html/photos.html"))
 
 
 (defn- create-photo-from [url]
