@@ -14,7 +14,7 @@
                              [lein-haml-sass "0.2.6"]
                              [lein-ring "0.8.3"]
                              [speclj "2.5.0"]]
-                  :test-path "spec/"
+                   :test-paths ["spec/"]
                   }}
 
   :ring {:handler iPerture.core/app
