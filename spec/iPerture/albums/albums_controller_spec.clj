@@ -1,7 +1,8 @@
 (ns iPerture.albums.albums-controller-spec
   (:use [speclj.core])
   (:require [net.cgrand.enlive-html :as html]
-            [iPerture.albums.albums-controller :as controller]))
+            [iPerture.albums.albums-controller :as controller]
+            [iPerture.albums.albums-view :as view]))
 
 (defn page [enlive-html]
   (html/html-resource (java.io.StringReader. (apply str enlive-html))))
@@ -18,14 +19,11 @@
 (describe "albums-controller"
 
   (describe "fn new"
-    (it "should return a page with a form for creating a new album"
-      (should-contain [:form] (controller/new)))
-
-    (it "should set the create form action to the create url"
-      (match-selector [:form (html/attr= :action "/albums")] (controller/new)))
-
-    (it "should set the create form method to POST"
-      (match-selector [:form (html/attr= :method "POST")] (controller/new))))
+    (it "should call the render new album view function"
+      (def have-called-render-new-album (atom false))
+      (with-redefs [view/render-new-album (fn [] (reset! have-called-render-new-album true))]
+        (controller/new)
+        (should @have-called-render-new-album))))
 
 ;; action="html_form_action.asp" method="get"
   (describe "create"
