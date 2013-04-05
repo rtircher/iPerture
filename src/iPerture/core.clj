@@ -15,9 +15,9 @@
     (GET "/photos/:photo-id" [photo-id]
       (photo-view/render-stream-for album-id photo-id headers)))
 
-  (context "/albums" [:as {headers :headers}]
+  (context "/albums" {headers :headers}
     (GET "/" [] (albums-controller/new))
-    (POST "/" [] (albums-controller/create)))
+    (POST "/" {params :params} (albums-controller/create params)))
 
   (route/resources "/")
 
