@@ -21,10 +21,31 @@
   (describe "fn new"
     (it "should call the render new album view function"
       (def have-called-render-new-album (atom false))
-      (with-redefs [view/render-new-album (fn [] (reset! have-called-render-new-album true))]
+      (with-redefs [view/render-new-album
+                    (fn [& error-message] (reset! have-called-render-new-album true))]
         (controller/new)
         (should @have-called-render-new-album))))
 
-;; action="html_form_action.asp" method="get"
   (describe "create"
-    ))
+    (context "when the album title is empty"
+      (it "should stay on the new page"
+        (def have-called-render-new-album (atom false))
+        (with-redefs [view/render-new-album
+                      (fn [& error-message] (reset! have-called-render-new-album true))]
+          (controller/create [""])
+          (should @have-called-render-new-album)))
+
+      (it "should ask the view to display an error message"
+        (def message-received (atom nil))
+        (with-redefs [view/render-new-album
+                      (fn [error-message] (reset! message-received error-message))]
+          (controller/create [""])
+          (should= "Please enter an album title" @message-received)))
+
+      (it "should not create a new album"
+        ))
+
+    (it "should create a new album with the provided title"
+      )
+
+    (it "should render an empty edit album page with the provided title")))
