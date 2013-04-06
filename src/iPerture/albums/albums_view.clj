@@ -3,15 +3,16 @@
 
 (def ^:private new-albums-template (html/html-resource "public/html/albums.html"))
 
-(html/deftemplate ^:private render-new-album-template new-albums-template []
+(html/deftemplate ^:private render-new-album-template new-albums-template [errors]
   [:.create-album] (html/do->
                     (html/set-attr :method "POST")
-                    (html/set-attr :action "/albums")))
+                    (html/set-attr :action "/albums"))
+  [:.create-album-title-input.error] (html/content (:create-album-title errors)))
 
 (defn render-new-album
   ([] (render-new-album nil))
-  ([error-message]
-     (render-new-album-template)))
+  ([errors]
+     (render-new-album-template errors)))
 
 (def ^:private edit-album-template (html/html-resource "public/html/edit-album.html"))
 
