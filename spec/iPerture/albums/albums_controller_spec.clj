@@ -1,6 +1,5 @@
 (ns iPerture.albums.albums-controller-spec
-  (:use [speclj.core]
-        [noir.validation :only [wrap-noir-validation]])
+  (:use [speclj.core])
   (:require [net.cgrand.enlive-html :as html]
             [iPerture.albums.albums-controller :as controller]
             [iPerture.albums.albums-view :as view]
@@ -50,10 +49,6 @@
                                (controller/new))))
 
   (describe "create"
-    ;; Need to setup the validation framework
-    (around [it]
-        ((wrap-noir-validation (fn [request] (it))) nil))
-
     (with-all params {:create-album-title "title"})
 
     (it "should create a new album with the provided title"

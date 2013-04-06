@@ -1,20 +1,15 @@
 (ns iPerture.albums.albums-controller
-;  (:use [valip.predicates :only [present]])
+  (:use [valip.predicates :only [present?]])
   (:require [iPerture.albums.albums-view :as view]
             [iPerture.albums.albums :as albums]
-            [valip.core :as valip]
-            [valip.predicates :as pred]))
+            [valip.core :as valip]))
 
 (defn new []
   (view/render-new-album))
 
 (defn- invalid [params]
-  ;; (vali/rule (vali/has-value? title)
-  ;;            [:create-album-title "Please enter an album title"])
-  ;; (not (vali/errors? :create-album-title))
-
   (valip/validate params
-                  [:create-album-title pred/present? "Please enter an album title"]))
+                  [:create-album-title present? "Please enter an album title"]))
 
 (defn create [{title :create-album-title :as params}]
   (if-let [errors (invalid params)]
