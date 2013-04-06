@@ -9,8 +9,14 @@
 (defn select [selector enlive-html]
   (html/select (page enlive-html) selector))
 
-(defn should-contain [selector enlive-html]
-  (should-not= '() (select selector enlive-html)))
+(defn should-contain
+  ([selector enlive-html]
+     (should-not= '() (select selector enlive-html)))
+
+  ([content selector enlive-html]
+     (let [to-compare (if (coll? content) content [content])]
+       (should= to-compare
+                (map html/text (select selector enlive-html))))))
 
 (defn match-selector [selector enlive-html]
   (should (select selector enlive-html)))
