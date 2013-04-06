@@ -35,6 +35,10 @@ body
       
   input
     opacity: 0
+    z-index: 2
+
+    &:hover + .add-photo-button, &:focus + .add-photo-button
+      background-color: rgba(0, 0, 0, .6)
 
   .add-photo-button
     background-color: rgba(0, 0, 0, .5)
