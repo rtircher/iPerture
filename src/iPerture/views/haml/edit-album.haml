@@ -19,5 +19,12 @@
 
   %body.background-style
     %h1.album-title My album
-    %form
-      %input.add-photo-button
+    %a.photo(style="background-image:url('/img/1.png')")
+    %a.photo(style="background-image:url('/img/2.png')")
+    %a.photo(style="background-image:url('/img/3.png')")
+    %a.photo(style="background-image:url('/img/4.png')")
+    %a.photo(style="background-image:url('/img/5.png')")
+    %a.photo(style="background-image:url('/img/6.png')")
+    %form.add-photo-form.photo
+      .add-photo-button Add photos
+      %input(type='file' accept='image/*' name='add-photo-button' value='Add Photo(s)')

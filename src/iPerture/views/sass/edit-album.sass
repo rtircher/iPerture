@@ -1,0 +1,43 @@
+@import "defaults"
+@import "common"
+@import "shadows"
+@import "animations"
+
+$tile-size: 150px
+
+body
+  padding: 5px
+
+.album-title
+  color: $font-color-light
+  margin: 10px 10px 20px 10px
+
+.photo
+  float: left
+  display: block
+  width: $tile-size
+  height: $tile-size
+  margin: 10px
+  background:
+    size: cover
+    repeat: no-repeat
+    position: center
+
+.add-photo-form
+  position: relative
+
+  input, .add-photo-button
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+      
+  input
+    opacity: 0
+
+  .add-photo-button
+    background-color: rgba(0, 0, 0, .5)
+    text-align: center
+    color: $font-color-light
+    line-height: $tile-size
