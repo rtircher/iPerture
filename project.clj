@@ -5,7 +5,8 @@
                  [slingshot "0.10.3"]
                  [compojure "1.1.5"]
                  [lib-noir "0.4.9"]
-                 [enlive "1.1.1"]]
+                 [enlive "1.1.1"]
+                 [com.cemerick/valip "0.3.2"]]
 
   :profiles {:dev {:dependencies [[speclj "2.1.2"]
                                   ;; [[ring-mock "0.1.2"]]

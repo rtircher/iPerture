@@ -12,3 +12,6 @@
   ([] (render-new-album nil))
   ([error-message]
      (render-new-album-template)))
+
+(defn render-edit-album [album-title]
+  )
