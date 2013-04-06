@@ -13,5 +13,13 @@
   ([error-message]
      (render-new-album-template)))
 
-(defn render-edit-album [album-title]
-  )
+(def ^:private edit-album-template (html/html-resource "public/html/edit-album.html"))
+
+(html/deftemplate ^:private render-edit-album-template edit-album-template [album-title photos]
+  [:title]        (html/content "Edit Album: " album-title)
+  [:.album-title] (html/content album-title))
+
+(defn render-edit-album
+  ([album-title] (render-edit-album album-title []))
+  ([album-title photos]
+     (render-edit-album-template album-title photos)))
