@@ -25,6 +25,7 @@
     %a.photo(style="background-image:url('/img/4.png')")
     %a.photo(style="background-image:url('/img/5.png')")
     %a.photo(style="background-image:url('/img/6.png')")
-    %form.add-photo-form.photo
-      %input(type='file' accept='image/*' name='add-photo-button' value='Add Photo(s)')
-      .add-photo-button Add photos
+    .add-photo-form
+      %form
+        %input(type='file' accept='image/*' name='add-photo-button' value='Add Photo(s)')
+        .add-photo-button Add photos
