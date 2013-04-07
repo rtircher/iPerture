@@ -1,6 +1,12 @@
 (ns iPerture.albums.albums
-  (:require [borneo.core :as neo]))
+  (:use [iPerture.id-generator :only [generate-unique-id]])
+  (:require [iPerture.neo :as neo]))
+
+(defrecord Album [id title])
+
+(defn album [id title]
+  (Album. id title))
 
 (defn create [title]
-  (neo/with-db! "target/iPerture_db"
-    (neo/create-child! :album {:id "2" :title title})))
+  (let [id (generate-unique-id)]
+    (neo/create-child! :album (album id title))))
