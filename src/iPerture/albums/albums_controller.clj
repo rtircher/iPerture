@@ -16,10 +16,8 @@
 (defn create [{title :create-album-title :as params}]
   (if-let [errors (invalid params)]
     (post-error-response (view/render-new-album errors))
-    (do
-      (albums/create title)
-      ;; get the new album id
-      (redirect-after-post (str "/albums/2")))))
+    (let [album (albums/create title)]
+      (redirect-after-post (str "/albums/" (:id album))))))
 
 (defn edit [album-id]
   (let [title "TO BE CHANGED"]

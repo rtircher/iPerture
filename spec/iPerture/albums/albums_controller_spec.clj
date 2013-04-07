@@ -22,9 +22,10 @@
                                     (controller/create @params)))
 
     (it "should ask the view to render an empty edit album page with the provided title"
-      (should-have-been-called-with redirect-after-post
-                                    ["/albums/2"]
-                                    (controller/create @params)))
+      (with-redefs [albums/create (fn [title] (albums/album "id" title))]
+        (should-have-been-called-with redirect-after-post
+                                      ["/albums/id"]
+                                      (controller/create @params))))
 
     (context "when the album title is empty"
       (with-all params {:create-album-title ""})
