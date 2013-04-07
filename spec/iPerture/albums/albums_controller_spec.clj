@@ -1,6 +1,7 @@
 (ns iPerture.albums.albums-controller-spec
   (:use [speclj.core]
-        [iPerture.spec-helper])
+        [iPerture.spec-helper]
+        [ring.util.response :only [redirect-after-post]])
   (:require [iPerture.albums.albums-controller :as controller]
             [iPerture.albums.albums-view :as view]
             [iPerture.albums.albums :as albums]))
@@ -21,8 +22,8 @@
                                     (controller/create @params)))
 
     (it "should ask the view to render an empty edit album page with the provided title"
-      (should-have-been-called-with view/render-edit-album
-                                    ["title"]
+      (should-have-been-called-with redirect-after-post
+                                    ["/albums/2"]
                                     (controller/create @params)))
 
     (context "when the album title is empty"
@@ -31,6 +32,9 @@
       (it "should stay on the new page"
         (should-have-been-called view/render-new-album
                                  (controller/create @params)))
+
+      (it "should return a 422 error"
+        (should= 422 (:status (controller/create @params))))
 
       (it "should ask the view to display an error message"
         (should-have-been-called-with view/render-new-album

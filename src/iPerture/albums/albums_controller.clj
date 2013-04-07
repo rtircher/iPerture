@@ -1,6 +1,7 @@
 (ns iPerture.albums.albums-controller
   (:use [valip.predicates :only [present?]]
-        [ring.util.response :only [redirect]])
+        [ring.util.response :only [redirect-after-post]]
+        [iPerture.util.response :only [post-error-response]])
   (:require [iPerture.albums.albums-view :as view]
             [iPerture.albums.albums :as albums]
             [valip.core :as valip]))
@@ -14,11 +15,11 @@
 
 (defn create [{title :create-album-title :as params}]
   (if-let [errors (invalid params)]
-    (view/render-new-album errors)
-    ;; do redirect here as well but propagate the erros...
+    (post-error-response (view/render-new-album errors))
     (do
       (albums/create title)
-      (redirect (str "/albums/2")))))
+      ;; get the new album id
+      (redirect-after-post (str "/albums/2")))))
 
 (defn edit [album-id]
   (let [title "TO BE CHANGED"]
