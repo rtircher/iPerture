@@ -1,9 +1,20 @@
 (ns iPerture.config)
 
-(def symbol-to-property
-  {:db-path {:external-name "db_path" :default "/var/com/tircher/iPerture_db"}
-   })
+(def default {:db-path "/var/www/aps/iPerture/data/iPerture_db"
+              })
+
+(def development
+  (merge default {:db-path "target/iPerture_db"
+                  }))
+
+(def staging
+  (merge default {
+                  }))
+
+(def production
+  (merge default {
+                  }))
 
 (defn config [name]
-  (when-let [{:keys [external-name default]} (symbol-to-property name)]
-    (System/getProperty external-name default)))
+  (let [env (System/getProperty "iPerture.env" "default")]
+    (get (eval (symbol (str "iPerture.config/" env))) name)))

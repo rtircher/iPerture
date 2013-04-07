@@ -16,7 +16,9 @@
                              [lein-ring "0.8.3"]
                              [speclj "2.5.0"]]
                    :test-paths ["spec/"]
-                  }}
+                   :jvm-opts ["-DiPerture.env=development"]}
+             :staging {:jvm-opts ["-DiPerture.env=staging"]}
+             :production {:jvm-opts ["-DiPerture.env=production"]}}
 
   :ring {:handler iPerture.core/app
          :port 5000}
