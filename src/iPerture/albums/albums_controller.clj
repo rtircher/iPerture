@@ -20,7 +20,7 @@
       (redirect-after-post (str "/albums/" (:id album))))))
 
 (defn edit [album-id]
-  (let [title "TO BE CHANGED"]
+  (let [title (:title (albums/find-by album-id))]
     (view/render-edit-album title)))
 
 (defn update [album-id params])

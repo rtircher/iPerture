@@ -17,6 +17,6 @@
 
 (defn find-by [id type]
   (with-local-db!
-    (first (neo/traverse (neo/root)
-                         {:id id}
-                         type))))
+    (neo/props (first (neo/traverse (neo/root)
+                                    {:id id}
+                                    type)))))

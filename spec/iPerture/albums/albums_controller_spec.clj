@@ -44,4 +44,16 @@
 
       (it "should not create a new album"
         (should-not-have-been-called albums/create
-                                     (controller/create @params))))))
+                                     (controller/create @params)))))
+
+  (describe "edit"
+    (it "should find the album based on the provided id"
+      (should-have-been-called-with albums/find-by
+                                    ["id"]
+                                    (controller/edit "id")))
+
+    (it "should ask the view to render the page with the album title"
+      (with-redefs [albums/find-by (fn [id] (albums/album "id" "title"))]
+        (should-have-been-called-with view/render-edit-album
+                                      ["title"]
+                                      (controller/edit "id"))))))
