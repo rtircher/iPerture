@@ -15,7 +15,7 @@
          (neo/create-child! type props)))
      props))
 
-(defn find [id type]
+(defn find-by [id type]
   (with-local-db!
     (first (neo/traverse (neo/root)
                          {:id id}

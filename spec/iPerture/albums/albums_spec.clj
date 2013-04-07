@@ -24,6 +24,6 @@
 
   (describe "find"
     (it "should ask neo to find the node using the id and the :album node type"
-      (should-have-been-called-with neo/find
+      (should-have-been-called-with neo/find-by
                                     ["id" :album]
-                                    (albums/find "id")))))
+                                    (albums/find-by "id")))))
