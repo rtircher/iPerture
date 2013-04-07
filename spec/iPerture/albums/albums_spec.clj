@@ -20,4 +20,10 @@
     (it "should ask neo to create a new album child"
       (should-have-been-called-with neo/create-child!
                                     [:album (albums/album "id" "title")]
-                                    (albums/create "title")))))
+                                    (albums/create "title"))))
+
+  (describe "find"
+    (it "should ask neo to find the node using the id and the :album node type"
+      (should-have-been-called-with neo/find
+                                    ["id" :album]
+                                    (albums/find "id")))))

@@ -10,3 +10,6 @@
 (defn create [title]
   (let [id (generate-unique-id)]
     (neo/create-child! :album (album id title))))
+
+(defn find [id]
+  (neo/find id :album))
