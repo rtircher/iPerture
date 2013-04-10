@@ -26,5 +26,11 @@
     (it "should display a button to add photos"
       (should-contain [:.add-photo-button] (view/render-edit-album "title")))
 
-    (context "when there already are photos in the album"
-      (it "should display all the photos"))))
+    (context "when there are photos in the album"
+      (it "should display all the photos"))
+
+    (context "when the album is empty"
+      (it "should not show any pictures"
+        (should-not-contain [:.photo] (view/render-edit-album "title")))
+
+      (it "should show a tutorial to expain what to do at that point"))))
