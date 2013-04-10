@@ -11,10 +11,10 @@
       (should-contain [:form] (view/render-new-album)))
 
     (it "should set the create form action to the create url"
-      (match-selector [:form (html/attr= :action "/albums")] (view/render-new-album)))
+      (match-selector [[:form (html/attr= :action "/albums")]] (view/render-new-album)))
 
     (it "should set the create form method to POST"
-      (match-selector [:form (html/attr= :method "POST")] (view/render-new-album))))
+      (match-selector [[:form (html/attr= :method "POST")]] (view/render-new-album))))
 
   (describe "fn render-edit-album"
     (it "should display the album title"

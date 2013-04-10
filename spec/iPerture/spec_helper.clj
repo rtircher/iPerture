@@ -28,7 +28,7 @@
                 (map html/text (select selector enlive-html))))))
 
 (defn match-selector [selector enlive-html]
-  (should (select selector enlive-html)))
+  (should (not (empty? (select selector enlive-html)))))
 
 (defmacro has-been-called [function body test-fn error-message]
   `(let [function-has-been-called?# (atom false)]
