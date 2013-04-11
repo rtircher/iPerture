@@ -29,6 +29,15 @@
     (it "should display a button to add photos"
       (should-contain [:.add-photo-button] (view/render-edit-album @album)))
 
+    (it "should contain a form with an action to the create url"
+      (match-selector [[:form (html/attr= :action "/albums/123")]] (view/render-edit-album @album)))
+
+    (it "should contain a form with an method to PUT"
+      (match-selector [[:form (html/attr= :method "PUT")]] (view/render-edit-album @album)))
+
+    (it "should contain a form with an enctype of multipart/form-data"
+      (match-selector [[:form (html/attr= :enctype "multipart/form-data")]] (view/render-edit-album @album)))
+
     (context "when there are photos in the album"
       (it "should display all the photos"))
 
