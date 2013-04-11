@@ -21,6 +21,6 @@
 
 (defn edit [album-id]
   (let [title (:title (albums/find-by album-id))]
-    (view/render-edit-album title)))
+    (view/render-edit-album (albums/album album-id title))))
 
 (defn update [album-id params])

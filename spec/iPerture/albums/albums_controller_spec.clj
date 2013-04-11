@@ -55,5 +55,5 @@
     (it "should ask the view to render the page with the album title"
       (with-redefs [albums/find-by (fn [id] (albums/album "id" "title"))]
         (should-have-been-called-with view/render-edit-album
-                                      ["title"]
+                                      [(albums/album "id" "title")]
                                       (controller/edit "id"))))))

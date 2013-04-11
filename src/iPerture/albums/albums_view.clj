@@ -14,6 +14,8 @@
   ([errors]
      (render-new-album-template errors)))
 
+;; Edit page
+
 (def ^:private edit-album (html/html-resource "public/html/edit-album.html"))
 
 (html/defsnippet thumbnail-model edit-album [[:.photo (html/nth-of-type 1)]]
@@ -22,15 +24,12 @@
              (html/remove-class "template")
              (html/set-attr :style thumbnail-url)))
 
-(html/deftemplate ^:private render-edit-album-template edit-album [album-title photos]
-  [:title]         (html/content "Edit Album: " album-title)
-  [:.album-title ] (html/content album-title)
+(html/deftemplate ^:private render-edit-album-template edit-album [{:keys [id title photos]}]
+  [:title]         (html/content "Edit Album: " title)
+  [:.album-title ] (html/content title)
   [[:.photo html/last-of-type]] (html/after (map thumbnail-model photos))
   ;; this is really dumb (I want to replace the photos from the
   ;; designed html by the the snippet result)
   [:.template]     (html/substitute nil))
 
-(defn render-edit-album
-  ([album-title] (render-edit-album album-title []))
-  ([album-title photos]
-     (render-edit-album-template album-title photos)))
+(def render-edit-album render-edit-album-template)
