@@ -38,10 +38,10 @@
                           :output-extension "css"
                           :style :compressed
                           :gem-version "3.2.2"}
-}
+                   }
              :staging {:jvm-opts ["-DiPerture.env=staging"]}
              :production {:jvm-opts ["-DiPerture.env=production"]}}
 
   :ring {:handler iPerture.core/app
          :port 5000}
-)
+  )
