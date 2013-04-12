@@ -16,32 +16,32 @@
                              [lein-ring "0.8.3"]
                              [speclj "2.5.0"]]
                    :test-paths ["spec/"]
-                   :jvm-opts ["-DiPerture.env=development"]}
+                   :jvm-opts ["-DiPerture.env=development"]
+                   :cljsbuild {:builds [{
+                                         ;; The path to the top-level ClojureScript source directory:
+                                         :source-paths ["src/iPerture/cljs"],
+                                         :compiler
+                                         {:pretty-print true
+                                          :output-to "resources/public/js/main.js"
+                                          ;; :externs ["externs/jquery.js"]
+                                          ;; The optimization level.  May be :whitespace, :simple, or :advanced
+                                          ;; Defaults to :whitespace
+                                          :optimizations :whitespace}}]}
+
+                   :haml {:src "src/iPerture/views/haml/"
+                          :output-directory "resources/public/html"
+                          :output-extension "html"
+                          :gem-version "4.0.1"}
+
+                   :sass {:src "src/iPerture/views/sass/"
+                          :output-directory "resources/public/css"
+                          :output-extension "css"
+                          :style :compressed
+                          :gem-version "3.2.2"}
+}
              :staging {:jvm-opts ["-DiPerture.env=staging"]}
              :production {:jvm-opts ["-DiPerture.env=production"]}}
 
   :ring {:handler iPerture.core/app
          :port 5000}
-
-  :cljsbuild {:builds [{
-                ;; The path to the top-level ClojureScript source directory:
-                :source-paths ["src/iPerture/cljs"],
-                :compiler
-                {:pretty-print true
-                 :output-to "resources/public/js/main.js"
-                 ;; :externs ["externs/jquery.js"]
-                 ;; The optimization level.  May be :whitespace, :simple, or :advanced
-                 ;; Defaults to :whitespace
-                 :optimizations :whitespace}}]}
-
-  :haml {:src "src/iPerture/views/haml/"
-         :output-directory "resources/public/html"
-         :output-extension "html"
-         :gem-version "4.0.1"}
-
-  :sass {:src "src/iPerture/views/sass/"
-         :output-directory "resources/public/css"
-         :output-extension "css"
-         :style :compressed
-         :gem-version "3.2.2"}
 )
