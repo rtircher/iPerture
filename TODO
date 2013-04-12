@@ -9,8 +9,12 @@ Tech debt:
 * Create haml partials to avoid all the copy pasting of the head stuffs
 
 Functionality
+* add photo to album
+* delete photo from album
+* delete album
 * add placeholder thumbnail for adding new picture (if you own the stream)
 * Slideshow
+* users
 * prev/next buttons:
 ** (maybe) go back to first picture when trying the click on the next once reached the last picture
 ** do not render prev/next button when at the end of the stream
