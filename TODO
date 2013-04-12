@@ -1,17 +1,17 @@
-- delete iPerture/db-test.clj file
-- create lein foreman "plugin"
-- allow allow html templates to be reloaded on every request while in dev
-- using criterium lib for logger middleware timings
-- create local maven repo with the local deps I need
-- test neo_setup
-  + save neo4j binaries in a personal s3
-- for logger middleware, use whatever timer library that was given in clojure conj
-- do not render prev/next button when at the end of the stream
-- use partials for html pages
-- extract utility function for sass
-- css transitions for 404 page?
-- Slideshow
-- go back to first picture when trying the click on the next once reached the last picture
-- add placeholder thumbnail for adding new picture (if you own the stream)
-- Create haml partials to avoid all the copy pasting of the head stuffs
-- check what best to deal with google fonts or to store the fonts ourselves
+Tech debt:
+* delete iPerture/db-test.clj file
+* create lein foreman "plugin"
+* allow allow html templates to be reloaded on every request while in dev
+* using criterium lib for logger middleware timings 
+* test neo_setup
+* + save neo4j binaries in a personal s3
+* check what best to deal with google fonts or to store the fonts ourselves
+* Create haml partials to avoid all the copy pasting of the head stuffs
+
+Functionality
+* add placeholder thumbnail for adding new picture (if you own the stream)
+* Slideshow
+* prev/next buttons:
+** (maybe) go back to first picture when trying the click on the next once reached the last picture
+** do not render prev/next button when at the end of the stream
+* css transitions for 404 page?
