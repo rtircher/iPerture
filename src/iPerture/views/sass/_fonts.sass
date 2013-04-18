@@ -1,0 +1,11 @@
+$non-google-fonts: 'Helvetica Neue', 'Helvetica', serif
+$font-families: 'Quando', $non-google-fonts
+
+.wf-loading body // Show fonts in serif font until fonts have loaded.
+  font-family: $non-google-fonts
+
+.wf-inactive body // Show fonts in serif font if fonts have failed to load.
+  font-family: $non-google-fonts
+
+.wf-active body // Show fonts in Tangerine when the fonts have loaded.
+  font-family: $font-families
