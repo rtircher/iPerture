@@ -1,3 +1,10 @@
 @mixin border-radius($size)
   -webkit-border-radius: $size
   border-radius: $size
+
+@mixin blur($radius)
+  -webkit-filter: blur($radius)
+  -moz-filter: blur($radius)
+  -ms-filter: blur($radius)
+  -o-filter: blur($radius)
+  filter: blur($radius)
