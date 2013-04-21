@@ -48,12 +48,14 @@
 
   (describe "edit"
     (it "should find the album based on the provided id"
-      (should-have-been-called-with albums/find-by
-                                    ["id"]
-                                    (controller/edit "id")))
+      (with-redefs [view/render-edit-album (fn [& _])]
+        (should-have-been-called-with albums/find-by
+                                      ["id"]
+                                      (controller/edit "id"))))
 
-    (it "should ask the view to render the page with the album title"
-      (with-redefs [albums/find-by (fn [id] (albums/album "id" "title"))]
-        (should-have-been-called-with view/render-edit-album
-                                      [(albums/album "id" "title")]
-                                      (controller/edit "id"))))))
+    (it "should ask the view to render the page with the album found"
+      (let [album (albums/album "id" "title")]
+        (with-redefs [albums/find-by (fn [id] album)]
+          (should-have-been-called-with view/render-edit-album
+                                        [album]
+                                        (controller/edit "id")))))))
