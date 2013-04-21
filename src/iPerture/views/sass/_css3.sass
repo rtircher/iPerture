@@ -8,3 +8,10 @@
   -ms-filter: blur($radius)
   -o-filter: blur($radius)
   filter: blur($radius)
+
+@mixin background-gradient($gradients...)
+  background: -webkit-radial-gradient($gradients) // Chrome10+,Safari5.1+
+  background: -moz-radial-gradient($gradients) // FF3.6+
+  background: -ms-radial-gradient($gradients) // IE10+
+  background: -o-radial-gradient($gradients) // Opera 12+
+  background: background-gradient($gradients)
