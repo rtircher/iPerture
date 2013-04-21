@@ -27,10 +27,10 @@
 (html/deftemplate ^:private render-edit-album-template edit-album [{:keys [id title photos]}]
   [:title]         (html/content "Edit Album: " title)
   [:.album-title ] (html/content title)
-  [:.add-photo-form :> :form] (html/do->
-                               (html/set-attr :method "PUT")
-                               (html/set-attr :action (str "/albums/" id))
-                               (html/set-attr :enctype "multipart/form-data"))
+  [:form] (html/do->
+           (html/set-attr :method "POST")
+           (html/set-attr :action (str "/albums/" id "/photos"))
+           (html/set-attr :enctype "multipart/form-data"))
   [[:.photo html/last-of-type]] (html/after (map thumbnail-model photos))
   ;; this is really dumb (I want to replace the photos from the
   ;; designed html by the the snippet result)

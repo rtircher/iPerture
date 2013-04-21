@@ -20,7 +20,7 @@
     (POST "/" {params :params} (albums-controller/create params))
     (GET "/:album-id" [album-id]
       (albums-controller/edit album-id))
-    (PUT "/:album-id" [album-id :as {params :params}]
+    (POST "/:album-id/photos" [album-id :as {params :params}]
       (albums-controller/update album-id params)))
 
   (route/resources "/")
