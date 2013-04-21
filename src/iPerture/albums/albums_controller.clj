@@ -20,7 +20,7 @@
       (redirect-after-post (str "/albums/" (:id album))))))
 
 (defn edit [album-id]
-  (let [album (albums/find-by album-id)]
+  (when-let [album (albums/find-by album-id)]
     (view/render-edit-album album)))
 
 (defn add-photo [album-id params]
