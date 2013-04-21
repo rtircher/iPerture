@@ -29,7 +29,7 @@
     %a.photo.template(style="background-image:url('/img/4.png')")
     %a.photo.template(style="background-image:url('/img/5.png')")
     %a.photo.template(style="background-image:url('/img/6.png')")
-    .add-photo-form
-      %form
-        %input(type='file' accept='image/*' name='add-photo-button' value='Add Photo(s)')
-        .add-photo-button Add photos
+    .add-photo-button
+      %form#add-photos
+        %input(type='file' accept='image/*' name='photo')
+        .add-photo-overlay Add photo(s)

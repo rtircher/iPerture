@@ -32,32 +32,34 @@ body
       content: "Delete photo"
       color: lighten($font-color-light, 10)
 
-.photo, .add-photo-form
+.photo, .add-photo-button
+  position: relative
   float: left
   width: $tile-size
   height: $tile-size
   margin: 10px
 
-.add-photo-form
+.add-photo-button
   form
     position: relative
     display: block
     width: 100%
     height: 100%
 
-  input, .add-photo-button
+  input, .add-photo-overlay
     position: absolute
     top: 0
     left: 0
-    width: 100%
-    height: 100%
+    width: $tile-size
+    height: $tile-size
+    padding: 0
       
   input
     opacity: 0
     z-index: 2
 
-    &:hover + .add-photo-button, &:focus + .add-photo-button
+    &:hover + .add-photo-overlay, &:focus + .add-photo-overlay
       background-color: rgba(0, 0, 0, .6)
 
-  .add-photo-button
+  .add-photo-overlay
     @include hover-style
