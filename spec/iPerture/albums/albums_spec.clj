@@ -22,7 +22,7 @@
                                     [:album (albums/album "id" "title")]
                                     (albums/create "title"))))
 
-  (describe "find"
+  (describe "find-by"
     (it "should ask neo to find the node using the id and the :album node type"
       (should-have-been-called-with neo/find-by
                                     ["id" :album]
