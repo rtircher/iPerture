@@ -22,3 +22,7 @@
                                        {:id id}
                                        type))]
       (neo/props data))))
+
+(defn find-rels [node relationship]
+  (when-let [children (neo/traverse node relationship)]
+    (map neo/props children)))

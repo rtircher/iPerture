@@ -23,7 +23,19 @@
                                     (albums/create "title"))))
 
   (describe "find-by"
-    (it "should ask neo to find the node using the id and the :album node type"
-      (should-have-been-called-with neo/find-by
-                                    ["id" :album]
-                                    (albums/find-by "id")))))
+    (with album {:title "title"})
+    (with photos ["photo1" "photo2"])
+
+    (around [it]
+        (with-redefs [neo/find-by (fn [& _] @album)
+                      neo/find-rels (fn [& _] @photos)]
+          (it)))
+
+    (it "should include the album id"
+      (should= "id" (:id (albums/find-by "id"))))
+
+    (it "should include the album title"
+      (should= "title" (:title (albums/find-by "id"))))
+
+    (it "should return the photo contained in an album"
+      (should= @photos (:photos (albums/find-by "id"))))))
