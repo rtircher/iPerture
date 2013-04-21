@@ -29,7 +29,7 @@
   (neo/with-db! "target/iPerture_db"
     ;; Clear DB
     (neo/purge!)
-    (let [album (neo/create-child! :album {:id "1" :name "My first album"})]
+    (let [album (neo/create-child! :album {:id "1" :title "My first album"})]
       (doall (map #(neo/create-child! album :photo %) dummy-images)))))
 
 (defn -main [& args]
