@@ -21,7 +21,7 @@
     (GET "/:album-id" [album-id]
       (albums-controller/edit album-id))
     (POST "/:album-id/photos" [album-id :as {params :params}]
-      (albums-controller/update album-id params)))
+      (albums-controller/add-photo album-id params)))
 
   (route/resources "/")
 

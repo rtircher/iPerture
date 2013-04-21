@@ -13,3 +13,5 @@
 
 (defn find-by [id]
   (neo/find-by id :album))
+
+(defn add-photo [id photo])

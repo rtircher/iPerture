@@ -23,4 +23,5 @@
   (let [title (:title (albums/find-by album-id))]
     (view/render-edit-album (albums/album album-id title))))
 
-(defn update [album-id params])
+(defn add-photo [album-id params]
+  (albums/add-photo album-id (:photo params)))
