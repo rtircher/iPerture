@@ -23,19 +23,11 @@
                                     (albums/create "title"))))
 
   (describe "find-by"
-    (with album {:title "title"})
-    (with photos ["photo1" "photo2"])
+    (it "should ask neo to find the album with the photos relationships"
+      (should-have-been-called-with neo/find
+                                    ["id" :album :photos]
+                                    (albums/find-by "id")))
 
-    (around [it]
-        (with-redefs [neo/find-by (fn [& _] @album)
-                      neo/find-rels (fn [& _] @photos)]
-          (it)))
-
-    (it "should include the album id"
-      (should= "id" (:id (albums/find-by "id"))))
-
-    (it "should include the album title"
-      (should= "title" (:title (albums/find-by "id"))))
-
-    (it "should return the photo contained in an album"
-      (should= @photos (:photos (albums/find-by "id"))))))
+    (it "should return an album record"
+      (with-redefs [neo/find (fn [& _] {:id "id" :title "title" :photos []})]
+        (should= iPerture.albums.albums.Album (class (albums/find-by "id")))))))

@@ -30,7 +30,7 @@
     ;; Clear DB
     (neo/purge!)
     (let [album (neo/create-child! :album {:id "1" :title "My first album"})]
-      (doall (map #(neo/create-child! album :photo %) dummy-images)))))
+      (doall (map #(neo/create-child! album :photos %) dummy-images)))))
 
 (defn -main [& args]
   (populate-db)

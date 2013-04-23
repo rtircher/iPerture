@@ -15,14 +15,24 @@
          (neo/create-child! type props)))
      props))
 
-(defn find-by [id type]
-  (with-local-db!
-    (if-let [data (first (neo/traverse (neo/root)
+(defn- find-node [id type]
+  (when-let [data (first (neo/traverse (neo/root)
                                        #(= id (:id (neo/props (:node %))))
                                        {:id id}
                                        type))]
-      (neo/props data))))
+    data))
 
-(defn find-rels [node relationship]
+(defn- find-rels [node relationship]
   (when-let [children (neo/traverse node relationship)]
-    (map neo/props children)))
+    (doall (map neo/props children))))
+
+(defn- do-find [id type & relationships]
+  (when-let [node (find-node id type)]
+    (->> relationships
+         (map (fn [rel-name] {rel-name (find-rels node rel-name)}))
+         (into {})
+         (merge (neo/props node)))))
+
+(defn find [id type & relationships]
+  (with-local-db!
+    (apply do-find id type relationships)))
