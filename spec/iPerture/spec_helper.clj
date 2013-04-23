@@ -49,6 +49,7 @@
      ;; First check if the function was called at all
      (should-have-been-called ~function ~body)
      (with-redefs [~function
-                   (fn [& params#] (reset! params-received# params#))]
+                   (fn [& params#] (reset! params-received# params#)
+                     nil)]
        ~body
        (should= ~expected-params @params-received#))))
