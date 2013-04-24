@@ -24,14 +24,13 @@
   %body.background-style
     %h1.album-title My album
     %ol.photos
-      %li.photo.template(style="background-image:url('/img/1.png')")
-      %li.photo.template(style="background-image:url('/img/2.png')")
-      %li.photo.template(style="background-image:url('/img/3.png')")
-      %li.photo.template(style="background-image:url('/img/4.png')")
-      %li.photo.template(style="background-image:url('/img/5.png')")
-      %li.photo.template(style="background-image:url('/img/6.png')")
-      %li
-        .add-photo-button
-          %form#add-photo
-            %input(type='file' accept='image/*' name='photo')
-            .add-photo-overlay Add photo(s)
+      %li.photo(style="background-image:url('/img/1.png')")
+      %li.photo(style="background-image:url('/img/2.png')")
+      %li.photo(style="background-image:url('/img/3.png')")
+      %li.photo(style="background-image:url('/img/4.png')")
+      %li.photo(style="background-image:url('/img/5.png')")
+      %li.photo(style="background-image:url('/img/6.png')")
+    .add-photo-button
+      %form#add-photo
+        %input(type='file' accept='image/*' name='photo')
+        .add-photo-overlay Add photo(s)

@@ -32,9 +32,6 @@
            (html/set-attr :method "POST")
            (html/set-attr :action (str "/albums/" id "/photos"))
            (html/set-attr :enctype "multipart/form-data"))
-  [[:.photo html/last-of-type]] (html/after (map thumbnail-model photos))
-  ;; this is really dumb (I want to replace the photos from the
-  ;; designed html by the the snippet result)
-  [:.template]     (html/substitute nil))
+  [[:.photos]] (html/content (map thumbnail-model photos)))
 
 (def render-edit-album render-edit-album-template)
