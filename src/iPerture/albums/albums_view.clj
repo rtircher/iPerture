@@ -1,5 +1,6 @@
 (ns iPerture.albums.albums-view
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [iPerture.views.common :as common]))
 
 (def ^:private new-albums-template (html/html-resource "public/html/albums.html"))
 
@@ -22,7 +23,7 @@
   [{:keys [thumbnail-url]}]
   [:.photo] (html/do->
              (html/remove-class "template")
-             (html/set-attr :style thumbnail-url)))
+             (html/set-attr :style (common/background-photo thumbnail-url))))
 
 (html/deftemplate ^:private render-edit-album-template edit-album [{:keys [id title photos]}]
   [:title]         (html/content "Edit Album: " title)

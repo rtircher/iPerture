@@ -26,3 +26,6 @@
                                    [(convert-to-accept-headers k) v]))
         first-accept-fn (first (vals (filter #(accept? (first %)) accept-map)))]
     (if first-accept-fn (first-accept-fn))))
+
+(defn background-photo [photo-url]
+  (str "background-image:url('" photo-url "')"))

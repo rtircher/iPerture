@@ -7,15 +7,11 @@
 (def ^:private html-template (html/html-resource "public/html/photos.html"))
 
 
-(defn- create-photo-from [url]
-  (str "background-image:url('" url "')"))
-
-
 (def photo-selector [:.main-photo :> html/first-child])
 (html/defsnippet photo-model html-template photo-selector
   [{:keys [photo-url]}]
 
-  [:.photo] (html/set-attr :style (create-photo-from photo-url)))
+  [:.photo] (html/set-attr :style (common/background-photo photo-url)))
 
 
 (def thumbnails-selector [:.thumbnails-list :> html/first-child])
@@ -24,7 +20,7 @@
 
   [:.photo] (html/do->
              (html/add-class (if selected "selected"))
-             (html/set-attr :style (create-photo-from thumbnail-url))
+             (html/set-attr :style (common/background-photo thumbnail-url))
              (html/set-attr :href page-url)))
 
 (defn- select-fullscreen-photo [photos photo-id]
