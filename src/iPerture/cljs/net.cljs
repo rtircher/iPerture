@@ -89,7 +89,7 @@ For all the event handler the function called is expected to accept the followin
 
 ;; form ajax
 
-(defn ajax-form [form {:keys [uri no-cache] :as options}]
+(defn ajax-form [form {:keys [uri no-cache timeout] :as options}]
   "
 Sends the data stored in an existing form to the server. The HTTP method should be specified on the form, the action can also be specified but can be overridden by the optional URI param. This can be used in conjunction with a file-upload input to upload a file in the background without affecting history. Example form:
 <form action='/server/' enctype='multipart/form-data' method='POST'>
@@ -102,6 +102,7 @@ form : HTMLFormElement - Form element used to send the request to the server.
 options:
 - uri: string - Uri to set for the destination of the request, by default the uri will come from the form.
 - no-cache: boolean - Append a timestamp to the request to avoid caching.  False by default.
+- timeout: number of milliseconds after which an incomplete request will be aborted.
 
 - on-ready-state-changed: function called to any browser readystatechange event
 - on-complete: function called when request has been resolved, whether successfully or not
