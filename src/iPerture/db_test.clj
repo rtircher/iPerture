@@ -49,4 +49,4 @@
 
     (println "All photos from first album")
     (let [first-ablum (first (neo/traverse (neo/root) :album))]
-      (pprint (map neo/props (neo/traverse first-ablum :photo))))))
+      (pprint (map neo/props (neo/traverse first-ablum :photos))))))
