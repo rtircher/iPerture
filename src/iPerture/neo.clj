@@ -15,6 +15,9 @@
          (neo/create-child! type props)))
      props))
 
+(defn add-relationship! [node-id rel-type child]
+  )
+
 (defn- find-node [id type]
   (when-let [data (first (neo/traverse (neo/root)
                                        #(= id (:id (neo/props (:node %))))

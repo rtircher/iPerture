@@ -6,6 +6,17 @@
             [iPerture.neo :as neo]))
 
 (describe "albums"
+  (describe "album"
+    (context "three arguments provided"
+      (it "should create an Album record"
+        (should= iPerture.albums.albums.Album
+                 (class (albums/album "id" "title" ["photos"])))))
+
+    (context "two arguments provided"
+      (it "should create an album with an empty list of photos"
+        (should= (albums/album "id" "title" [])
+                 (albums/album "id" "title")))))
+
   (describe "create"
     (around [it]
         (with-redefs [neo/create-child! (fn [& args])
@@ -30,4 +41,16 @@
 
     (it "should return an album record"
       (with-redefs [neo/find (fn [& _] {:id "id" :title "title" :photos []})]
-        (should= iPerture.albums.albums.Album (class (albums/find-by "id")))))))
+        (should= iPerture.albums.albums.Album (class (albums/find-by "id"))))))
+
+  (describe "add-photo"
+    (around [it]
+        (with-redefs [neo/add-relationship! (fn [& args])
+                      generate-unique-id (fn [] "id")]
+          (it)))
+
+    (it "should ask neo to add a photo relation"
+      (let [photo {:id "id" :photo-url "photo-url" :thumbnail-url "thumbnail url"}]
+        (should-have-been-called-with neo/add-relationship!
+                                      ["album id" :photos photo]
+                                      (albums/add-photo "album id" photo))))))
