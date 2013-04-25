@@ -18,4 +18,4 @@
     (album album-data)))
 
 (defn add-photo [id photo]
-  (neo/add-relationship! id :photos photo))
+  (neo/add-relationship! id :album photo :photos))

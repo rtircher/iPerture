@@ -52,5 +52,5 @@
     (it "should ask neo to add a photo relation"
       (let [photo {:id "id" :photo-url "photo-url" :thumbnail-url "thumbnail url"}]
         (should-have-been-called-with neo/add-relationship!
-                                      ["album id" :photos photo]
+                                      ["album id" :album photo :photos]
                                       (albums/add-photo "album id" photo))))))
