@@ -33,7 +33,9 @@
 (defmacro has-been-called [function body test-fn error-message]
   `(let [function-has-been-called?# (atom false)]
      (with-redefs [~function
-                   (fn [& _#] (reset! function-has-been-called?# true))]
+                   (fn [& _#]
+                     (reset! function-has-been-called?# true)
+                     (fn [& _#] nil))]
        ~body
        (if-not (~test-fn @function-has-been-called?#)
          (throw (SpecFailure. (str ~error-message)))))))
@@ -50,6 +52,6 @@
      (should-have-been-called ~function ~body)
      (with-redefs [~function
                    (fn [& params#] (reset! params-received# params#)
-                     nil)]
+                     (fn [& _#] nil))]
        ~body
        (should= ~expected-params @params-received#))))
