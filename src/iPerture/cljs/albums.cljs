@@ -9,9 +9,8 @@
 
 ($ "ready"
    (fn []
-     (-> ($ "#add-photo")
-         (.on "submit" #(let [form (aget % "target")
+     (-> ($ "input")
+         (.on "change" #(let [form (first (.toArray ($ "form")))
                               uri  (aget form "action")]
-                          (.preventDefault %)
                           (js/console.log "Submitting form at url: " uri)
                           (upload-photos form))))))
