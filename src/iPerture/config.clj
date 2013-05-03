@@ -1,7 +1,7 @@
 (ns iPerture.config)
 
 (def default {:db-path "/var/www/aps/iPerture/data/iPerture_db"
-              })
+              :photo-storage-strategy :local})
 
 (def development
   (merge default {:db-path "target/iPerture_db"
