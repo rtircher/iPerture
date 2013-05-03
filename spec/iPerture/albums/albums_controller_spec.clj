@@ -4,7 +4,8 @@
         [ring.util.response :only [redirect-after-post]])
   (:require [iPerture.albums.albums-controller :as controller]
             [iPerture.albums.albums-view :as view]
-            [iPerture.albums.albums :as albums]))
+            [iPerture.albums.albums :as albums]
+            [iPerture.photos.photo-store :as store]))
 
 (describe "albums-controller"
 
@@ -58,4 +59,22 @@
         (with-redefs [albums/find-by (fn [id] album)]
           (should-have-been-called-with view/render-edit-album
                                         [album]
-                                        (controller/edit "id")))))))
+                                        (controller/edit "id"))))))
+
+  (describe "add-photo"
+    (around [it]
+        (with-redefs [albums/add-photo (fn [& _])
+                      store/save! (fn [& _])]
+          (it)))
+
+    (it "saves the photo file in a permanent location"
+      (should-have-been-called-with store/save!
+                                    ["album-id" "the photo"]
+                                    (controller/add-photo "album-id" {:photo "the photo"})))
+
+    (it "asks the model to save the photo informations"
+      (let [photo-info {:url "url"}]
+        (with-redefs [store/save! (fn [& _] photo-info)]
+          (should-have-been-called-with albums/add-photo
+                                        ["album id" photo-info]
+                                        (controller/add-photo "album id" {:tempfile "temp path"})))))))

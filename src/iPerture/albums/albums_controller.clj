@@ -4,6 +4,7 @@
         [iPerture.util.response :only [post-error-response]])
   (:require [iPerture.albums.albums-view :as view]
             [iPerture.albums.albums :as albums]
+            [iPerture.photos.photo-store :as store]
             [valip.core :as valip]))
 
 (defn new []
@@ -23,5 +24,7 @@
   (when-let [album (albums/find-by album-id)]
     (view/render-edit-album album)))
 
-(defn add-photo [album-id params]
-  (albums/add-photo album-id (:photo params)))
+(defn add-photo [album-id {:keys [photo]}]
+  (->> photo
+       (store/save! album-id)
+       (albums/add-photo album-id)))
