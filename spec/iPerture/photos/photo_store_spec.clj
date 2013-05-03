@@ -17,7 +17,8 @@
       (with-redefs [config (fn [_] :strategy)]
         (should-have-been-called-with resolve
                                       [(symbol "iPerture.photos.photo-store/copy-strategy!")]
-                                      (store/save! "album-id" @file-info))))
+                                      (store/save! "album-id" @file-info)
+                                      {:and-return (fn [& _])})))
 
     (context "local"
       (around [it]

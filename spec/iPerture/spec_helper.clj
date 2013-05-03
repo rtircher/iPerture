@@ -38,7 +38,7 @@
         (with-redefs [~function
                       (fn [& _#]
                         (reset! function-has-been-called?# true)
-                        (or ~and-return (fn [& _#] nil)))]
+                        ~and-return)]
           ~body
           (if-not (~test-fn @function-has-been-called?#)
             (throw (SpecFailure. (str ~error-message))))))))
@@ -64,6 +64,6 @@
         (should-have-been-called ~function ~body ~opts)
         (with-redefs [~function
                       (fn [& params#] (reset! params-received# params#)
-                        (or ~and-return (fn [& _#] nil)))]
+                        ~and-return)]
           ~body
           (should= ~expected-params @params-received#)))))
