@@ -44,13 +44,16 @@
         (should= iPerture.albums.albums.Album (class (albums/find-by "id"))))))
 
   (describe "add-photo"
+    (with photo-info {:id "id" :photo-url "photo-url" :thumbnail-url "thumbnail url"})
     (around [it]
         (with-redefs [neo/add-relationship! (fn [& args])
                       generate-unique-id (fn [] "id")]
           (it)))
 
     (it "should ask neo to add a photo relation"
-      (let [photo {:id "id" :photo-url "photo-url" :thumbnail-url "thumbnail url"}]
-        (should-have-been-called-with neo/add-relationship!
-                                      ["album id" :album photo :photos]
-                                      (albums/add-photo "album id" photo))))))
+      (should-have-been-called-with neo/add-relationship!
+                                    ["album id" :album @photo-info :photos]
+                                    (albums/add-photo "album id" @photo-info)))
+
+    (it "should return the updated photo info"
+      (should= @photo-info (albums/add-photo "album id" @photo-info)))))
