@@ -1,8 +1,14 @@
 (ns iPerture.albums.albums
   (:use [iPerture.id-generator :only [generate-unique-id]])
-  (:require [iPerture.neo :as neo]))
+  (:require [iPerture.neo :as neo]
+            [iPerture.photos.photos :as photos]
+            compojure.response))
 
 (defrecord Album [id title photos])
+
+(extend-protocol compojure.response/Renderable
+  Album
+  (render [this _] (into {} this)))
 
 (defn album
   ([{:keys [id title photos]}] (album id title photos))

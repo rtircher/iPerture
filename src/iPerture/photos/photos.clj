@@ -1,7 +1,12 @@
 (ns iPerture.photos.photos
-  (:require [borneo.core :as neo]))
+  (:require [borneo.core :as neo]
+            compojure.response))
 
 (defrecord Photo [id photo-url thumbnail-url])
+
+(extend-protocol compojure.response/Renderable
+  Photo
+  (render [this _] (into {} this)))
 
 (defn photo [id photo-url thumbnail-url]
   (Photo. id photo-url thumbnail-url))
