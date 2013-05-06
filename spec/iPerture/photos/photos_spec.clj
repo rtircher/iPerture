@@ -6,16 +6,15 @@
             [iPerture.neo :as neo]))
 
 (describe "photos"
-  (describe "photo"
-    (it "should create a Photo record"
-      (should= iPerture.photos.photos.Photo
-               (class (photos/photo "id" "full size url" "thumbnail url"))))
+  (describe "create"
+    (around [it]
+        (with-redefs [generate-unique-id (fn [] "id")]
+          (it)))
 
-    (it "should contain the id key"
-      (should= "id" (:id (photos/photo "id" "full size url" "thumbnail url"))))
-
-    (it "should contain the photo-url key"
-      (should= "full size url" (:photo-url (photos/photo "id" "full size url" "thumbnail url"))))
-
-    (it "should contain the thumbnail-url key"
-      (should= "thumbnail url" (:thumbnail-url (photos/photo "id" "full size url" "thumbnail url"))))))
+    (it "should call the generate-unique-id function"
+      (should-have-been-called generate-unique-id
+                               (photos/create "photo url" "thumbnail photo")))
+    
+    (it "should generate a new photo id when created"
+      (should= (photos/->Photo "id" "photo url" "thumbnail url")
+               (photos/create "photo url" "thumbnail url")))))

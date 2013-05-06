@@ -1,4 +1,5 @@
 (ns iPerture.photos.photos
+  (:use [iPerture.id-generator :only [generate-unique-id]])
   (:require [borneo.core :as neo]
             compojure.response))
 
@@ -8,9 +9,8 @@
   Photo
   (render [this _] (into {} this)))
 
-(defn photo [id photo-url thumbnail-url]
-  (Photo. id photo-url thumbnail-url))
-
+(defn create [photo-url thumbnail-url]
+  (Photo. (generate-unique-id) photo-url thumbnail-url))
 
 (defn get-album [album-id]
   (neo/with-db! "target/iPerture_db"
