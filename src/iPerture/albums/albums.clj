@@ -19,5 +19,6 @@
     (map->Album album-data)))
 
 (defn add-photo [id photo]
-  (neo/add-relationship! id :album photo :photos)
-  photo)
+  (let [photo-record (photos/create (:url photo) (:url photo))]
+    (neo/add-relationship! id :album photo-record :photos)
+    photo-record))
