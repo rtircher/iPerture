@@ -11,3 +11,4 @@ pom.xml
 .shell_history
 .lein-*
 /.sass-cache/
+/resources/public/img/local
