@@ -19,3 +19,4 @@ Functionality
 ** (maybe) go back to first picture when trying the click on the next once reached the last picture
 ** do not render prev/next button when at the end of the stream
 * css transitions for 404 page?
+* use Draggabilly for reordering photos in album (allows drag and drop)
