@@ -9,8 +9,9 @@
       (assoc :url permanent-url)))
 
 (defn- copy-local! [album-id file-info]
-  (let [permanent-url (str "target/data/" album-id "/" (:filename file-info))
-        output-file (io/file permanent-url)]
+  (let [permanent-url (str "/img/local/" album-id "/" (:filename file-info))
+        resources-url (str "resources/public" permanent-url)
+        output-file (io/file resources-url)]
     (io/make-parents output-file)
     (fu/create output-file)
     (io/copy (:tempfile file-info) output-file)

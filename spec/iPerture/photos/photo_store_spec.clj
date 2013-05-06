@@ -35,12 +35,12 @@
 
       (it "should create the file descriptor using 'target/data/album-id/photo file' path"
         (should-have-been-called-with io/file
-                                      ["target/data/album-id/photo filename"]
+                                      ["resources/public/img/local/album-id/photo filename"]
                                       (store/save! "album-id" @file-info)))
 
       (it "should create the parent directory"
         (should-have-been-called-with io/make-parents
-                                      [(io/file "target/data/album-id/photo filename")]
+                                      [(io/file "resources/public/img/local/album-id/photo filename")]
                                       (store/save! "album-id" @file-info)))
 
       (it "should create the file"
@@ -56,12 +56,12 @@
                                         (store/save! "album-id" @file-info))))
 
       (it "should return the permanent location file data"
-        (should= {:url "target/data/album-id/photo filename"
+        (should= {:url "/img/local/album-id/photo filename"
                   :size 1234
                   :content-type "image/jpeg"
                   :filename "photo filename"}
                  (store/save! "album-id" @file-info)))
-      
+
       (it "should append a version if the filename is already found in the permanent location")
 
       (it "should increment the version if there are multiple files with the same name"))
