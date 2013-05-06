@@ -18,7 +18,7 @@
       (match-selector [[:form (html/attr= :method "POST")]] (view/render-new-album))))
 
   (describe "fn render-edit-album"
-    (with album (albums/album 123 "the album title"))
+    (with album (albums/->Album 123 "the album title" []))
 
     (it "should display the album title"
       (should-contain "the album title" [:.album-title] (view/render-edit-album @album)))

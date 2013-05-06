@@ -10,18 +10,13 @@
   Album
   (render [this _] (into {} this)))
 
-(defn album
-  ([{:keys [id title photos]}] (album id title photos))
-  ([id title] (album id title []))
-  ([id title photos] (Album. id title photos)))
-
 (defn create [title]
   (let [id (generate-unique-id)]
-    (neo/create-child! :album (album id title))))
+    (neo/create-child! :album (->Album id title []))))
 
 (defn find-by [id]
   (when-let [album-data (neo/find id :album :photos)]
-    (album album-data)))
+    (map->Album album-data)))
 
 (defn add-photo [id photo]
   (neo/add-relationship! id :album photo :photos)

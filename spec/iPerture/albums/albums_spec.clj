@@ -6,17 +6,6 @@
             [iPerture.neo :as neo]))
 
 (describe "albums"
-  (describe "album"
-    (context "three arguments provided"
-      (it "should create an Album record"
-        (should= iPerture.albums.albums.Album
-                 (class (albums/album "id" "title" ["photos"])))))
-
-    (context "two arguments provided"
-      (it "should create an album with an empty list of photos"
-        (should= (albums/album "id" "title" [])
-                 (albums/album "id" "title")))))
-
   (describe "create"
     (around [it]
         (with-redefs [neo/create-child! (fn [& args])
@@ -24,13 +13,13 @@
           (it)))
 
     (it "should generate a new album id when created"
-      (should-have-been-called-with albums/album
-                                    ["id" "title"]
+      (should-have-been-called-with albums/->Album
+                                    ["id" "title" []]
                                     (albums/create "title")))
 
     (it "should ask neo to create a new album child"
       (should-have-been-called-with neo/create-child!
-                                    [:album (albums/album "id" "title")]
+                                    [:album (albums/->Album "id" "title" [])]
                                     (albums/create "title"))))
 
   (describe "find-by"

@@ -23,7 +23,7 @@
                                     (controller/create @params)))
 
     (it "should ask the view to render an empty edit album page with the provided title"
-      (with-redefs [albums/create (fn [title] (albums/album "id" title))]
+      (with-redefs [albums/create (fn [title] (albums/->Album "id" title []))]
         (should-have-been-called-with redirect-after-post
                                       ["/albums/id"]
                                       (controller/create @params))))
@@ -55,7 +55,7 @@
                                       (controller/edit "id"))))
 
     (it "should ask the view to render the page with the album found"
-      (let [album (albums/album "id" "title")]
+      (let [album (albums/->Album "id" "title" [])]
         (with-redefs [albums/find-by (fn [id] album)]
           (should-have-been-called-with view/render-edit-album
                                         [album]
