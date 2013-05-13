@@ -1,22 +1,9 @@
 Tech debt:
-* delete iPerture/db-test.clj file
-* create lein foreman "plugin"
-* allow allow html templates to be reloaded on every request while in dev
-* using criterium lib for logger middleware timings 
-* test neo_setup
-* + save neo4j binaries in a personal s3
-* check what best to deal with google fonts or to store the fonts ourselves
-* Create haml partials to avoid all the copy pasting of the head stuffs
-
-Functionality
-* add photo to album
-* delete photo from album
-* delete album
-* add placeholder thumbnail for adding new picture (if you own the stream)
-* Slideshow
-* users
-* prev/next buttons:
-** (maybe) go back to first picture when trying the click on the next once reached the last picture
-** do not render prev/next button when at the end of the stream
-* css transitions for 404 page?
-* use Draggabilly for reordering photos in album (allows drag and drop)
+- [ ] delete iPerture/db-test.clj file
+- [ ] create lein foreman "plugin"
+- [ ] allow allow html templates to be reloaded on every request while in dev
+- [ ] using criterium lib for logger middleware timings 
+- [ ] test neo_setup
+- [ ] + save neo4j binaries in a personal s3
+- [ ] check what best to deal with google fonts or to store the fonts ourselves
+- [ ] Create haml partials to avoid all the copy pasting of the head stuffs
