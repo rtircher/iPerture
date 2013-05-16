@@ -12,3 +12,5 @@ pom.xml
 .lein-*
 /.sass-cache/
 /resources/public/img/local
+/chef/cookbooks/
+/chef/tmp/
