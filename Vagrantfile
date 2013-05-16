@@ -22,41 +22,21 @@ Vagrant.configure("2") do |config|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
 
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # the file centos-64-no-puppet-no-chef.pp in the manifests_path directory.
-  #
-  # An example Puppet manifest to provision the message of the day:
-  #
-  # # group { "puppet":
-  # #   ensure => "present",
-  # # }
-  # #
-  # # File { owner => 0, group => 0, mode => 0644 }
-  # #
-  # # file { '/etc/motd':
-  # #   content => "Welcome to your Vagrant-built virtual machine!
-  # #               Managed by Puppet.\n"
-  # # }
-  #
-  # config.vm.provision :puppet do |puppet|
-  #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "centos-64-no-puppet-no-chef.pp"
-  # end
+  # Provisioning
+  config.vm.provision :shell, :path => "Vagrantprovision.sh"
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
-  #
-  # config.vm.provision :chef_solo do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { :mysql_password => "foo" }
-  # end
+  
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = "chef/cookbooks"
+    # chef.roles_path = "chef/roles"
+    # chef.data_bags_path = "chef/data_bags"
+    # chef.add_recipe "mysql"
+    # chef.add_role "web"
+  
+    # You may also specify custom JSON attributes:
+    # chef.json = { :mysql_password => "foo" }
+  end
 end
