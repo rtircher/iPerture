@@ -1,0 +1,49 @@
+#! /bin/bash
+
+# ensure rvm if installed
+function ensure_rvm() {
+  [[ -s "/usr/local/rvm/scripts/rvm" ]] && . "/usr/local/rvm/scripts/rvm"
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+  rvm rvmrc trust . > /dev/null
+  source .rvmrc > /dev/null
+}
+
+function ensure_bundler() {
+  bundle --version &> /dev/null
+  if [ $? != 0 ]; then
+    gem install bundler
+  fi
+}
+
+function ensure_vagrant() {
+  VAGRANT_VERSION=`vagrant --version`
+  if [[ $? != 0 ]] || [[ $VAGRANT_VERSION != "Vagrant version 1.2.2" ]]; then
+    echo "Please install vagrant version v1.2.2 from http://downloads.vagrantup.com/tags/v1.2.2"
+    exit 1
+  fi
+}
+
+function execute_with_output() {
+  echo "  --> $@"
+  $@
+}
+
+ensure_rvm
+ensure_bundler
+ensure_vagrant
+
+echo "Updating gems"
+execute_with_output bundle install
+
+echo
+echo "Updating cookbooks"
+execute_with_output bundle exec librarian-chef install
+
+echo
+echo "Running vagrant"
+if [ $# == 0 ]; then
+  execute_with_output vagrant up
+else
+  execute_with_output vagrant $@
+fi
