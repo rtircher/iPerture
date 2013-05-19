@@ -20,7 +20,16 @@ SITE
       chef_handler (>= 0.0.0)
     yum (2.2.2)
 
+GIT
+  remote: https://github.com/rtircher/chef-leiningen
+  ref: master
+  sha: 691b8711884c3a623fb39e9f69fa14b9efa12542
+  specs:
+    leiningen (0.1.0)
+      java (>= 0)
+
 DEPENDENCIES
   java (>= 0)
+  leiningen (>= 0)
   nginx (>= 0)
 

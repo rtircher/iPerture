@@ -5,4 +5,5 @@ site 'http://community.opscode.com/api/v1'
 
 cookbook 'java'
 cookbook 'nginx'
-
+cookbook 'leiningen',
+  :git => 'https://github.com/rtircher/chef-leiningen'
