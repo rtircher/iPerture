@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["chef/cookbooks", "chef/site-cookbooks"]
-    chef.add_recipe "iPerture"
+    chef.add_recipe "iPerture::vagrant"
     # chef.roles_path = "chef/roles"
     # chef.data_bags_path = "chef/data_bags"
     # chef.add_role "web"
