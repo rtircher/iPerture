@@ -2,11 +2,16 @@
 
 # ensure rvm if installed
 function ensure_rvm() {
-  [[ -s "/usr/local/rvm/scripts/rvm" ]] && . "/usr/local/rvm/scripts/rvm"
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+  ruby_string=`cat .ruby-version`
+  gemset_name=`cat .ruby-gemset`
 
-  rvm rvmrc trust . > /dev/null
-  source .rvmrc > /dev/null
+  # Load or create the specified environment
+  if [[ -d "${rvm_path:-$HOME/.rvm}/environments" \
+    && -s "${rvm_path:-$HOME/.rvm}/environments/${ruby_string}@${gemset_name}" ]] ; then
+    \. "${rvm_path:-$HOME/.rvm}/environments/${ruby_string}@${gemset_name}"
+  else
+    rvm --create  "${ruby_string}@${gemset_name}"
+  fi
 }
 
 function ensure_bundler() {
