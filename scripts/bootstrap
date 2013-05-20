@@ -39,7 +39,9 @@ ensure_bundler
 ensure_vagrant
 
 echo "Updating gems"
-execute_with_output bundle install
+echo "  --> bundle install"
+# Bundle while redcing excess noise.
+bundle install | grep -v 'Using' | sed '/^$/d'
 
 echo
 echo "Updating cookbooks"
