@@ -1,4 +1,5 @@
 include_recipe "iPerture"
+include_recipe "leiningen"
 
 execute "lein-ring-server" do
   cwd "/vagrant"
