@@ -1,4 +1,11 @@
 include_recipe "java"
+
+group "www-data" do
+  append true
+end
+user "www-data" do
+  gid "www-data"
+end
 include_recipe "nginx"
 
 cookbook_file "/etc/nginx/nginx.conf" do
