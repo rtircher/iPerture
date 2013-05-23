@@ -15,6 +15,17 @@ cookbook_file "/etc/nginx/nginx.conf" do
   group "root"
 end
 
+cookbook_file "/etc/nginx/sites-available/iPerture.tircher.com.conf" do
+  source "iPerture.tircher.com.conf"
+  mode 0755
+  owner "root"
+  group "root"
+end
+
+link "/etc/nginx/sites-enabled/iPerture.tircher.com.conf" do
+  to "/etc/nginx/sites-available/iPerture.tircher.com.conf"
+end
+
 execute "open-port-80" do
   command 'iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT'
   user 'root'
