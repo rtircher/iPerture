@@ -1,6 +1,13 @@
 include_recipe "java"
 include_recipe "nginx"
 
+cookbook_file "/etc/nginx/nginx.conf" do
+  source "nginx.conf"
+  mode 0755
+  owner "root"
+  group "root"
+end
+
 execute "open-port-80" do
   command 'iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT'
   user 'root'
