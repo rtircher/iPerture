@@ -2,14 +2,11 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "centos-64-no-puppet-no-chef"
-  # The url from where the 'config.vm.box' box will be fetched if it doesn't
-  # already exist on the user's system.
   config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network :private_network, ip: "192.168.33.88"
-  config.vm.network :forwarded_port, guest: 5000, host: 8080
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
