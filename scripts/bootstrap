@@ -54,3 +54,11 @@ if [ $# == 0 ]; then
 else
   execute_with_output vagrant $@
 fi
+
+if [ $? == 0 ]; then
+  cat /etc/hosts | grep "127\.0\.0\.1\s+local\.iperture\.tircher\.com" &> /dev/null
+  if [ $? != 0 ]; then
+    echo "Add '127.0.0.1   local.iperture.tircher.com local.iPerture.tircher.com' to your /etc/hosts file"
+    sudo sh -c 'echo "127.0.0.1\tlocal.iperture.tircher.com local.iPerture.tircher.com" >> /etc/hosts'
+  fi
+fi
