@@ -13,6 +13,7 @@ cookbook_file "/etc/nginx/nginx.conf" do
   mode 0644
   owner "root"
   group "root"
+  notifies :reload, 'service[nginx]'
 end
 
 cookbook_file "/etc/nginx/sites-available/iPerture.tircher.com.conf" do
@@ -20,6 +21,7 @@ cookbook_file "/etc/nginx/sites-available/iPerture.tircher.com.conf" do
   mode 0644
   owner "root"
   group "root"
+  notifies :reload, 'service[nginx]'
 end
 
 link "/etc/nginx/sites-enabled/iPerture.tircher.com.conf" do
