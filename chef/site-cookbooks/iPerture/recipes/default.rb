@@ -10,14 +10,14 @@ include_recipe "nginx"
 
 cookbook_file "/etc/nginx/nginx.conf" do
   source "nginx.conf"
-  mode 0755
+  mode 0644
   owner "root"
   group "root"
 end
 
 cookbook_file "/etc/nginx/sites-available/iPerture.tircher.com.conf" do
   source "iPerture.tircher.com.conf"
-  mode 0755
+  mode 0644
   owner "root"
   group "root"
 end
