@@ -1,6 +1,13 @@
 include_recipe "iPerture"
 include_recipe "leiningen"
 
+LOG_FOLDER = "/vagrant/log"
+
+directory LOG_FOLDER do
+  mode "0644"
+  action :create
+end
+
 execute "lein-ring-server" do
   cwd "/vagrant"
   command <<-EOS
@@ -13,6 +20,6 @@ for i in {0..30}; do
     break
   fi
 done
-LEIN_ROOT=1 lein ring server-headless &> log/development.log &
+LEIN_ROOT=1 lein ring server-headless &> #{LOG_FOLDER}/development.log &
 EOS
 end
