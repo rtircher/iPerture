@@ -1,9 +1,9 @@
 server {
   listen 80;
-  server_name local.iperture.tircher.com;
+  server_name <%= node['iPerture']['host'] %>;
 
-  access_log /var/log/nginx/iperture-local.access.log;
-  error_log /var/log/nginx/iperture-local.error.log;
+  access_log /var/log/nginx/iperture.access.log;
+  error_log /var/log/nginx/iperture.error.log;
 
   location / {
     proxy_pass         http://127.0.0.1:5000/;

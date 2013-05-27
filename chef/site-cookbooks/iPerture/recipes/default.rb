@@ -16,8 +16,8 @@ cookbook_file "/etc/nginx/nginx.conf" do
   notifies :reload, 'service[nginx]'
 end
 
-cookbook_file "/etc/nginx/sites-available/iPerture.tircher.com.conf" do
-  source "iPerture.tircher.com.conf"
+template "/etc/nginx/sites-available/iPerture.tircher.com.conf" do
+  source "iPerture.tircher.com.conf.erb"
   mode 0644
   owner "root"
   group "root"
