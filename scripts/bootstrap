@@ -56,9 +56,9 @@ else
 fi
 
 if [ $? == 0 ]; then
-  cat /etc/hosts | grep "127\.0\.0\.1\s*local\.iperture\.tircher\.com" &> /dev/null
+  cat /etc/hosts | grep "192\.168\.33\.88\s*local\.iperture\.tircher\.com" &> /dev/null
   if [ $? != 0 ]; then
-    echo "Adding '127.0.0.1   local.iperture.tircher.com local.iPerture.tircher.com' to your /etc/hosts file"
-    sudo sh -c 'echo "127.0.0.1\tlocal.iperture.tircher.com local.iPerture.tircher.com" >> /etc/hosts'
+    echo "Adding '192.168.33.88   local.iperture.tircher.com local.iPerture.tircher.com' to your /etc/hosts file"
+    sudo sh -c 'echo "192.168.33.88\tlocal.iperture.tircher.com local.iPerture.tircher.com" >> /etc/hosts'
   fi
 fi
