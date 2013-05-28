@@ -15,8 +15,8 @@
     (neo/create-child! :album (->Album id title []))))
 
 (defn find-by [id]
-  (when-let [album-data (neo/find id :album :photos)]
-    (map->Album album-data)))
+  (when-let [{:keys [id title photos]} (neo/find id :album :photos)]
+    (->Album id title (reverse photos))))
 
 (defn add-photo [id photo]
   (let [photo-record (photos/create (:url photo) (:url photo))]
