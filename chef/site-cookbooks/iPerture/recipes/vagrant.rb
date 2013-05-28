@@ -8,8 +8,12 @@ directory LOG_FOLDER do
   action :create
 end
 
-execute "lein-ring-server" do
+execute "lein-deps" do
   cwd "/vagrant"
+  command "lein deps"
+end
+
+execute "kill-ring-server" do
   command <<-EOS
 kill `ps ax | grep [c]ompojure | awk '{print $1}'`
 for i in {0..30}; do
@@ -20,6 +24,10 @@ for i in {0..30}; do
     break
   fi
 done
-LEIN_ROOT=1 lein ring server-headless &> #{LOG_FOLDER}/development.log &
 EOS
+end
+
+execute "lein-ring-server" do
+  cwd "/vagrant"
+  command "LEIN_ROOT=1 lein ring server-headless &> #{LOG_FOLDER}/development.log &"
 end
