@@ -8,6 +8,15 @@ directory LOG_FOLDER do
   action :create
 end
 
+
+service 'iptables' do
+  action :stop
+end
+
+execute "chkconfig-iptables-off" do
+  command "chkconfig iptables off"
+end
+
 execute "lein-deps" do
   cwd "/vagrant"
   command "lein deps"
