@@ -50,7 +50,12 @@ execute_with_output bundle exec librarian-chef install
 echo
 echo "Running vagrant"
 if [ $# == 0 ]; then
+  VAGRANT_ON=`vagrant status | grep "default                  running" &> /dev/null ; echo $?`
+  VAGRANT_SUSPENDED=`vagrant status | grep "default                  saved" &> /dev/null ; echo $?`
   execute_with_output vagrant up
+  if [ $VAGRANT_ON == 0 ] || [ $VAGRANT_SUSPENDED == 0 ] ; then
+    execute_with_output vagrant provision
+  fi
 else
   execute_with_output vagrant $@
 fi
