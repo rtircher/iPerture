@@ -1,7 +1,8 @@
 (ns iPerture.albums.albums-controller
   (:use [valip.predicates :only [present?]]
         [ring.util.response :only [redirect-after-post]]
-        [iPerture.util.response :only [post-error-response]])
+        [iPerture.util.response :only [post-error-response]]
+        [noir.response :only [json]])
   (:require [iPerture.albums.albums-view :as view]
             [iPerture.albums.albums :as albums]
             [iPerture.photos.photo-store :as store]
@@ -25,6 +26,6 @@
     (view/render-edit-album album)))
 
 (defn add-photo [album-id {:keys [photo]}]
-  (->> photo
-       (store/save! album-id)
-       (albums/add-photo album-id)))
+  (json (->> photo
+             (store/save! album-id)
+             (albums/add-photo album-id))))
