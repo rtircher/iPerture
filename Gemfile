@@ -1,4 +1,9 @@
 source "https://rubygems.org"
 
-gem "foreman"
-gem "librarian-chef"
+gem 'librarian-chef'
+
+group :development do
+  gem 'foreman'
+  gem 'guard-haml'
+  gem 'guard-sass', :require => false
+end

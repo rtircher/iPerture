@@ -12,7 +12,6 @@
                                   ;; [[ring-mock "0.1.2"]]
                                   [speclj-growl "1.0.1"]]
                    :plugins [[lein-cljsbuild "0.3.0"]
-                             [lein-haml-sass "0.2.6"]
                              [lein-ring "0.8.3"]
                              [speclj "2.5.0"]]
                    :test-paths ["spec/"]
@@ -27,17 +26,6 @@
                                           ;; The optimization level.  May be :whitespace, :simple, or :advanced
                                           ;; Defaults to :whitespace
                                           :optimizations :whitespace}}]}
-
-                   :haml {:src "src/iPerture/views/haml/"
-                          :output-directory "resources/public/html"
-                          :output-extension "html"
-                          :gem-version "4.0.1"}
-
-                   :sass {:src "src/iPerture/views/sass/"
-                          :output-directory "resources/public/css"
-                          :output-extension "css"
-                          :style :compressed
-                          :gem-version "3.2.2"}
                    }
              :staging {:jvm-opts ["-DiPerture.env=staging"]}
              :production {:jvm-opts ["-DiPerture.env=production"]}}
