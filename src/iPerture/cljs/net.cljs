@@ -23,7 +23,7 @@
   (let [xml  (try (.getResponseXml xhr) (catch js/Error e))
         json (try (.getResponseJson xhr) (catch js/Error e))
         text (.getResponseText xhr)]
-    (or xml json text)))
+    (or json xml text)))
 
 (defn- listen-to-event [xhr event-type callback]
   (when callback
