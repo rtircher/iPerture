@@ -9,11 +9,16 @@
   (net/ajax-form form {:on-success (fn [data] (js/console.log "FORM success: " data))
                        :on-error (fn [& args] (js/console.log "FORM error: " args))}))
 
+(defn- photo-added-handler [& args]
+  (let [form (first (goog.dom.getElementsByTagNameAndClass "form"))
+        uri  (aget form "action")]
+    (js/console.log "Submitting form at url: " uri)
+    (upload-photos form)))
+
+
 (em/defaction start [] 
-  ["input"] (em/listen :change
-                       #(let [form (first (goog.dom.getElementsByTagNameAndClass "form"))
-                              uri  (aget form "action")]
-                          (js/console.log "Submitting form at url: " uri)
-                          (upload-photos form))))
+  ["#edit-album input"] (em/listen :change photo-added-handler))
+
+
 
 (start)
