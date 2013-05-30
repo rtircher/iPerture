@@ -18,18 +18,19 @@
     %script(src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" async)
     %title Edit album:
 
-  %body.background-style
-    %h1.album-title My album
-    %ol.photos
-      %li.photo(style="background-image:url('/img/1.png')")
-      %li.photo(style="background-image:url('/img/2.png')")
-      %li.photo(style="background-image:url('/img/3.png')")
-      %li.photo(style="background-image:url('/img/4.png')")
-      %li.photo(style="background-image:url('/img/5.png')")
-      %li.photo(style="background-image:url('/img/6.png')")
-    .add-photo-button
-      %form#add-photo
-        %input(type='file' accept='image/*' name='photo')
-        .add-photo-overlay Add photo(s)
+  %body
+    #edit-album.page.background-style
+      %h1.album-title My album
+      %ol.photos.clearfix
+        %li.photo(style="background-image:url('/img/1.png')")
+        %li.photo(style="background-image:url('/img/2.png')")
+        %li.photo(style="background-image:url('/img/3.png')")
+        %li.photo(style="background-image:url('/img/4.png')")
+        %li.photo(style="background-image:url('/img/5.png')")
+        %li.photo(style="background-image:url('/img/6.png')")
+      .add-photo-button
+        %form#add-photo
+          %input(type='file' accept='image/*' name='photo')
+          .add-photo-overlay Add photo(s)
 
     %script(type="text/javascript" src="/js/main.js" async)

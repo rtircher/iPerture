@@ -19,14 +19,15 @@
     %title My Albums
 
   %body
-    .background-style
-    .container
-      .center-vertically
-        %form.center-horizontally.create-album
-          %label(for="create-album-title") You don't have any album yet.  Type your album title below to create one.
-          .input-box
-            %input#create-album-title(name="create-album-title")
-            %input#create-album-button(type='submit' value='+')
-          .create-album-title-input.error
+    #albums.page
+      .background-style
+      .container
+        .center-vertically
+          %form.center-horizontally.create-album
+            %label(for="create-album-title") You don't have any album yet.  Type your album title below to create one.
+            .input-box
+              %input#create-album-title(name="create-album-title")
+              %input#create-album-button(type='submit' value='+')
+            .create-album-title-input.error
 
     %script(type="text/javascript" src="/js/main.js" async)

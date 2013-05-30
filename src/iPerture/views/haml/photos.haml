@@ -18,28 +18,29 @@
     %script(src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" async)
     %title My PhotoStream
 
-  %body.background-style
-    .slider-wrapper
-      .photos-container
-        %a.previous.nav-button
-        %a.next.nav-button
-        .main-photo
-          .full.photo(style="background-image:url('/img/1.png')")
+  %body
+    #photos.page.background-style
+      .slider-wrapper
+        .photos-container
+          %a.previous.nav-button
+          %a.next.nav-button
+          .main-photo
+            .full.photo(style="background-image:url('/img/1.png')")
 
-      .thumbnails-container
-        %table
-          %tr.thumbnails-list
-            %td.thumbnail-cell
-              %a.thumbnail.photo(style="background-image:url('/img/1.png')")
-            %td.thumbnail-cell
-              %a.selected.thumbnail.photo(style="background-image:url('/img/2.png')")
-            %td.thumbnail-cell
-              %a.thumbnail.photo(style="background-image:url('/img/3.png')")
-            %td.thumbnail-cell
-              %a.thumbnail.photo(style="background-image:url('/img/3.png')")
-            %td.thumbnail-cell
-              %a.thumbnail.photo(style="background-image:url('/img/3.png')")
-            %td.thumbnail-cell
-              %a.thumbnail.photo(style="background-image:url('/img/3.png')")
+        .thumbnails-container
+          %table
+            %tr.thumbnails-list
+              %td.thumbnail-cell
+                %a.thumbnail.photo(style="background-image:url('/img/1.png')")
+              %td.thumbnail-cell
+                %a.selected.thumbnail.photo(style="background-image:url('/img/2.png')")
+              %td.thumbnail-cell
+                %a.thumbnail.photo(style="background-image:url('/img/3.png')")
+              %td.thumbnail-cell
+                %a.thumbnail.photo(style="background-image:url('/img/3.png')")
+              %td.thumbnail-cell
+                %a.thumbnail.photo(style="background-image:url('/img/3.png')")
+              %td.thumbnail-cell
+                %a.thumbnail.photo(style="background-image:url('/img/3.png')")
 
     %script(type="text/javascript" src="/js/main.js" async)
