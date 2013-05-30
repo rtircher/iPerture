@@ -15,6 +15,7 @@
   ([errors]
      (render-new-album-template errors)))
 
+
 ;; Edit page
 
 (def ^:private edit-album (html/html-resource "public/html/edit-album.html"))
@@ -25,6 +26,8 @@
              (html/remove-class "template")
              (html/set-attr :style (common/background-photo thumbnail-url))))
 
+(def ^:private add-photo-button (html/select edit-album [:.add-photo-button]))
+
 (html/deftemplate ^:private render-edit-album-template edit-album [{:keys [id title photos]}]
   [:title]         (html/content "Edit Album: " title)
   [:.album-title ] (html/content title)
@@ -32,6 +35,7 @@
            (html/set-attr :method "POST")
            (html/set-attr :action (str "/albums/" id "/photos"))
            (html/set-attr :enctype "multipart/form-data"))
-  [[:.photos]] (html/content (map thumbnail-model photos)))
+  [[:.photos]] (html/content (cons (map thumbnail-model photos)
+                                   add-photo-button)))
 
 (def render-edit-album render-edit-album-template)
