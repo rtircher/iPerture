@@ -18,7 +18,7 @@
   (context "/albums" {headers :headers}
     (GET "/" [] (albums-controller/new))
     (POST "/" {params :params} (albums-controller/create params))
-    (GET "/:album-id" [album-id]
+    (GET "/:album-id/edit" [album-id]
       (albums-controller/edit album-id))
     (POST "/:album-id/photos" [album-id :as {params :params}]
       (albums-controller/add-photo album-id params)))
