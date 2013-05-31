@@ -22,9 +22,7 @@
 
 (html/defsnippet thumbnail-model edit-album [[:.photo (html/nth-of-type 1)]]
   [{:keys [thumbnail-url]}]
-  [:.photo] (html/do->
-             (html/remove-class "template")
-             (html/set-attr :style (common/background-photo thumbnail-url))))
+  [:.photo] (html/set-attr :style (common/background-photo thumbnail-url)))
 
 (def ^:private add-photo-button (html/select edit-album [:.add-photo-button]))
 
