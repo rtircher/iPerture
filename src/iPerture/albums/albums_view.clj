@@ -24,16 +24,16 @@
   [{:keys [thumbnail-url]}]
   [:.photo] (html/set-attr :style (common/background-photo thumbnail-url)))
 
-(def ^:private add-photo-button (html/select edit-album [:.add-photo-button]))
+(html/defsnippet ^:private add-photo-button edit-album [:.add-photo-button] [id]
+  [:form] (html/do->
+           (html/set-attr :method "POST")
+           (html/set-attr :action (str "/albums/" id "/photos"))
+           (html/set-attr :enctype "multipart/form-data")))
 
 (html/deftemplate ^:private render-edit-album-template edit-album [{:keys [id title photos]}]
   [:title]         (html/content "Edit Album: " title)
   [:.album-title ] (html/content title)
-  [:form] (html/do->
-           (html/set-attr :method "POST")
-           (html/set-attr :action (str "/albums/" id "/photos"))
-           (html/set-attr :enctype "multipart/form-data"))
   [[:.photos]] (html/content (cons (map thumbnail-model photos)
-                                   add-photo-button)))
+                                   (add-photo-button id))))
 
 (def render-edit-album render-edit-album-template)
