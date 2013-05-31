@@ -33,7 +33,7 @@
 (html/deftemplate ^:private render-edit-album-template edit-album [{:keys [id title photos]}]
   [:title]         (html/content "Edit Album: " title)
   [:.album-title ] (html/content title)
-  [:.photos]       (html/content (cons (map thumbnail-model photos)
-                                       (add-photo-button id))))
+  [:.photos]       (html/content (map thumbnail-model photos))
+  [:.photos]       (html/append (add-photo-button id)))
 
 (def render-edit-album render-edit-album-template)
