@@ -15,7 +15,8 @@
     %link(rel="stylesheet" type="text/css" href="/css/reset.css")
     %link(rel="stylesheet" type="text/css" href="/css/edit-album.css")
 
-    %script(src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" async)
+    %script(src="/js/lib/spin.min.js" type="text/javascript" async)
+    %script(src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript" async)
     %title Edit album:
 
   %body.background-style
@@ -28,6 +29,8 @@
         %li.photo(style="background-image:url('/img/4.png')")
         %li.photo(style="background-image:url('/img/5.png')")
         %li.photo(style="background-image:url('/img/6.png')")
+        %li.loading-placeholder
+          .label Uploading photo
         %li.add-photo-button
           %form#add-photo
             %input(type='file' accept='image/*' name='photo')

@@ -1,5 +1,6 @@
 (ns albums
   (:require [net :as net]
+            [spin :as spin]
             [enfocus.core :as ef])
   (:require-macros [enfocus.macros :as em]))
 
@@ -12,20 +13,31 @@
   [thumbnail-url]
   [:.photo] (em/set-attr :style (background-photo thumbnail-url)))
 
-(defn- upload-success-handler [data]
-  (js/console.log "FORM success: " data)
-  (em/at js/document [".photos > *:last-child"]
-         (em/before (thumbnail-model (aget data "thumbnail-url")))))
+(em/defsnippet ^:private loading-indicator-model edit-album [".loading-placeholder"]
+  [identifier]
+  [:.loading-placeholder] (em/set-attr :id identifier))
 
-(defn- upload-photos [form]
-  (net/ajax-form form {:on-success upload-success-handler
+(defn- display-placeholder [identifier]
+  (let [placeholder (em/at js/document [".photos > *:last-child"]
+                           (em/before (loading-indicator-model identifier)))]
+    (spin/create-and-append-spinner placeholder)))
+
+(defn- upload-success-handler [data identifier]
+  (js/console.log "FORM success: " data)
+  (em/at js/document [(str "#" identifier)]
+         (em/substitute (thumbnail-model (aget data "thumbnail-url")))))
+
+(defn- upload-photos [form identifier]
+  (net/ajax-form form {:on-success #(upload-success-handler % identifier)
                        :on-error (fn [& args] (js/console.log "FORM error: " args))}))
 
 (defn- photo-added-handler [& args]
   (let [form (first (goog.dom.getElementsByTagNameAndClass "form"))
-        uri  (aget form "action")]
+        uri  (aget form "action")
+        identifier (.now js/Date)]
+    (display-placeholder identifier)
     (js/console.log "Submitting form at url: " uri)
-    (upload-photos form)))
+    (upload-photos form identifier)))
 
 
 (em/defaction start [] 
@@ -34,3 +46,8 @@
 
 
 (start)
+
+;; (goog.events.listen (goog.dom.getDocument) goog.events.EventType.LOAD #(js/console.log "Submitting form at url: " uri))
+
+
+;; convert js data to cljs: (js->clj data)

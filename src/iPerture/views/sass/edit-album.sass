@@ -32,12 +32,24 @@ $tile-size: 150px
       content: "Delete photo"
       color: lighten($font-color-light, 10)
 
-.photo, .add-photo-button
+.photo, .add-photo-button, .loading-placeholder
   position: relative
   float: left
   width: $tile-size
   height: $tile-size
   margin: 10px
+
+.loading-placeholder
+  background-color: rgba(0, 0, 0, .4)
+
+  .label
+    width: 100%
+    position: absolute
+    bottom: 25px
+    left: 0
+    color: $font-color-light
+    text-align: center
+    font-size: 13px
 
 .add-photo-button
   form
