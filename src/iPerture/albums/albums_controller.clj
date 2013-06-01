@@ -19,7 +19,7 @@
   (if-let [errors (invalid params)]
     (post-error-response (view/render-new-album errors))
     (let [album (albums/create title)]
-      (redirect-after-post (str "/albums/" (:id album))))))
+      (redirect-after-post (str "/albums/" (:id album) "/edit")))))
 
 (defn edit [album-id]
   (when-let [album (albums/find-by album-id)]

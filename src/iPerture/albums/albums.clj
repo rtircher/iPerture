@@ -12,7 +12,7 @@
 
 (defn create [title]
   (let [id (generate-unique-id)]
-    (neo/create-child! :album (->Album id title []))))
+    (neo/create-child! :album (Album. id title nil))))
 
 (defn find-by [id]
   (when-let [{:keys [id title photos]} (neo/find id :album :photos)]
