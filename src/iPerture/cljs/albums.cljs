@@ -9,6 +9,9 @@
 (defn- background-photo [photo-url]
   (str "background-image:url('" photo-url "')"))
 
+(defn- by-id [id]
+  (goog.dom.getElement (str id)))
+
 (em/defsnippet ^:private thumbnail-model edit-album [".photos > *:first-child"]
   [thumbnail-url]
   [:.photo] (em/set-attr :style (background-photo thumbnail-url)))
@@ -18,9 +21,9 @@
   [:.loading-placeholder] (em/set-attr :id identifier))
 
 (defn- display-placeholder [identifier]
-  (let [placeholder (em/at js/document [".photos > *:last-child"]
-                           (em/before (loading-indicator-model identifier)))]
-    (spin/create-and-append-spinner placeholder)))
+  (em/at js/document [".photos > *:last-child"]
+         (em/before (loading-indicator-model identifier)))
+  (spin/create-and-append-spinner (by-id identifier) {:top "45"}))
 
 (defn- upload-success-handler [data identifier]
   (js/console.log "FORM success: " data)
