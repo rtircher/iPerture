@@ -1,5 +1,7 @@
 include_recipe "java"
 
+package "GraphicsMagick"
+
 group "www-data" do
   append true
 end
