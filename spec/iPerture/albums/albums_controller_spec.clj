@@ -5,6 +5,7 @@
   (:require [iPerture.albums.albums-controller :as controller]
             [iPerture.albums.albums-view :as view]
             [iPerture.albums.albums :as albums]
+            [iPerture.image-optimizer :as optimizer]
             [iPerture.photos.photo-store :as store]))
 
 (describe "albums-controller"
@@ -14,7 +15,7 @@
       (should-have-been-called view/render-new-album
                                (controller/new))))
 
-  (describe "create"
+  (describe "#create"
     (with-all params {:create-album-title "title"})
 
     (it "should create a new album with the provided title"
@@ -25,7 +26,7 @@
     (it "should ask the view to render an empty edit album page with the provided title"
       (with-redefs [albums/create (fn [title] (albums/->Album "id" title []))]
         (should-have-been-called-with redirect-after-post
-                                      ["/albums/id"]
+                                      ["/albums/id/edit"]
                                       (controller/create @params))))
 
     (context "when the album title is empty"
@@ -63,18 +64,38 @@
 
   (describe "add-photo"
     (around [it]
-        (with-redefs [albums/add-photo (fn [& _])
-                      store/save! (fn [& _])]
+        (with-redefs [albums/add-photo (fn [_ _ _])
+                      store/save! (fn [& _])
+                      store/save-thumbnail! (fn [& _])
+                      optimizer/optimize-photo! (fn [photo] photo)
+                      optimizer/optimize-thumbnail! (fn [photo] photo)]
           (it)))
+
+    (it "asks the optimizer to optimize the photo"
+      (should-have-been-called-with optimizer/optimize-photo!
+                                    ["the photo"]
+                                    (controller/add-photo "album-id" {:photo "the photo"})))
+
+    (it "asks the optimizer to optimize the thumbnail"
+      (should-have-been-called-with optimizer/optimize-thumbnail!
+                                    ["the photo"]
+                                    (controller/add-photo "album-id" {:photo "the photo"})))
 
     (it "saves the photo file in a permanent location"
       (should-have-been-called-with store/save!
                                     ["album-id" "the photo"]
                                     (controller/add-photo "album-id" {:photo "the photo"})))
 
+    (it "saves the thumbnail file in a permanent location"
+      (should-have-been-called-with store/save-thumbnail!
+                                    ["album-id" "the photo"]
+                                    (controller/add-photo "album-id" {:photo "the photo"})))
+
     (it "asks the model to save the photo informations"
-      (let [photo-info {:url "url"}]
-        (with-redefs [store/save! (fn [& _] photo-info)]
+      (let [photo-info {:url "url"}
+            thumbnail-info {:url "thumbnail-url"}]
+        (with-redefs [store/save! (fn [& _] photo-info)
+                      store/save-thumbnail! (fn [& _] thumbnail-info)]
           (should-have-been-called-with albums/add-photo
-                                        ["album id" photo-info]
+                                        ["album id" photo-info thumbnail-info]
                                         (controller/add-photo "album id" {:tempfile "temp path"})))))))

@@ -74,4 +74,17 @@
       (it "should call the copy-s3! function"
         (should-have-been-called-with store/copy-s3!
                                       ["album-id" @file-info]
-                                      (store/save! "album-id" @file-info))))))
+                                      (store/save! "album-id" @file-info)))))
+
+  (describe "#to-thumbnail"
+    (with to-thumbnail #'iPerture.photos.photo-store/to-thumbnail)
+
+    (it "should prepend 'thumbnail/' to the filename of the photo"
+      (should= (@to-thumbnail {:filename "filename.ext"})
+               {:filename "thumbnail/filename.ext"})))
+
+  (describe "#save-thumbnail!"
+    (it "should call save! with thumbnail meta-data"
+      (should-have-been-called-with store/save!
+                                    ["album-id" {:filename "thumbnail/photoname.jpg"}]
+                                    (store/save-thumbnail! "album-id" {:filename "photoname.jpg"})))))

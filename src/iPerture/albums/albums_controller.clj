@@ -5,6 +5,7 @@
         [noir.response :only [json]])
   (:require [iPerture.albums.albums-view :as view]
             [iPerture.albums.albums :as albums]
+            [iPerture.image-optimizer :as optimizer]
             [iPerture.photos.photo-store :as store]
             [valip.core :as valip]))
 
@@ -26,6 +27,10 @@
     (view/render-edit-album album)))
 
 (defn add-photo [album-id {:keys [photo]}]
-  (json (->> photo
-             (store/save! album-id)
-             (albums/add-photo album-id))))
+  (let [optimized-photo (->> photo
+                             optimizer/optimize-photo!
+                             (store/save! album-id))
+        thumbnail (->> photo
+                       optimizer/optimize-thumbnail!
+                       (store/save-thumbnail! album-id))]
+    (json (albums/add-photo album-id optimized-photo thumbnail))))

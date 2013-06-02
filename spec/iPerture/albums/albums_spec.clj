@@ -15,12 +15,12 @@
 
     (it "should generate a new album id when created"
       (should-have-been-called-with albums/->Album
-                                    ["id" "title" []]
+                                    ["id" "title" nil]
                                     (albums/create "title")))
 
     (it "should ask neo to create a new album child"
       (should-have-been-called-with neo/create-child!
-                                    [:album (albums/->Album "id" "title" [])]
+                                    [:album (albums/->Album "id" "title" nil)]
                                     (albums/create "title"))))
 
   (describe "find-by"
@@ -35,6 +35,7 @@
 
   (describe "add-photo"
     (with photo-info {:url "photo-url"})
+    (with thumbnail-info {:url "thumbnail-url"})
 
     (around [it]
         (with-redefs [neo/add-relationship! (fn [& args])
@@ -42,11 +43,11 @@
           (it)))
 
     (it "should ask neo to add a photo relation"
-      (let [expected-photo (photos/->Photo "id" "photo-url" "photo-url")]
+      (let [expected-photo (photos/->Photo "id" "photo-url" "thumbnail-url")]
         (should-have-been-called-with neo/add-relationship!
                                       ["album id" :album expected-photo :photos]
-                                      (albums/add-photo "album id" @photo-info))))
+                                      (albums/add-photo "album id" @photo-info @thumbnail-info))))
 
     (it "should return the updated photo record"
-      (should= (photos/->Photo "id" "photo-url" "photo-url")
-               (albums/add-photo "album id" @photo-info)))))
+      (should= (photos/->Photo "id" "photo-url" "thumbnail-url")
+               (albums/add-photo "album id" @photo-info @thumbnail-info)))))

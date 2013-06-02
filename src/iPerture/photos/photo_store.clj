@@ -23,5 +23,11 @@
   (let [strategy (name (config :photo-storage-strategy))]
     (resolve (symbol (str "iPerture.photos.photo-store/copy-" strategy "!")))))
 
+(defn- to-thumbnail [{:keys [filename] :as file-info}]
+  (assoc file-info :filename (str "thumbnail/" filename)))
+
 (defn save! [album-id file-info]
   ((save-using-strategy) album-id file-info))
+
+(defn save-thumbnail! [album-id file-info]
+  (save! album-id (to-thumbnail file-info)))
