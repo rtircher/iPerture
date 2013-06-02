@@ -1,4 +1,5 @@
-(ns spin)
+(ns spin
+  (:use [logger :only [log]]))
 
 (def default-opts {
            :lines 11
@@ -20,7 +21,7 @@
            })
 
 (defn create-and-append-spinner [target & opts]
-  (js/console.log "adding spinner to " target)
+  (log "adding spinner to " target)
   (let [options (clj->js (merge default-opts opts))
         spinner (js/Spinner. options)]
     (.spin spinner target)

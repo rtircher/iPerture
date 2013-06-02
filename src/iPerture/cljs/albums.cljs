@@ -2,6 +2,7 @@
   (:require [net :as net]
             [spin :as spin]
             [enfocus.core :as ef])
+  (:use [logger :only [log]])
   (:require-macros [enfocus.macros :as em]))
 
 (def ^:private edit-album "/html/edit-album.html")
@@ -26,20 +27,20 @@
   (spin/create-and-append-spinner (by-id identifier) {:top "45"}))
 
 (defn- upload-success-handler [data identifier]
-  (js/console.log "FORM success: " data)
+  (log "FORM success: " data)
   (em/at js/document [(str "#" identifier)]
          (em/substitute (thumbnail-model (aget data "thumbnail-url")))))
 
 (defn- upload-photos [form identifier]
   (net/ajax-form form {:on-success #(upload-success-handler % identifier)
-                       :on-error (fn [& args] (js/console.log "FORM error: " args))}))
+                       :on-error (fn [& args] (log "FORM error: " args))}))
 
 (defn- photo-added-handler [& args]
   (let [form (first (goog.dom.getElementsByTagNameAndClass "form"))
         uri  (aget form "action")
         identifier (.now js/Date)]
     (display-placeholder identifier)
-    (js/console.log "Submitting form at url: " uri)
+    (log "Submitting form at url: " uri)
     (upload-photos form identifier)))
 
 
