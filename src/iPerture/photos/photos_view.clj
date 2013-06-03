@@ -24,7 +24,10 @@
              (html/set-attr :href page-url)))
 
 (defn- select-fullscreen-photo [photos photo-id]
-  (map #(assoc % :selected (= (:id %) photo-id)) photos))
+  (if photo-id
+    (map #(assoc % :selected (= (:id %) photo-id)) photos)
+    (cons (assoc (first photos) :selected true)
+          (map #(assoc % :selected false) (rest photos)))))
 
 (defn- photostream-url [album-id photo-id]
   (str "/photostreams/" album-id "/photos/" photo-id))
@@ -37,7 +40,9 @@
   (keep-indexed (fn [idx elt] (when (f elt) idx)) coll))
 
 (defn- get-current-photo-index [photos current-photo-id]
-  (first (positions #(= current-photo-id (:id %)) photos)))
+  (if current-photo-id
+    (first (positions #(= current-photo-id (:id %)) photos))
+    0))
 
 (defn- get-photo-at [photos index]
   (get (vec photos) index))
@@ -80,7 +85,7 @@
     #(render-empty-page)))
 
 (defn render-stream-for
-  ([album-id headers] (render-stream-for album-id "1" headers))
+  ([album-id headers] (render-stream-for album-id nil headers))
   ([album-id photo-id headers]
      (let [view-photos (get-photos-for-presentation album-id photo-id)]
        (common/execute-based-on-accept headers
