@@ -47,6 +47,6 @@
                 (illusioniste/transform-image
                  (load-photo file)
                  (resize (int width) (int height))
-                 ;; remove exif data
+                 (p_profile "*") ; remove exif data
                  )))
   photo)
