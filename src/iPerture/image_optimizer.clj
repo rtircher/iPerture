@@ -4,25 +4,18 @@
   (:import org.apache.commons.io.FileUtils
            org.im4java.core.Info))
 
+(def ^:private min-dimension 150)
+
 (defn- load-photo [file]
   (FileUtils/readFileToByteArray file))
 
 (defn- save-photo [file converted-photo]
   (FileUtils/writeByteArrayToFile file converted-photo))
 
-(defn optimize-photo! [{file :tempfile :as photo}]
-  (save-photo file
-              (illusioniste/transform-image
-               (load-photo file)
-               (resize (int 1600))))
-  photo)
-
 (defn- image-info [file]
   (let [info (Info. (.getCanonicalPath file))]
     {:height (.getImageHeight info)
      :width  (.getImageWidth info)}))
-
-(def ^:private min-dimension 150)
 
 (defn- keep-aspect-ration [min other]
   (* other (/ min-dimension min)))
@@ -39,6 +32,13 @@
 
     {:width  (calculate-dimension width height)
      :height (calculate-dimension height width)}))
+
+(defn optimize-photo! [{file :tempfile :as photo}]
+  (save-photo file
+              (illusioniste/transform-image
+               (load-photo file)
+               (resize (int 1600))))
+  photo)
 
 (defn optimize-thumbnail! [{file :tempfile :as photo}]
   (let [{:keys [width height]} (image-info file)
