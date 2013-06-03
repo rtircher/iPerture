@@ -18,7 +18,7 @@
      :width  (.getImageWidth info)}))
 
 (defn- keep-aspect-ration [min other]
-  (* other (/ min-dimension min)))
+  (Math/ceil (* other (/ min-dimension min))))
 
 (defn- calculate-dimension [size1 size2]
   (if (< size1 size2)

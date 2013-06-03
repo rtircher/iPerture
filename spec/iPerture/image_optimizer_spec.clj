@@ -22,8 +22,12 @@
                (:width (@calculate-thumbnail-dimensions 200 300))))
 
     (it "should keep the aspect ratio for height"
-      (should= 225
-               (:height (@calculate-thumbnail-dimensions 200 300)))))
+      (should= 225.0
+               (:height (@calculate-thumbnail-dimensions 200 300))))
+
+    (it "should round the height up if the ratio result is non-integer"
+      (should= 226.0
+               (:height (@calculate-thumbnail-dimensions 200 301)))))
 
   (context "when height is smaller than width"
     (it "should have a height of 150"
@@ -31,5 +35,9 @@
                (:height (@calculate-thumbnail-dimensions 400 200))))
 
     (it "should keep the aspect ratio for height"
-      (should= 300
-               (:width (@calculate-thumbnail-dimensions 400 200))))))
+      (should= 300.0
+               (:width (@calculate-thumbnail-dimensions 400 200))))
+
+    (it "should round the width up if the ratio result is non-integer"
+      (should= 301.0
+               (:width (@calculate-thumbnail-dimensions 401 200))))))
