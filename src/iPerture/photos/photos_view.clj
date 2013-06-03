@@ -64,7 +64,7 @@
                       (html/content "Photo not found")))
 
 (defn- get-photos-for-presentation [album-id displayed-photo-id]
-  (when-let [photos (photos/get-album album-id)]
+  (when-let [photos (photos/photos-from album-id)]
     (-> photos
         (select-fullscreen-photo displayed-photo-id)
         (add-page-url-of-photos album-id))))
