@@ -4,7 +4,7 @@
         [iPerture.util.response :only [post-error-response]]
         [noir.response :only [json]])
   (:require [iPerture.albums.albums-view :as view]
-            [iPerture.albums.albums :as albums]
+            [iPerture.photos.photos :as photos]
             [iPerture.image-optimizer :as optimizer]
             [iPerture.photos.photo-store :as store]
             [valip.core :as valip]))
@@ -19,11 +19,11 @@
 (defn create [{title :create-album-title :as params}]
   (if-let [errors (invalid params)]
     (post-error-response (view/render-new-album errors))
-    (let [album (albums/create title)]
+    (let [album (photos/create-album title)]
       (redirect-after-post (str "/albums/" (:id album) "/edit")))))
 
 (defn edit [album-id]
-  (when-let [album (albums/find-by album-id)]
+  (when-let [album (photos/find-album-by album-id)]
     (view/render-edit-album album)))
 
 (defn add-photo [album-id {:keys [photo]}]
@@ -33,4 +33,4 @@
         thumbnail (->> photo
                        optimizer/optimize-thumbnail!
                        (store/save-thumbnail! album-id))]
-    (json (albums/add-photo album-id optimized-photo thumbnail))))
+    (json (photos/add-photo album-id optimized-photo thumbnail))))

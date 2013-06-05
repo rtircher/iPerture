@@ -2,7 +2,7 @@
   (:use [speclj.core]
         [iPerture.spec-helper])
   (:require [net.cgrand.enlive-html :as html]
-            [iPerture.albums.albums :as albums]
+            [iPerture.photos.photos :as photos]
             [iPerture.albums.albums-view :as view]))
 
 (describe "albums-view"
@@ -18,7 +18,7 @@
       (match-selector [[:form (html/attr= :method "POST")]] (view/render-new-album))))
 
   (describe "fn render-edit-album"
-    (with album (albums/->Album 123 "the album title" []))
+    (with album (photos/->Album 123 "the album title" []))
 
     (it "should display the album title"
       (should-contain "the album title" [:.album-title] (view/render-edit-album @album)))

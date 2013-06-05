@@ -4,7 +4,7 @@
         [ring.util.response :only [redirect-after-post]])
   (:require [iPerture.albums.albums-controller :as controller]
             [iPerture.albums.albums-view :as view]
-            [iPerture.albums.albums :as albums]
+            [iPerture.photos.photos :as photos]
             [iPerture.image-optimizer :as optimizer]
             [iPerture.photos.photo-store :as store]))
 
@@ -19,12 +19,12 @@
     (with-all params {:create-album-title "title"})
 
     (it "should create a new album with the provided title"
-      (should-have-been-called-with albums/create
+      (should-have-been-called-with photos/create-album
                                     ["title"]
                                     (controller/create @params)))
 
     (it "should ask the view to render an empty edit album page with the provided title"
-      (with-redefs [albums/create (fn [title] (albums/->Album "id" title []))]
+      (with-redefs [photos/create-album (fn [title] (photos/->Album "id" title []))]
         (should-have-been-called-with redirect-after-post
                                       ["/albums/id/edit"]
                                       (controller/create @params))))
@@ -45,26 +45,26 @@
                                       (controller/create @params)))
 
       (it "should not create a new album"
-        (should-not-have-been-called albums/create
+        (should-not-have-been-called photos/create-album
                                      (controller/create @params)))))
 
   (describe "edit"
     (it "should find the album based on the provided id"
       (with-redefs [view/render-edit-album (fn [& _])]
-        (should-have-been-called-with albums/find-by
+        (should-have-been-called-with photos/find-album-by
                                       ["id"]
                                       (controller/edit "id"))))
 
     (it "should ask the view to render the page with the album found"
-      (let [album (albums/->Album "id" "title" [])]
-        (with-redefs [albums/find-by (fn [id] album)]
+      (let [album (photos/->Album "id" "title" [])]
+        (with-redefs [photos/find-album-by (fn [id] album)]
           (should-have-been-called-with view/render-edit-album
                                         [album]
                                         (controller/edit "id"))))))
 
   (describe "add-photo"
     (around [it]
-        (with-redefs [albums/add-photo (fn [_ _ _])
+        (with-redefs [photos/add-photo (fn [_ _ _])
                       store/save! (fn [& _])
                       store/save-thumbnail! (fn [& _])
                       optimizer/optimize-photo! (fn [photo] photo)
@@ -96,6 +96,6 @@
             thumbnail-info {:url "thumbnail-url"}]
         (with-redefs [store/save! (fn [& _] photo-info)
                       store/save-thumbnail! (fn [& _] thumbnail-info)]
-          (should-have-been-called-with albums/add-photo
+          (should-have-been-called-with photos/add-photo
                                         ["album id" photo-info thumbnail-info]
                                         (controller/add-photo "album id" {:tempfile "temp path"})))))))
