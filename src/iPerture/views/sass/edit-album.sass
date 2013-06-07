@@ -20,7 +20,15 @@ $tile-size: 150px
   color: $font-color-light
   margin: 10px 10px 20px 10px
 
+-tile
+  position: relative
+  float: left
+  width: $tile-size
+  height: $tile-size
+  margin: 10px
+
 .photo
+  @extend -tile
   background:
     repeat: no-repeat
     position: center
@@ -31,14 +39,8 @@ $tile-size: 150px
       content: "Delete photo"
       color: lighten($font-color-light, 10)
 
-.photo, .add-photo-button, .loading-placeholder
-  position: relative
-  float: left
-  width: $tile-size
-  height: $tile-size
-  margin: 10px
-
 .loading-placeholder
+  @extend -tile
   background-color: rgba(0, 0, 0, .4)
 
   .label
@@ -51,21 +53,24 @@ $tile-size: 150px
     font-size: 13px
 
 .add-photo-button
+  @extend -tile
+
   form
     position: relative
     display: block
     width: 100%
     height: 100%
 
-  input, .add-photo-overlay
+  -overlay
     position: absolute
     top: 0
     left: 0
     width: $tile-size
     height: $tile-size
     padding: 0
-      
+
   input
+    @extend -overlay
     opacity: 0
     z-index: 2
 
@@ -73,4 +78,5 @@ $tile-size: 150px
       background-color: rgba(0, 0, 0, .6)
 
   .add-photo-overlay
+    @extend -overlay
     @include hover-style
