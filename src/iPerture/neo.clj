@@ -1,6 +1,6 @@
 (ns iPerture.neo
   (:use iPerture.config)
-  (:require [borneo.core :as neo]))
+  (:require [kalimantan.core :as neo]))
 
 (defmacro ^:private with-local-db! [body]
   `(neo/with-local-db! (config :db-path)

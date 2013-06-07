@@ -1,6 +1,6 @@
 (ns iPerture.db-test
   (:use clojure.pprint)
-  (:require [borneo.core :as neo]))
+  (:require [kalimantan.core :as neo]))
 
 (def dummy-images
   [{:id "1"

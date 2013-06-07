@@ -2,7 +2,7 @@
   (:use [speclj.core]
         [iPerture.spec-helper])
   (:require [iPerture.neo :as neo]
-            [borneo.core :as borneo]))
+            [kalimantan.core :as borneo]))
 
 (describe "neo"
   (around [it]

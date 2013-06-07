@@ -1,7 +1,7 @@
 (defproject iPerture "0.1.0"
   :description "Personal website written to test random stuffs with Clojure, ClojureScript,..."
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [borneo "0.3.0"]
+                 [kalimantan "0.0.2"]
                  [slingshot "0.10.3"]
                  [compojure "1.1.5"]
                  [lib-noir "0.4.9"]
