@@ -4,6 +4,7 @@ guard 'haml', :output => 'resources/public/html',
 end
 
 guard 'sass', :output => 'resources/public/css',
+              :load_paths => ['resources/public/css'],
               :input => 'src/iPerture/views/sass',
               :smart_partials => true,
               :style => :nested,
