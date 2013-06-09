@@ -1,7 +1,8 @@
 (ns albums
   (:require [net :as net]
             [spin :as spin]
-            [enfocus.core :as ef])
+            [enfocus.core :as ef]
+            [domina :as dom])
   (:use [logger :only [log]])
   (:require-macros [enfocus.macros :as em]))
 
@@ -26,12 +27,16 @@
          (em/before (loading-indicator-model identifier)))
   (spin/create-and-append-spinner (by-id identifier) {:top "45"}))
 
+(defn- reset-add-photo-input []
+  (aset (dom/single-node (em/select [".photo-file-input"])) "value" ""))
+
 (defn- upload-success-handler [data identifier]
   (log "FORM success: " data)
   (em/at (em/select [(str "#" identifier)])
          (em/substitute (thumbnail-model (aget data "thumbnail-url")))))
 
 (defn- upload-photos [form identifier]
+  (log "Submitting form at url: " uri)
   (net/ajax-form form {:on-success #(upload-success-handler % identifier)
                        :on-error (fn [& args] (log "FORM error: " args))}))
 
@@ -40,8 +45,8 @@
         uri  (aget form "action")
         identifier (.now js/Date)]
     (display-placeholder identifier)
-    (log "Submitting form at url: " uri)
-    (upload-photos form identifier)))
+    (upload-photos form identifier)
+    (reset-add-photo-input)))
 
 
 (em/defaction start [] 
