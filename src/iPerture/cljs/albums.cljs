@@ -33,10 +33,9 @@
 (defn- upload-success-handler [data identifier]
   (log "FORM success: " data)
   (em/at (em/select [(str "#" identifier)])
-         (em/substitute (thumbnail-model (aget data "thumbnail-url")))))
+         (em/substitute (thumbnail-model (aget (first data) "thumbnail-url")))))
 
 (defn- upload-photos [form identifier]
-  (log "Submitting form at url: " uri)
   (net/ajax-form form {:on-success #(upload-success-handler % identifier)
                        :on-error (fn [& args] (log "FORM error: " args))}))
 
@@ -44,6 +43,7 @@
   (let [form (dom/single-node (em/select ["#add-photo"]))
         uri  (aget form "action")
         identifier (.now js/Date)]
+    (log "Submitting form at url: " uri)
     (display-placeholder identifier)
     (upload-photos form identifier)
     (reset-add-photo-input)))

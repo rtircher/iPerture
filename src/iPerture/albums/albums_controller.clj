@@ -26,11 +26,18 @@
   (when-let [album (photos/find-album-by album-id)]
     (view/render-edit-album album)))
 
-(defn add-photo [album-id {:keys [photo]}]
+(defn- do-add-photo [album-id photo]
   (let [optimized-photo (->> photo
                              optimizer/optimize-photo!
                              (store/save! album-id))
         thumbnail (->> photo
                        optimizer/optimize-thumbnail!
                        (store/save-thumbnail! album-id))]
-    (json (photos/add-photo album-id optimized-photo thumbnail))))
+    (photos/add-photo album-id optimized-photo thumbnail)))
+
+(defn- ensure-coll [coll]
+  (if (vector? coll) coll [coll]))
+
+(defn add-photos [album-id params]
+  (let [photos (ensure-coll (get params "photos"))]
+    (json (map (partial do-add-photo album-id) photos))))

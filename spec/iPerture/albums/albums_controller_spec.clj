@@ -1,7 +1,8 @@
 (ns iPerture.albums.albums-controller-spec
   (:use [speclj.core]
         [iPerture.spec-helper]
-        [ring.util.response :only [redirect-after-post]])
+        [ring.util.response :only [redirect-after-post]]
+        [noir.response :only [json]])
   (:require [iPerture.albums.albums-controller :as controller]
             [iPerture.albums.albums-view :as view]
             [iPerture.photos.photos :as photos]
@@ -62,7 +63,7 @@
                                         [album]
                                         (controller/edit "id"))))))
 
-  (describe "add-photo"
+  (describe "add-photos"
     (around [it]
         (with-redefs [photos/add-photo (fn [_ _ _])
                       store/save! (fn [& _])
@@ -71,25 +72,27 @@
                       optimizer/optimize-thumbnail! (fn [photo] photo)]
           (it)))
 
+    (with the-photo {"photos" "the photo"})
+
     (it "asks the optimizer to optimize the photo"
       (should-have-been-called-with optimizer/optimize-photo!
                                     ["the photo"]
-                                    (controller/add-photo "album-id" {:photo "the photo"})))
+                                    (controller/add-photos "album-id" @the-photo)))
 
     (it "asks the optimizer to optimize the thumbnail"
       (should-have-been-called-with optimizer/optimize-thumbnail!
                                     ["the photo"]
-                                    (controller/add-photo "album-id" {:photo "the photo"})))
+                                    (controller/add-photos "album-id" @the-photo)))
 
     (it "saves the photo file in a permanent location"
       (should-have-been-called-with store/save!
                                     ["album-id" "the photo"]
-                                    (controller/add-photo "album-id" {:photo "the photo"})))
+                                    (controller/add-photos "album-id" @the-photo)))
 
     (it "saves the thumbnail file in a permanent location"
       (should-have-been-called-with store/save-thumbnail!
                                     ["album-id" "the photo"]
-                                    (controller/add-photo "album-id" {:photo "the photo"})))
+                                    (controller/add-photos "album-id" @the-photo)))
 
     (it "asks the model to save the photo informations"
       (let [photo-info {:url "url"}
@@ -98,4 +101,9 @@
                       store/save-thumbnail! (fn [& _] thumbnail-info)]
           (should-have-been-called-with photos/add-photo
                                         ["album id" photo-info thumbnail-info]
-                                        (controller/add-photo "album id" {:tempfile "temp path"})))))))
+                                        (controller/add-photos "album id" {:photos {:tempfile "temp path"}})))))
+
+    (it "should accept more than one photo"
+      (with-redefs [photos/add-photo (fn [_ _ _] "added")]
+        (should= (json ["added" "added"])
+                 (controller/add-photos "album-id" {"photos" ["photo1" "photo2"]}))))))
