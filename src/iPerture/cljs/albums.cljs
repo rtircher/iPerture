@@ -22,13 +22,13 @@
   [:.loading-placeholder] (em/set-attr :id identifier))
 
 (defn- display-placeholder [identifier]
-  (em/at js/document [".photos > *:last-child"]
+  (em/at (em/select [".photos > *:last-child"])
          (em/before (loading-indicator-model identifier)))
   (spin/create-and-append-spinner (by-id identifier) {:top "45"}))
 
 (defn- upload-success-handler [data identifier]
   (log "FORM success: " data)
-  (em/at js/document [(str "#" identifier)]
+  (em/at (em/select [(str "#" identifier)])
          (em/substitute (thumbnail-model (aget data "thumbnail-url")))))
 
 (defn- upload-photos [form identifier]
