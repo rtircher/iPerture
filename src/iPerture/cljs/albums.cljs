@@ -41,7 +41,7 @@
                        :on-error (fn [& args] (log "FORM error: " args))}))
 
 (defn- photo-added-handler [& args]
-  (let [form (first (goog.dom.getElementsByTagNameAndClass "form"))
+  (let [form (dom/single-node (em/select ["#add-photo"]))
         uri  (aget form "action")
         identifier (.now js/Date)]
     (display-placeholder identifier)
