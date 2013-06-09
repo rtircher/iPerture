@@ -7,6 +7,7 @@
                  [lib-noir "0.4.9"]
                  [enlive "1.1.1"]
                  [enfocus "1.0.1"]
+                 [tailrecursion/javelin "1.0.0-SNAPSHOT"]
                  [rtircher.illusioniste "1.0.1"]
                  [org.apache.directory.studio/org.apache.commons.io "2.4"]
                  [com.cemerick/valip "0.3.2"]]
