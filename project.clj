@@ -18,7 +18,9 @@
                              [lein-ring "0.8.3"]
                              [speclj "2.5.0"]]
                    :test-paths ["spec/"]
-                   :jvm-opts ["-DiPerture.env=development" "-Dim4java.useGM=true"]
+                   :jvm-opts ["-DiPerture.env=development"
+                              "-Dim4java.useGM=true" ; -> Use GraphicMagick instead of ImageMagick
+                              ]
                    :cljsbuild {:builds [{
                                          ;; The path to the top-level ClojureScript source directory:
                                          :source-paths ["src/iPerture/cljs"],
