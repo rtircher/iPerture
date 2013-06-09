@@ -33,7 +33,9 @@
 (defn- upload-success-handler [data identifier]
   (log "FORM success: " data)
   (em/at (em/select [(str "#" identifier)])
-         (em/substitute (thumbnail-model (aget (first data) "thumbnail-url")))))
+         (em/do->
+          (em/substitute "")
+          (em/after (map #(thumbnail-model (aget % "thumbnail-url")) data)))))
 
 (defn- upload-photos [form identifier]
   (net/ajax-form form {:on-success #(upload-success-handler % identifier)
