@@ -43,7 +43,7 @@
 
 (defn- photo-added-handler [& args]
   (let [form (dom/single-node (em/select ["#add-photo"]))
-        uri  (aget form "action")
+        uri  (.-action form)
         identifier (.now js/Date)]
     (log "Submitting form at url: " uri)
     (display-placeholder identifier)
