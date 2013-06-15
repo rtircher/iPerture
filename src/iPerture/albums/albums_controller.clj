@@ -1,13 +1,14 @@
 (ns iPerture.albums.albums-controller
-  (:use [valip.predicates :only [present?]]
-        [ring.util.response :only [redirect-after-post]]
+  (:use [valip.predicates       :only [present?]]
+        [ring.util.response     :only [redirect-after-post]]
         [iPerture.util.response :only [post-error-response]]
-        [noir.response :only [json]])
+        [noir.response          :only [json]])
   (:require [iPerture.albums.albums-view :as view]
-            [iPerture.photos.photos :as photos]
-            [iPerture.image-optimizer :as optimizer]
+            [iPerture.photos.photos      :as photos]
+            [iPerture.image-optimizer    :as optimizer]
             [iPerture.photos.photo-store :as store]
-            [valip.core :as valip]))
+            [iPerture.delayed-job        :as dj]
+            [valip.core                  :as valip]))
 
 (defn new []
   (view/render-new-album))
@@ -39,5 +40,16 @@
   (if (vector? coll) coll [coll]))
 
 (defn add-photos [album-id params]
-  (let [photos (ensure-coll (get params "photos"))]
-    (json (map (partial do-add-photo album-id) photos))))
+  (let [photos (ensure-coll (get params "photos"))
+        job-id (dj/submit-job
+                ;; -> can we parallelize this?
+                #(map (partial do-add-photo album-id) photos))
+        status-url (str "/albums/" album-id "/add-photos-status/" job-id)]
+    {:status 201
+     :headers {"Location" status-url}
+     :body status-url}))
+
+(defn add-photos-status [job-id]
+  (when-let [job-result (dj/result job-id)]
+    (if-not (= :processing job-result) (dj/remove-job job-id))
+    (json job-result)))

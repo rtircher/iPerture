@@ -1,7 +1,7 @@
 (ns iPerture.core
   (:use compojure.core
-        [slingshot.slingshot :only [try+]]
-        [noir.response :only [json]]
+        [slingshot.slingshot  :only [try+]]
+        [noir.response        :only [json]]
         [noir.util.middleware :only [wrap-strip-trailing-slash]])
   (:require [compojure.handler                 :as handler]
             [compojure.route                   :as route]
@@ -21,11 +21,14 @@
     (GET "/:album-id/edit" [album-id]
       (albums-controller/edit album-id))
     (POST "/:album-id/photos" [album-id :as {params :multipart-params}]
-      (albums-controller/add-photos album-id params)))
+      (albums-controller/add-photos album-id params))
+    (GET "/:album-id/add-photos-status/:job-id" [job-id]
+      (albums-controller/add-photos-status job-id)))
 
   (route/resources "/")
 
   (route/not-found (slurp "resources/public/html/404.html")))
+
 
 (defn- wrap-error-handling [handler]
   (fn [req]

@@ -30,15 +30,27 @@
 (defn- reset-add-photo-input []
   (aset (dom/single-node (em/select [".photo-file-input"])) "value" ""))
 
-(defn- upload-success-handler [data identifier]
-  (log "FORM success: " data)
+(defn- display-thumbnail [data identifier]
   (em/at (em/select [(str "#" identifier)])
          (em/do->
-          (em/substitute "")
-          (em/after (map #(thumbnail-model (aget % "thumbnail-url")) data)))))
+          (em/after (map #(thumbnail-model (aget % "thumbnail-url")) data))
+          (em/substitute ""))))
+
+(defn- upload-success-handler [status-url identifier]
+  (log "FORM success: " status-url)
+  (js/setTimeout
+   #(net/get status-url
+             {:on-success (fn [data]
+                            (log "status success: " data)
+                            (if (= data "processing")
+                              (upload-success-handler status-url identifier)
+                              (display-thumbnail data identifier)))
+              :on-error (fn [& args] (log "Add photo status error: " args))})
+   1500))
 
 (defn- upload-photos [form identifier]
-  (net/ajax-form form {:on-success #(upload-success-handler % identifier)
+  (net/ajax-form form {:on-success (fn [data iFormIO]
+                                     (upload-success-handler (.getResponseText iFormIO) identifier))
                        :on-error (fn [& args] (log "FORM error: " args))}))
 
 (defn- photo-added-handler [& args]
