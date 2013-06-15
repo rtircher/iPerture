@@ -24,7 +24,7 @@ end
 
 execute "kill-ring-server" do
   command <<-EOS
-kill `ps ax | grep [c]ompojure | awk '{print $1}'`
+kill `ps ax | grep "[r]ing server-headless" | awk '{print $1}'`
 for i in {0..30}; do
   netstat -an | grep 5000 &> /dev/null
   if [ $? == 0 ]; then
