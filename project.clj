@@ -1,5 +1,6 @@
 (defproject iPerture "0.1.0"
   :description "Personal website written to test random stuffs with Clojure, ClojureScript,..."
+  :min-lein-version "2.1.1"
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [kalimantan "0.0.2"]
                  [slingshot "0.10.3"]
