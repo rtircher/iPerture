@@ -1,0 +1,2 @@
+lein cljsbuild once
+bundle exec rake assets
