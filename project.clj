@@ -2,13 +2,13 @@
   :description "Personal website written to test random stuffs with Clojure, ClojureScript,..."
   :min-lein-version "2.1.1"
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [kalimantan "0.0.2"]
+                 [borneo "0.4.0"]
                  [slingshot "0.10.3"]
                  [compojure "1.1.5"]
                  [lib-noir "0.4.9"]
                  [enlive "1.1.1"]
                  [enfocus "1.0.1"]
-                 [tailrecursion/javelin "1.0.0-SNAPSHOT"]
+                 ;; [tailrecursion/javelin "1.0.0-SNAPSHOT"]
                  [rtircher.illusioniste "1.0.1"]
                  [org.apache.directory.studio/org.apache.commons.io "2.4"]
                  [com.cemerick/valip "0.3.2"]]

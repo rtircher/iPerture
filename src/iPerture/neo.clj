@@ -1,9 +1,9 @@
 (ns iPerture.neo
   (:use iPerture.config)
-  (:require [kalimantan.core :as neo]))
+  (:require [borneo.core :as neo]))
 
 (defmacro ^:private with-local-db! [body]
-  `(neo/with-local-db! (config :db-path)
+  `(neo/with-db! (config :db-path)
      ~body))
 
 (defn- do-create-child! [node type props]
