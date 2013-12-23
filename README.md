@@ -6,6 +6,20 @@ A website written in noir.
 
 All the following instructions assume they are run from the project root directory.
 
+### Prerequisites 
+Install GraphicsMagick. On MacOS:
+
+```bash
+brew install graphicsmagick  
+```
+
+Install Ruby, Bundler, and the rubygems:
+
+```bash
+gem install bundler
+bundle install
+```
+
 ### In development
 
 Use this handy command line that will (to be implemented with leiningen)
@@ -17,17 +31,25 @@ Use this handy command line that will (to be implemented with leiningen)
 
 ### Starting all these task separately
 
+Use guard to compile the haml and sass files (it will also watch for changes to the files and recompile automatically)
+
+```bash
+bundle exec guard
+```
+
+You can also compile the assets once by running `bundle exec rake assets`
+
+Generate javascripts from ClojureScripts
+
+```bash
+lein cljsbuild once # Builds the JavaScript files once
+lein cljsbuild auto # Watches for changes and automatically builds the JavaScript files
+```
+
 Start webserver
 
 ```bash
 lein ring server-headless
-```
-
-Use lein haml-sass plugin to compile the haml and sass files
-
-```bash
-lein haml-sass once
-lein haml-sass auto
 ```
 
 Run the Clojure unit tests automatically on file change
@@ -37,13 +59,6 @@ lein spec -a -f growl
 ```
 
 The `-f growl` option is used to interact with growl notification system (it is not required to run the tests)
-
-Generate javascripts from ClojureScripts
-
-```bash
-lein cljsbuild once # Builds the JavaScript files once
-lein cljsbuild auto # Watches for changes and automatically builds the JavaScript files
-```
 
 
 ## License
