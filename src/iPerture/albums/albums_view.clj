@@ -2,7 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [iPerture.views.common :as common]))
 
-(def ^:private new-albums-template (html/html-resource "public/html/albums.html"))
+(def ^:private new-albums-template (html/html-resource "public/html/albums/new.html"))
 
 (html/deftemplate ^:private render-new-album-template new-albums-template [errors]
   [:.create-album] (html/do->
@@ -18,7 +18,7 @@
 
 ;; Edit page
 
-(def ^:private edit-album (html/html-resource "public/html/edit-album.html"))
+(def ^:private edit-album (html/html-resource "public/html/albums/edit.html"))
 
 (html/defsnippet thumbnail-model edit-album [[:.photo (html/nth-of-type 1)]]
   [{:keys [thumbnail-url]}]
