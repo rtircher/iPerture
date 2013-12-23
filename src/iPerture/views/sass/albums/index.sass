@@ -1,0 +1,94 @@
+@import "common"
+@import "shadows"
+
+$size: 200px
+$border-width: 10px
+$margin-size: 15px
+$border-color: rgb(255, 255, 255)
+
+@mixin album-size
+  width: $size
+  height: $size
+
+@mixin rotate($deg)
+  -webkit-transform-origin: bottom left
+  -moz-transform-origin: bottom left
+  transform-origin: bottom left
+  -webkit-transform: rotate($deg)
+  -moz-transform: rotate($deg)
+  transform: rotate($deg)
+
+#albums.index
+  color: rgb(255, 255, 255)
+  font-size: 18px
+
+.title
+  margin-left: 50px
+  margin-top: 20px
+
+.background-style
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background-size: cover
+
+.albums
+  padding: 50px
+  overflow: hidden
+  display: block
+
+.album, .thumbnail::before, .thumbnail::after
+  position: absolute
+  top: 0
+
+.album
+  width: $size - 2 * $border-width
+  height: $size - 2 * $border-width
+  background-size: cover
+  background-repeat: no-repeat
+  background-position: center
+
+.thumbnail, .thumbnail::before, .thumbnail::after
+  @include album-size
+  @include box-shadow( 0 1px 4px rgba(0, 0, 0, 0.4) )
+  border-radius: 3px
+  display: block
+  border: $border-width solid $border-color
+
+.thumbnail
+  position: relative
+  float: left
+  margin: $margin-size
+
+.thumbnail::before, .thumbnail::after
+  content: ""
+  margin-top: -$border-width
+  margin-left: -$border-width
+  background-color: $border-color
+
+.thumbnail::before
+  @include rotate( 2deg )
+  z-index: -10
+
+.thumbnail::after
+  @include rotate( 4deg )
+  z-index: -20
+
+.album-title
+  display: none
+  width: $size - 2 * $border-width
+  max-height: 85px
+  overflow: hidden
+  vertical-align: bottom
+  text-align: right
+  text-shadow: 1px 1px 0 #242424
+  padding: 5px
+  position: absolute
+  bottom: 0
+  left: 0
+
+
+.album-title:hover, .album:hover + .album-title
+  display: block
