@@ -91,3 +91,12 @@ h6 {font-size: 0.8em;}
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
+
+*::before, *::after {
+  box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -icab-box-sizing: border-box;
+  -khtml-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
