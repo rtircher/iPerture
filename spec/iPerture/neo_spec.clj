@@ -2,7 +2,7 @@
   (:use [speclj.core]
         [iPerture.spec-helper])
   (:require [iPerture.neo :as neo]
-            [kalimantan.core :as borneo]))
+            [borneo.core :as borneo]))
 
 (describe "neo"
   (around [it]
@@ -27,6 +27,24 @@
                                         ([_ _ _ _] [{:id "id"}])
                                         ([_ _] [{:id "rel-id"}]))]
           (should= expected (@do-find "id" :type :rel1 :rel2))))))
+
+  (describe "find-all"
+    (it "should ask neo to fetch all the nodes of type"
+      (let [expected [{:id "id" :other "stuff"}, {:id "another id"}]]
+        (with-redefs [borneo/traverse (fn [& _] expected)]
+          (should= expected (neo/find-all :type)))))
+
+    (it "should resolve all the nodes"
+      (with-redefs [borneo/traverse (fn [_ _] [{}])]
+        (should-have-been-called doall
+                                 (neo/find-all :type)
+                                 identity)))
+
+    (it "should transfor the neo data into a map"
+      (with-redefs [borneo/traverse (fn [_ _] [{}])]
+        (should-have-been-called borneo/props
+                                 (neo/find-all :type)
+                                 identity))))
 
   (describe "do-add-relationship!"
     (with do-add-relationship! #'iPerture.neo/do-add-relationship!)

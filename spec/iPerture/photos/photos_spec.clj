@@ -63,4 +63,19 @@
 
     (it "should return the updated photo record"
       (should= (photos/->Photo "id" "photo-url" "thumbnail-url")
-               (photos/add-photo "album id" @photo-info @thumbnail-info)))))
+               (photos/add-photo "album id" @photo-info @thumbnail-info))))
+
+  (describe "find-all-albums"
+    (with album-data [{:id "id1" :title "album 1" :photos nil,}
+                      {:id "id2" :title "album 2" :photos nil}
+                      {:id "id3" :title "album 3" :photos nil}])
+
+    (around [it]
+        (with-redefs [neo/find-all (fn [& args] @album-data)]
+          (it)))
+
+    (it "should create the albums from the albums data returns by neo"
+      (should= [(photos/->Album "id1" "album 1" nil),
+                (photos/->Album "id2" "album 2" nil),
+                (photos/->Album "id3" "album 3" nil)]
+               (photos/find-all-albums)))))

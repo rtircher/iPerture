@@ -46,3 +46,7 @@
 (defn find [id type & relationships]
   (with-local-db!
     (apply do-find id type relationships)))
+
+(defn find-all [type]
+  (with-local-db!
+    (doall (map neo/props (neo/traverse (neo/root) type)))))
