@@ -71,10 +71,14 @@ $border-color: rgb(255, 255, 255)
 .thumbnail::before
   @include rotate( 2deg )
   z-index: -10
-
 .thumbnail::after
   @include rotate( 4deg )
   z-index: -20
+
+.thumbnail:active::before
+  @include rotate(4deg)
+.thumbnail:active::after
+  @include rotate(8deg)
 
 .album-title
   display: none

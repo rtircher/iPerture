@@ -1,8 +1,16 @@
 @mixin opacity-transition( $delay )
   -webkit-transition: opacity $delay
   -moz-transition: opacity $delay
+  -ms-transition: opacity $delay
   -o-transition: opacity $delay
   transition: opacity $delay
+
+@mixin transition( $property, $delay, $function )
+  -webkit-transition: $property $delay $function
+  -moz-transition: $property $delay $function
+  -ms-transition: $property $delay $function
+  -o-transition: $property $delay $function
+  transition: $property $delay $function
 
 @mixin animation($action, $timing)
   -webkit-animation: $action $timing
