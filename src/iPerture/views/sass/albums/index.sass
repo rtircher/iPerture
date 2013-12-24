@@ -39,45 +39,45 @@ $border-color: rgb(255, 255, 255)
   overflow: hidden
   display: block
 
-.album, .thumbnail::before, .thumbnail::after
+.thumbnail, .album::before, .album::after
   position: absolute
   top: 0
 
-.album
+.thumbnail
   width: $size - 2 * $border-width
   height: $size - 2 * $border-width
   background-size: cover
   background-repeat: no-repeat
   background-position: center
 
-.thumbnail, .thumbnail::before, .thumbnail::after
+.album, .album::before, .album::after
   @include album-size
   @include box-shadow( 0 1px 4px rgba(0, 0, 0, 0.4) )
   border-radius: 3px
   display: block
   border: $border-width solid $border-color
 
-.thumbnail
+.album
   position: relative
   float: left
   margin: $margin-size
 
-.thumbnail::before, .thumbnail::after
+.album::before, .album::after
   content: ""
   margin-top: -$border-width
   margin-left: -$border-width
   background-color: $border-color
 
-.thumbnail::before
+.album::before
   @include rotate( 2deg )
   z-index: -10
-.thumbnail::after
+.album::after
   @include rotate( 4deg )
   z-index: -20
 
-.thumbnail:active::before
+.album:active::before
   @include rotate(4deg)
-.thumbnail:active::after
+.album:active::after
   @include rotate(8deg)
 
 .album-title
@@ -94,5 +94,5 @@ $border-color: rgb(255, 255, 255)
   left: 0
 
 
-.album-title:hover, .album:hover + .album-title
+.album-title:hover, .thumbnail:hover + .album-title
   display: block
