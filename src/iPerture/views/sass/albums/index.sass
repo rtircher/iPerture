@@ -39,16 +39,9 @@ $border-color: rgb(255, 255, 255)
   overflow: hidden
   display: block
 
-.thumbnail, .album::before, .album::after
+.album::before, .album::after
   position: absolute
   top: 0
-
-.thumbnail
-  width: $size - 2 * $border-width
-  height: $size - 2 * $border-width
-  background-size: cover
-  background-repeat: no-repeat
-  background-position: center
 
 .album, .album::before, .album::after
   @include album-size
@@ -61,6 +54,9 @@ $border-color: rgb(255, 255, 255)
   position: relative
   float: left
   margin: $margin-size
+  background-size: cover
+  background-repeat: no-repeat
+  background-position: center
 
 .album::before, .album::after
   content: ""
@@ -94,5 +90,5 @@ $border-color: rgb(255, 255, 255)
   left: 0
 
 
-.album-title:hover, .thumbnail:hover + .album-title
+.album-title:hover, .album:hover .album-title
   display: block
