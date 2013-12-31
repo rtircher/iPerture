@@ -14,3 +14,4 @@ pom.xml
 /resources/public/img/local
 /chef/cookbooks/
 /chef/tmp/
+.nrepl-port
