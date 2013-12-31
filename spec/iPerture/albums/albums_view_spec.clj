@@ -5,7 +5,41 @@
             [iPerture.photos.photos :as photos]
             [iPerture.albums.albums-view :as view]))
 
+(defn get-style [element]
+  (html/attr-values element :style))
+
 (describe "albums-view"
+
+  (describe "fn render-index"
+    (with albums [{:id "album1" :title "Album 1"}
+                  {:id "album2" :title "Album 2"}
+                  {:id "album3" :title "Album 3"}
+                  {:id "album4" :title "Album 4"}])
+
+    (it "should set the albums link"
+      (let [result (view/render-index @albums)]
+        (match-selector [[:.album (html/attr= :href "/albums/album1")]] result)
+        (match-selector [[:.album (html/attr= :href "/albums/album2")]] result)
+        (match-selector [[:.album (html/attr= :href "/albums/album3")]] result)
+        (match-selector [[:.album (html/attr= :href "/albums/album4")]] result)))
+
+    (it "should set the album title"
+      (let [result (view/render-index @albums)
+            albums (select [:.album-title] result)]
+        (should= "Album 1" (html/text (nth albums 0)))
+        (should= "Album 2" (html/text (nth albums 1)))
+        (should= "Album 3" (html/text (nth albums 2)))
+        (should= "Album 4" (html/text (nth albums 3)))))
+
+    (it "should display the empty album picture when the album is empty"
+      (let [result (view/render-index [{:photos nil}])
+            thumbnail-style (get-style (first (select [:.album] result)))]
+        (should= #{"background-image:url('/img/empty-album.jpg')"} thumbnail-style)))
+
+    (it "should use the first photo as thumbnail"
+      (let [result (view/render-index [(photos/->Album 123 "title" [(photos/->Photo 1 "/url" "/thumbnail-url")])])
+            thumbnail-style (get-style (first (select [:.album] result)))]
+        (should= #{"background-image:url('/thumbnail-url')"} thumbnail-style))))
 
   (describe "fn render-new-album"
     (it "should return a page with a form for creating a new album"

@@ -53,3 +53,6 @@
   (when-let [job-result (dj/result job-id)]
     (if-not (= :processing job-result) (dj/remove-job job-id))
     (json job-result)))
+
+(defn index []
+  (view/render-index (photos/find-all-albums)))

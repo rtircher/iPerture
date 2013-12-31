@@ -12,12 +12,20 @@
 
 (describe "albums-controller"
 
-  (describe "fn new"
+  (describe "/index"
+    (it "should ask the view to render the albums"
+      (let [albums [{:id "album1"}, {:id "album2"}]]
+        (with-redefs [photos/find-all-albums (fn []  albums)]
+          (should-have-been-called-with view/render-index
+                                        [albums]
+                                        (controller/index))))))
+  
+  (describe "/new"
     (it "should call the render new album view function"
       (should-have-been-called view/render-new-album
                                (controller/new))))
 
-  (describe "#create"
+  (describe "/create"
     (with-all params {:create-album-title "title"})
 
     (it "should create a new album with the provided title"

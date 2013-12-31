@@ -2,6 +2,30 @@
   (:require [net.cgrand.enlive-html :as html]
             [iPerture.views.common :as common]))
 
+;; Index page
+
+(def ^:private index-albums-template (html/html-resource "public/html/albums/index.html"))
+
+(def ^:private album-selector [:.albums :> html/first-child])
+(html/defsnippet ^:private album-vm index-albums-template album-selector
+  [{:keys [id title photos] :as album}]
+
+  [:a] (html/do->
+        (html/set-attr :href (str "/albums/" id))
+        (if-let [thumbnail-url (:thumbnail-url (first photos))]
+          (html/set-attr :style (common/background-photo thumbnail-url))
+          identity))
+  [:.album-title] (html/content title))
+
+(html/deftemplate ^:private render-index-albums-template index-albums-template [albums]
+  [:.albums] (html/content (map album-vm albums)))
+
+(defn render-index [albums]
+  (println albums)
+  (render-index-albums-template albums))
+
+;; New page
+
 (def ^:private new-albums-template (html/html-resource "public/html/albums/new.html"))
 
 (html/deftemplate ^:private render-new-album-template new-albums-template [errors]
