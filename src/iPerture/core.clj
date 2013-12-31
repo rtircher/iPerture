@@ -16,7 +16,8 @@
       (photo-view/render-stream-for album-id photo-id headers)))
 
   (context "/albums" {headers :headers}
-    (GET "/" [] (albums-controller/new))
+    (GET "/" [] (albums-controller/index))
+    (GET "/new" [] (albums-controller/new))
     (POST "/" {params :params} (albums-controller/create params))
     (GET "/:album-id/edit" [album-id]
       (albums-controller/edit album-id))
