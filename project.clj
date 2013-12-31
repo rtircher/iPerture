@@ -13,13 +13,8 @@
                  [org.apache.directory.studio/org.apache.commons.io "2.4"]
                  [com.cemerick/valip "0.3.2"]]
 
-  :profiles {:dev {:dependencies [[speclj "2.1.2"]
-                                  ;; [[ring-mock "0.1.2"]]
-                                  [speclj-growl "1.0.1"]]
-                   :plugins [[lein-cljsbuild "0.3.0"]
-                             [lein-ring "0.8.3"]
-                             [speclj "2.5.0"]]
-                   :test-paths ["spec/"]
+  :profiles {:dev {:plugins [[lein-cljsbuild "0.3.0"]
+                             [lein-ring "0.8.3"]]
                    :jvm-opts ["-DiPerture.env=development"
                               "-Dim4java.useGM=true" ; -> Use GraphicMagick instead of ImageMagick
                               ]
@@ -34,6 +29,15 @@
                                           ;; Defaults to :whitespace
                                           :optimizations :whitespace}}]}
                    }
+
+             :test {:dependencies [[speclj "2.1.2"]
+                                   ;; [[ring-mock "0.1.2"]]
+                                   [speclj-growl "1.0.1"]]
+                   
+                    :plugins [[speclj "2.5.0"]]
+                    :test-paths ["spec/"]
+                    :jvm-opts ["-DiPerture.env=test" "-Dim4java.useGM=true"]}
+
              :staging {:jvm-opts ["-DiPerture.env=staging" "-Dim4java.useGM=true"]}
              :production {:jvm-opts ["-DiPerture.env=production" "-Dim4java.useGM=true"]}}
 

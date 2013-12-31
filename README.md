@@ -55,7 +55,7 @@ lein ring server-headless
 Run the Clojure unit tests automatically on file change
 
 ```bash
-lein spec -a -f growl
+./scripts/tests
 ```
 
 The `-f growl` option is used to interact with growl notification system (it is not required to run the tests)

@@ -6,6 +6,10 @@
 (def development
   (merge default {:db-path "target/iPerture_db"
                   }))
+
+(def test
+  (merge default {:db-path "target/iPerture_db_test"
+                  }))
  
 (def staging
   (merge default {
