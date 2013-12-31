@@ -6,7 +6,7 @@
                  [slingshot "0.10.3"]
                  [compojure "1.1.5"]
                  [lib-noir "0.4.9"]
-                 [enlive "1.1.1"]
+                 [enlive "1.1.5"]
                  [enfocus "1.0.1"]
                  ;; [tailrecursion/javelin "1.0.0-SNAPSHOT"]
                  [rtircher.illusioniste "1.0.1"]
