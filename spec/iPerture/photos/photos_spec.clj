@@ -66,16 +66,20 @@
                (photos/add-photo "album id" @photo-info @thumbnail-info))))
 
   (describe "find-all-albums"
-    (with album-data [{:id "id1" :title "album 1" :photos nil,}
-                      {:id "id2" :title "album 2" :photos nil}
-                      {:id "id3" :title "album 3" :photos nil}])
+    (with album-data [(photos/create-album "album 1")
+                      (photos/create-album "album 2")
+                      (photos/create-album "album 3")])
 
-    (around [it]
-        (with-redefs [neo/find-all (fn [& args] @album-data)]
-          (it)))
+    (before
+      (#'neo/purge!))
 
     (it "should create the albums from the albums data returns by neo"
-      (should= [(photos/->Album "id1" "album 1" nil),
-                (photos/->Album "id2" "album 2" nil),
-                (photos/->Album "id3" "album 3" nil)]
-               (photos/find-all-albums)))))
+      (should= (map #(assoc % :photos []) @album-data) (reverse (photos/find-all-albums))))
+
+    (it "should return the photos associated with the albums"
+      (let [album-id (:id (first @album-data))
+            photos [(photos/add-photo album-id {:url "/photo1/url"} {:url "/thumnail1/url"})
+                    (photos/add-photo album-id {:url "/photo2/url"} {:url "/thumnail2/url"})
+                    (photos/add-photo album-id {:url "/photo3/url"} {:url "/thumnail3/url"})]
+            result (flatten (filter (comp not empty?) (map :photos (photos/find-all-albums))))]
+        (should= photos result)))))

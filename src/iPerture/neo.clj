@@ -1,10 +1,14 @@
 (ns iPerture.neo
-  (:use iPerture.config)
+  (:use [iPerture.config :only [config]])
   (:require [borneo.core :as neo]))
 
 (defmacro ^:private with-local-db! [body]
   `(neo/with-db! (config :db-path)
      ~body))
+
+(defn- purge! []
+  (with-local-db!
+    (neo/purge!)))
 
 (defn- do-create-child! [node type props]
   (if node
@@ -47,6 +51,17 @@
   (with-local-db!
     (apply do-find id type relationships)))
 
-(defn find-all [type]
-  (with-local-db!
-    (doall (map neo/props (neo/traverse (neo/root) type)))))
+(defn find-all
+  ([type]
+     (with-local-db!
+       (doall (map neo/props (neo/traverse (neo/root) type)))))
+
+  ([type rel-to-include]
+     (with-local-db!
+       (let [nodes (neo/traverse (neo/root) type)
+             rels  (map #(neo/rels % :photos) nodes)
+             nodes-prop (doall (map neo/props nodes))
+             rels-prop  (map #(doall (map (comp neo/props neo/end-node) %)) rels)
+             rels-map (map (fn [r] {:photos r}) rels-prop)]
+
+         (doall (map #(into {} %) (partition 2 (interleave nodes-prop rels-map))))))))

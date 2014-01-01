@@ -18,7 +18,10 @@
   (Photo. (generate-unique-id) photo-url thumbnail-url))
 
 (defn find-all-albums []
-  (map map->Album (neo/find-all :album)))
+  (let [data (neo/find-all :album :photos)
+        map-photos #(map map->Photo (:photos %))
+        create-albums #(map->Album (assoc % :photos (reverse (map-photos %))))]
+    (map create-albums data)))
 
 (defn find-album-by [album-id]
   (when-let [{:keys [title photos]} (neo/find album-id :album :photos)]

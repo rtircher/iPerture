@@ -1,24 +1,24 @@
 (ns iPerture.config)
 
-(def default {:db-path "/etc/iPerture/data/iPerture_db"
+(def default-config {:db-path "/etc/iPerture/data/iPerture_db"
               :photo-storage-strategy :local})
 
-(def development
-  (merge default {:db-path "target/iPerture_db"
-                  }))
+(def development-config
+  (merge default-config {:db-path "target/iPerture_db"
+                         }))
 
-(def test
-  (merge default {:db-path "target/iPerture_db_test"
-                  }))
+(def test-config
+  (merge default-config {:db-path "target/iPerture_db_test"
+                         }))
  
-(def staging
-  (merge default {
-                  }))
+(def staging-config
+  (merge default-config {
+                         }))
 
-(def production
-  (merge default {
-                  }))
+(def production-config
+  (merge default-config {
+                         }))
 
 (defn config [name]
   (let [env (System/getProperty "iPerture.env" "default")]
-    (get (eval (symbol (str "iPerture.config/" env))) name)))
+    (get (eval (symbol (str "iPerture.config/" env "-config"))) name)))
