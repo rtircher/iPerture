@@ -40,7 +40,7 @@
                                  (neo/find-all :type)
                                  identity)))
 
-    (it "should transfor the neo data into a map"
+    (it "should transform the neo data into a map"
       (with-redefs [borneo/traverse (fn [_ _] [{}])]
         (should-have-been-called borneo/props
                                  (neo/find-all :type)
