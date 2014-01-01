@@ -14,16 +14,18 @@
     (GET "/" [] (albums-controller/index))
     (GET "/new" [] (albums-controller/new))
     (POST "/" {params :params} (albums-controller/create params))
-    (GET "/:album-id" [album-id]
-      (photo-view/render-stream-for album-id headers))
-    (GET "/:album-id/photos/:photo-id" [album-id photo-id]
-      (photo-view/render-stream-for album-id photo-id headers))
-    (GET "/:album-id/edit" [album-id]
-      (albums-controller/edit album-id))
-    (POST "/:album-id/photos" [album-id :as {params :multipart-params}]
-      (albums-controller/add-photos album-id params))
-    (GET "/:album-id/add-photos-status/:job-id" [job-id]
-      (albums-controller/add-photos-status job-id)))
+
+    (context "/:album-id" [album-id]
+      (GET "/" []
+        (photo-view/render-stream-for album-id headers))
+      (GET "/photos/:photo-id" [photo-id]
+        (photo-view/render-stream-for album-id photo-id headers))
+      (GET "/edit" []
+        (albums-controller/edit album-id))
+      (POST "/photos" [:as {params :multipart-params}]
+        (albums-controller/add-photos album-id params))
+      (GET "/add-photos-status/:job-id" [job-id]
+        (albums-controller/add-photos-status job-id))))
 
   (route/resources "/")
 
