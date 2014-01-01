@@ -59,9 +59,9 @@
   ([type rel-to-include]
      (with-local-db!
        (let [nodes (neo/traverse (neo/root) type)
-             rels  (map #(neo/rels % :photos) nodes)
+             rels  (map #(neo/rels % rel-to-include) nodes)
              nodes-prop (doall (map neo/props nodes))
              rels-prop  (map #(doall (map (comp neo/props neo/end-node) %)) rels)
-             rels-map (map (fn [r] {:photos r}) rels-prop)]
+             rels-map (map (fn [r] {rel-to-include r}) rels-prop)]
 
          (doall (map #(into {} %) (partition 2 (interleave nodes-prop rels-map))))))))
