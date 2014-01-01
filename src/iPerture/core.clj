@@ -10,15 +10,14 @@
             [middlewares.logger]))
 
 (defroutes site-routes
-  (context "/photostreams/:album-id" [album-id :as {headers :headers}]
-    (GET "/" [] (photo-view/render-stream-for album-id headers))
-    (GET "/photos/:photo-id" [photo-id]
-      (photo-view/render-stream-for album-id photo-id headers)))
-
   (context "/albums" {headers :headers}
     (GET "/" [] (albums-controller/index))
     (GET "/new" [] (albums-controller/new))
     (POST "/" {params :params} (albums-controller/create params))
+    (GET "/:album-id" [album-id]
+      (photo-view/render-stream-for album-id headers))
+    (GET "/:album-id/photos/:photo-id" [album-id photo-id]
+      (photo-view/render-stream-for album-id photo-id headers))
     (GET "/:album-id/edit" [album-id]
       (albums-controller/edit album-id))
     (POST "/:album-id/photos" [album-id :as {params :multipart-params}]
