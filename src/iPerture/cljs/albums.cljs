@@ -6,7 +6,7 @@
   (:use [logger :only [log]])
   (:require-macros [enfocus.macros :as em]))
 
-(def ^:private edit-album "/html/edit-album.html")
+(def ^:private edit-album "/html/albums/edit.html")
 
 (defn- background-photo [photo-url]
   (str "background-image:url('" photo-url "')"))
