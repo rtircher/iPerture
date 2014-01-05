@@ -55,7 +55,7 @@
     (with album (photos/->Album 123 "the album title" []))
 
     (it "should display the album title"
-      (should-contain "the album title" [:.album-title] (view/render-edit-album @album)))
+      (should-contain "the album title" [:.page-title] (view/render-edit-album @album)))
 
     (it "should set the page title to contain the album title"
       (should-contain "Edit Album: the album title" [:title] (view/render-edit-album @album)))

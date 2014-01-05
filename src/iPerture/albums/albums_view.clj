@@ -21,7 +21,6 @@
   [:.albums] (html/content (map album-vm albums)))
 
 (defn render-index [albums]
-  (println albums)
   (render-index-albums-template albums))
 
 ;; New page
@@ -56,7 +55,7 @@
 
 (html/deftemplate ^:private render-edit-album-template edit-album [{:keys [id title photos]}]
   [:title]         (html/content "Edit Album: " title)
-  [:.album-title ] (html/content title)
+  [:.page-title ] (html/content title)
   [:.photos]       (html/content (map thumbnail-model photos))
   [:.photos]       (html/append (add-photo-button id)))
 
