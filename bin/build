@@ -1,2 +1,0 @@
-lein cljsbuild once
-gem install bundler && bundle install && bundle exec rake assets
