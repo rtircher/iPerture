@@ -14,7 +14,8 @@
                  [com.cemerick/valip "0.3.2"]]
 
   :profiles {:dev {:plugins [[lein-cljsbuild "0.3.0"]
-                             [lein-ring "0.8.3"]]
+                             [lein-ring "0.8.3"]
+                             [lein-haml-sass "0.2.7-SNAPSHOT"]]
                    :jvm-opts ["-DiPerture.env=development"
                               "-Dim4java.useGM=true" ; -> Use GraphicMagick instead of ImageMagick
                               ]
@@ -28,6 +29,17 @@
                                           ;; The optimization level.  May be :whitespace, :simple, or :advanced
                                           ;; Defaults to :whitespace
                                           :optimizations :whitespace}}]}
+
+                   :haml {:src "src/iPerture/views/haml"
+                          :output-directory "resources/public/html"
+                          :output-extension "html"
+                          }
+
+                   :sass {:src "src/iPerture/views/sass"
+                          :output-directory "resources/public/css"
+                          :output-extension "css"
+                          }
+
                    }
 
              :test {:dependencies [[speclj "2.1.2"]
