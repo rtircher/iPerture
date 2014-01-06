@@ -3,8 +3,10 @@
 @import "animations"
 
 $tile-size: 150px
+$border-radius-size: 2px
 
 @mixin hover-style
+  @include border-radius($border-radius-size)
   display: block
   background-color: rgba(134, 134, 134, .6)
   text-align: center
@@ -17,6 +19,7 @@ $tile-size: 150px
   padding: 5px
 
 -tile
+  @include border-radius($border-radius-size)
   position: relative
   float: left
   width: $tile-size
