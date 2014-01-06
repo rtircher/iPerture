@@ -34,11 +34,14 @@ $tile-size: 150px
     repeat: no-repeat
     position: center
 
-  &:hover
-    &:before
-      @include hover-style
-      content: "Delete photo"
-      color: lighten($font-color-light, 10)
+  .overlay
+    @include hover-style
+    color: lighten($font-color-light, 10)
+    opacity: 0
+
+    &:hover
+      @include transition(all, .25s, ease)
+      opacity: 1
 
 .loading-placeholder
   @extend -tile
@@ -76,6 +79,7 @@ $tile-size: 150px
     z-index: 2
 
     &:hover + .add-photo-overlay, &:focus + .add-photo-overlay
+      @include transition(all, .25s, ease)
       background-color: rgba(134, 134, 134, .6)
 
   .add-photo-overlay
