@@ -43,7 +43,7 @@
 
 (def ^:private edit-album (html/html-resource "public/html/albums/edit.html"))
 
-(html/defsnippet thumbnail-model edit-album [[:.photo (html/nth-of-type 1)]]
+(html/defsnippet thumbnail-model edit-album [[:.photo html/first-of-type]]
   [{:keys [thumbnail-url]}]
   [:.photo] (html/set-attr :style (common/background-photo thumbnail-url)))
 
