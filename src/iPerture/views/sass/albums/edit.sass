@@ -6,7 +6,7 @@ $tile-size: 150px
 
 @mixin hover-style
   display: block
-  background-color: rgba(0, 0, 0, .5)
+  background-color: rgba(134, 134, 134, .6)
   text-align: center
   color: $font-color-light
   line-height: $tile-size
@@ -76,8 +76,9 @@ $tile-size: 150px
     z-index: 2
 
     &:hover + .add-photo-overlay, &:focus + .add-photo-overlay
-      background-color: rgba(0, 0, 0, .6)
+      background-color: rgba(134, 134, 134, .6)
 
   .add-photo-overlay
     @extend -overlay
     @include hover-style
+    background-color: rgba(0, 0, 0, .4)
