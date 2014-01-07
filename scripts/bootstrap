@@ -40,7 +40,7 @@ ensure_vagrant
 
 echo "Updating gems"
 echo "  --> bundle install"
-# Bundle while redcing excess noise.
+# Bundle while reducing excess noise.
 bundle install | grep -v 'Using' | sed '/^$/d'
 
 echo
