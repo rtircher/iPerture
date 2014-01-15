@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos-64-no-puppet-no-chef"
+  config.vm.box = "iPerture"
   config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box"
 
   config.vm.network :private_network, ip: "192.168.33.88"
