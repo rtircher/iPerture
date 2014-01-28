@@ -22,9 +22,12 @@ function ensure_bundler() {
 }
 
 function ensure_vagrant() {
-  VAGRANT_VERSION=`vagrant --version`
-  if [[ $? != 0 ]] || [[ $VAGRANT_VERSION != "Vagrant version 1.2.2" ]]; then
-    echo "Please install vagrant version v1.2.2 from http://downloads.vagrantup.com/tags/v1.2.2"
+  VAGRANT_VERSION=`vagrant --version | awk '{print $(NF)}'`
+  # Test Vagrant version is greater than 1.2.2
+  echo $VAGRANT_VERSION | grep -q "\(1\.2\.[2-9]\)\|\(1\.[3-9]\.\d\)\|\([2-9]\.\d\.\d\)"
+
+  if [[ $? != 0 ]]; then
+    echo "Please install latest vagrant version from http://www.vagrantup.com/downloads.html"
     exit 1
   fi
 }
