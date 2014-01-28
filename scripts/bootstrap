@@ -1,45 +1,15 @@
 #! /bin/bash
 
-# ensure rvm if installed
-function ensure_rvm() {
-  ruby_string=`cat .ruby-version`
-  gemset_name=`cat .ruby-gemset`
-
-  # Load or create the specified environment
-  if [[ -d "${rvm_path:-$HOME/.rvm}/environments" \
-    && -s "${rvm_path:-$HOME/.rvm}/environments/${ruby_string}@${gemset_name}" ]] ; then
-    \. "${rvm_path:-$HOME/.rvm}/environments/${ruby_string}@${gemset_name}"
-  else
-    rvm --create  "${ruby_string}@${gemset_name}"
-  fi
-}
-
-function ensure_bundler() {
-  bundle --version &> /dev/null
-  if [ $? != 0 ]; then
-    gem install bundler
-  fi
-}
-
-function ensure_vagrant() {
-  VAGRANT_VERSION=`vagrant --version | awk '{print $(NF)}'`
-  # Test Vagrant version is greater than 1.2.2
-  echo $VAGRANT_VERSION | grep -q "\(1\.2\.[2-9]\)\|\(1\.[3-9]\.\d\)\|\([2-9]\.\d\.\d\)"
-
-  if [[ $? != 0 ]]; then
-    echo "Please install latest vagrant version from http://www.vagrantup.com/downloads.html"
-    exit 1
-  fi
-}
+DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 function execute_with_output() {
   echo "  --> $@"
   $@
 }
 
-ensure_rvm
-ensure_bundler
-ensure_vagrant
+source "$DIR/ensure-rvm.sh"
+source "$DIR/ensure-bundler.sh"
+source "$DIR/ensure-vagrant.sh"
 
 echo "Updating gems"
 echo "  --> bundle install"
@@ -58,10 +28,4 @@ else
   execute_with_output vagrant $@
 fi
 
-if [ $? == 0 ]; then
-  cat /etc/hosts | grep "192\.168\.33\.88\s*local\.iperture\.tircher\.com" &> /dev/null
-  if [ $? != 0 ]; then
-    echo "Adding '192.168.33.88   local.iperture.tircher.com local.iPerture.tircher.com' to your /etc/hosts file"
-    sudo sh -c 'echo "192.168.33.88\tlocal.iperture.tircher.com local.iPerture.tircher.com" >> /etc/hosts'
-  fi
-fi
+[ $? == 0 ] && source "$DIR/add-local-url-to-hosts.sh"
